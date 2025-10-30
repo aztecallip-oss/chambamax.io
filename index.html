@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ChambaMax® - Tu Portal Global de Trabajo y Oportunidades</title>
+<meta name="description" content="ChambaMax® conecta a nómadas digitales y trabajadores remotos con empleadores internacionales. Asesoría legal, pagos en criptomonedas y contratos inteligentes.">
+<meta property="og:title" content="ChambaMax® - Trabaja sin Fronteras">
+<meta property="og:description" content="Conecta con oportunidades globales. Pagos en criptomonedas, contratos inteligentes y asesoría para nómadas digitales.">
+<meta property="og:image" content="https://lonso.net/chambamax/img/og-chambamax-nomada-digital.png">
+<meta property="og:url" content="https://www.chambamax.com">
+<link rel="icon" href="https://lonso.net/chambamax/img/favicon.ico">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* RESET */
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:'Montserrat',sans-serif;
+  color:#fff;
+  background:linear-gradient(135deg,#0f172a,#1e3a8a);
+  overflow-x:hidden;
+  scroll-behavior:smooth;
+}
+
+/* HEADER */
+header{
+  position:fixed;
+  width:100%;
+  top:0;
+  z-index:1000;
+  background:rgba(15,23,42,0.8);
+  backdrop-filter:blur(10px);
+  padding:15px 0;
+  transition:all .3s;
+}
+.container{
+  width:90%;
+  max-width:1200px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.logo{height:70px;}
+.slogan{font-size:.85rem;color:#f97316;margin-top:5px;text-align:center;}
+nav ul{display:flex;list-style:none;}
+nav ul li{margin-left:25px;}
+nav ul li a{
+  text-decoration:none;
+  color:#fff;
+  font-weight:600;
+  transition:.3s;
+}
+nav ul li a:hover{color:#f97316;}
+/* Responsive menu */
+.menu-toggle{display:none;cursor:pointer;font-size:1.8rem;color:#f97316;}
+@media(max-width:768px){
+  nav ul{display:none;flex-direction:column;background:#0f172a;width:100%;text-align:center;}
+  nav ul.active{display:flex;}
+  .menu-toggle{display:block;}
+}
+
+/* HERO */
+.hero{
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  position:relative;
+  background:radial-gradient(circle at top left,rgba(59,130,246,0.4),transparent 60%), 
+              linear-gradient(135deg,#0f172a 30%,#1e3a8a 100%);
+  overflow:hidden;
+}
+.hero::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;width:100%;height:100%;
+  background:url('https://lonso.net/chambamax/img/chambamax%20portal%20del%20empleo%20en%20linea.jpg') center/cover no-repeat;
+  opacity:0.15;
+}
+.hero h1{
+  font-size:3rem;
+  line-height:1.2;
+  animation:fadeInUp 1s ease forwards;
+}
+.hero .max{
+  background:linear-gradient(to right,#3B82F6,#14B8A6);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.hero p{margin-top:15px;font-size:1.2rem;animation:fadeInUp 1.4s ease forwards;}
+.cta-button{
+  display:inline-block;
+  margin-top:25px;
+  padding:15px 35px;
+  border-radius:30px;
+  background:#f97316;
+  color:#fff;
+  text-decoration:none;
+  font-weight:bold;
+  transition:.3s;
+}
+.cta-button:hover{background:#14b8a6;transform:scale(1.05);}
+
+/* SERVICES */
+.services{
+  background:#fff;
+  color:#1e3a8a;
+  padding:100px 0;
+}
+.services h2{text-align:center;font-size:2.5rem;margin-bottom:50px;}
+.service-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:25px;
+}
+.service-item{
+  background:#f9fafb;
+  border:2px solid #f97316;
+  border-radius:15px;
+  padding:25px;
+  text-align:center;
+  transition:.3s;
+}
+.service-item:hover{
+  transform:translateY(-8px);
+  box-shadow:0 6px 12px rgba(0,0,0,0.15);
+}
+.service-item img{width:90px;margin-bottom:15px;}
+.service-item h3{color:#3b82f6;margin-bottom:10px;}
+
+/* CONTACT */
+.contact{
+  background:#1e3a8a;
+  text-align:center;
+  padding:100px 20px;
+}
+.contact h2{font-size:2.3rem;margin-bottom:15px;}
+.contact p{margin-bottom:30px;}
+.contact-form{
+  max-width:600px;
+  margin:auto;
+  text-align:left;
+}
+.contact-form input,.contact-form select,.contact-form textarea{
+  width:100%;
+  padding:12px;
+  border:2px solid #f97316;
+  border-radius:10px;
+  margin-bottom:15px;
+  font-family:inherit;
+}
+.contact-form button{
+  width:100%;
+  background:#f97316;
+  color:#fff;
+  border:none;
+  border-radius:30px;
+  padding:15px;
+  font-weight:bold;
+  cursor:pointer;
+  transition:.3s;
+}
+.contact-form button:hover{background:#14b8a6;}
+
+/* SOCIAL */
+.social-links{margin-top:25px;}
+.social-icon{width:40px;margin:0 10px;transition:.3s;}
+.social-icon:hover{transform:scale(1.15);}
+
+/* FOOTER */
+footer{
+  background:#0f172a;
+  text-align:center;
+  padding:25px 0;
+}
+.footer-links{
+  margin-top:15px;
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:25px;
+}
+.footer-links a{
+  color:#fff;
+  text-decoration:none;
+  display:flex;
+  align-items:center;
+  gap:5px;
+  transition:.3s;
+}
+.footer-links a:hover{color:#f97316;}
+.footer-links img{max-height:30px;}
+
+/* ANIMATIONS */
+@keyframes fadeInUp{
+  from{opacity:0;transform:translateY(20px);}
+  to{opacity:1;transform:translateY(0);}
+}
+</style>
+
+<script>
+function toggleMenu(){document.querySelector('nav ul').classList.toggle('active');}
+function sendToWhatsApp(e){
+  e.preventDefault();
+  const f=document.getElementById('contactForm');
+  const data={
+    nombre:f.nombre.value,
+    correo:f.correo.value,
+    ciudad:f.ciudad.value,
+    estado:f.estado.value,
+    pais:f.pais.value,
+    servicio:f.servicio.value,
+    comentarios:f.comentarios.value
+  };
+  const msg=`Nuevo mensaje de ChambaMax®:%0A`+
+             `Nombre: ${data.nombre}%0A`+
+             `Correo: ${data.correo}%0A`+
+             `Ciudad: ${data.ciudad}%0A`+
+             `Estado: ${data.estado}%0A`+
+             `País: ${data.pais}%0A`+
+             `Servicio: ${data.servicio}%0A`+
+             `Comentarios: ${data.comentarios}`;
+  window.open(`https://wa.me/+525511264765?text=${msg}`,'_blank');
+}
+</script>
+</head>
+
+<body>
+<header>
+  <div class="container">
+    <div class="logo-container">
+      <img src="https://lonso.net/chambamax/img/logo_chambamax.png" alt="Logo ChambaMax" class="logo">
+      <span class="slogan">🌍 Tu trabajo, sin fronteras</span>
+    </div>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    <nav>
+      <ul>
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section id="inicio" class="hero">
+    <div class="hero-content">
+      <h1>Chamba<span class="max">Max®</span><br>Tu Compañero Global de Trabajo</h1>
+      <p>Conecta, trabaja y cobra sin fronteras. Contratos inteligentes, asesoría legal y pagos en criptomonedas.</p>
+      <a href="#servicios" class="cta-button">Explora nuestros servicios</a>
+    </div>
+  </section>
+
+  <section id="servicios" class="services">
+    <div class="container">
+      <h2>Nuestros Servicios</h2>
+      <div class="service-grid">
+        <div class="service-item">
+          <img src="https://ciberall.net/chambamax/imagenes/refugio%20para%20extranjeros.png" alt="Asesoría Legal">
+          <h3>Asesoría Legal</h3>
+          <p>Te ayudamos con tu estatus migratorio y contratos internacionales de forma segura.</p>
+        </div>
+        <div class="service-item">
+          <img src="https://ciberall.net/chambamax/imagenes/criptomonedas%20tecnologia.png" alt="Pagos Internacionales">
+          <h3>Pagos Internacionales</h3>
+          <p>Recibe pagos globales con criptomonedas como Bitcoin, rápido y sin intermediarios.</p>
+        </div>
+        <div class="service-item">
+          <img src="https://ciberall.net/chambamax/imagenes/nomada%20digital.png" alt="Nómada Digital">
+          <h3>Nómada Digital</h3>
+          <p>Prepárate para trabajar desde cualquier lugar del mundo con seguridad y estabilidad.</p>
+        </div>
+        <div class="service-item">
+          <img src="https://ciberall.net/chambamax/imagenes/contrato%20inteligente%20chamabmax.png" alt="Contratos Inteligentes">
+          <h3>Contratos Inteligentes</h3>
+          <p>Gestiona tus acuerdos laborales mediante tecnología blockchain confiable.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacto" class="contact">
+    <div class="container">
+      <h2>Contáctanos</h2>
+      <p>Únete a la comunidad ChambaMax® y trabaja globalmente sin fronteras.</p>
+      <form id="contactForm" class="contact-form" onsubmit="sendToWhatsApp(event)">
+        <label>Nombre</label><input type="text" name="nombre" required>
+        <label>Correo</label><input type="email" name="correo" required>
+        <label>Ciudad</label><input type="text" name="ciudad" required>
+        <label>Estado</label><input type="text" name="estado" required>
+        <label>País</label><input type="text" name="pais" required>
+        <label>Servicio</label>
+        <select name="servicio" required>
+          <option value="Busco trabajo">Busco trabajo</option>
+          <option value="Ofrezco trabajo">Ofrezco trabajo</option>
+          <option value="Asesoría Migratoria">Asesoría Migratoria</option>
+          <option value="Asesoría Criptomonedas">Asesoría en Criptomonedas</option>
+          <option value="Asesoría Sindicato">Asesoría para un Sindicato</option>
+        </select>
+        <label>Comentarios</label>
+        <textarea name="comentarios" placeholder="Escribe tus comentarios aquí"></textarea>
+        <button type="submit">Enviar a WhatsApp</button>
+      </form>
+      <div class="social-links">
+        <a href="https://www.facebook.com/portal.chambamax" target="_blank"><img src="https://ciberall.net/chambamax/imagenes/icono%20chambamax%20facebbok.png" alt="Facebook" class="social-icon"></a>
+        <a href="https://www.instagram.com/chambamax/" target="_blank"><img src="https://ciberall.net/chambamax/imagenes/icono%20chambamax%20instagram.png" alt="Instagram" class="social-icon"></a>
+        <a href="https://x.com/chambacoin" target="_blank"><img src="https://ciberall.net/chambamax/imagenes/icono%20chambamax%20x.png" alt="X (Twitter)" class="social-icon"></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <p>&copy; 2025 ChambaMax®. Todos los derechos reservados.</p>
+    <div class="footer-links">
+      <a href="https://lonso.net" target="_blank">Diseño vía Studio Lonso
+        <img src="https://lonso.net/logo/Logo%20de%20Studio%20Lonso.png" alt="Studio Lonso">
+      </a>
+      <a href="https://ciberall.net" target="_blank">Patrocinador: CiberALL®
+        <img src="https://ciberall.net/index_htm_files/568555@2x.png" alt="CiberALL">
+      </a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
+
