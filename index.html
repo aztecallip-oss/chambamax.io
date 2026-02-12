@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChambaMax® | Trabajo Digno sin Títulos</title>
-    <meta name="description" content="Conexión directa entre trabajadores técnicos y empresarios. Sin títulos, sin intermediarios, con apoyo migratorio.">
+    <title>ChambaMax® | Conexión Directa de Talento y Oportunidades</title>
+    <meta name="description" content="Venta de servicios digitales, instalaciones técnicas y conexión directa con empresarios. El medio entre el talento y la oportunidad.">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -48,25 +48,25 @@
             background-size: 20px 20px;
             background-position: 0 0, 10px 10px;
         }
-        .form-glass {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(0, 174, 239, 0.1);
-        }
         .transition-soft { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        
-        .social-btn {
-            @apply w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300;
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .bg-dots-dark {
+            background-image: radial-gradient(#ffffff20 1px, transparent 1px);
+            background-size: 15px 15px;
         }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900 font-sans antialiased">
 
-    <!-- Top Bar Sponsor -->
+    <!-- Top Bar -->
     <div class="bg-chamba-dark py-2">
         <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <span class="text-[10px] text-slate-400 uppercase tracking-[0.3em]">Patrocinado por</span>
+                <span class="text-[10px] text-slate-400 uppercase tracking-[0.3em]">Sponsor Oficial</span>
                 <span class="text-xs font-bold text-white tracking-widest uppercase">CiBERALL<span class="text-chamba-blue">®</span></span>
             </div>
             <div class="flex gap-4 items-center">
@@ -77,162 +77,171 @@
         </div>
     </div>
 
-    <!-- Nav -->
-    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-100">
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100">
         <div class="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center">
             <div class="flex items-center gap-2">
                 <img src="https://lonso.net/chambamax/img/logo_chambamax.png" alt="Logo ChambaMax" class="h-10 w-auto">
-                <span class="font-title text-2xl tracking-wide hidden sm:block">CHAMBAMAX<span class="text-chamba-blue">®</span></span>
+                <span class="font-title text-2xl tracking-wide">CHAMBAMAX<span class="text-chamba-blue">®</span></span>
             </div>
             
-            <div class="hidden md:flex gap-8 items-center text-sm font-bold uppercase tracking-wider">
-                <a href="#proposito" class="hover:text-chamba-blue transition-soft">Propósito</a>
-                <a href="#migracion" class="hover:text-chamba-blue transition-soft">Migración</a>
-                <a href="#club" class="bg-chamba-blue text-white px-6 py-3 rounded-xl shadow-lg shadow-blue-200 hover:scale-105 transition-soft">Unirse al Club</a>
-            </div>
-
-            <!-- Mobile Social Icons -->
-            <div class="md:hidden flex gap-3">
-                <a href="https://www.facebook.com/portal.chambamax/" target="_blank" class="text-chamba-dark text-xl"><i class="fa-brands fa-facebook"></i></a>
-                <a href="https://www.tiktok.com/@chambamax" target="_blank" class="text-chamba-dark text-xl"><i class="fa-brands fa-tiktok"></i></a>
+            <div class="hidden md:flex gap-6 items-center text-[11px] font-black uppercase tracking-widest">
+                <a href="#digital" class="hover:text-chamba-blue transition-soft">Ventas Digitales</a>
+                <a href="#oportunidad-tech" class="hover:text-chamba-blue transition-soft">Técnicos</a>
+                <a href="#empresarios" class="text-chamba-orange hover:scale-105 transition-soft">Para Empresarios</a>
+                <a href="#club" class="bg-chamba-blue text-white px-5 py-2.5 rounded-xl shadow-lg shadow-blue-200 hover:bg-chamba-dark transition-soft">Unirse</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <header class="relative py-20 lg:py-32 hero-pattern overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 grid lg:grid-cols-2 gap-12 items-center">
-            <div class="relative z-10 text-center lg:text-left">
-                <div class="inline-flex items-center gap-2 bg-green-100 text-green-700 px-4 py-1.5 rounded-full text-xs font-bold mb-6">
-                    <i class="fa-solid fa-hand-holding-dollar"></i> SIN COSTO PARA EL TRABAJADOR
-                </div>
-                <h1 class="text-6xl lg:text-8xl font-title leading-[0.9] mb-6">
-                    TU TALENTO VALE <br> <span class="gradient-text">MÁS QUE UN TÍTULO</span>
-                </h1>
-                <p class="text-xl text-slate-600 mb-10 leading-relaxed max-w-lg mx-auto lg:mx-0">
-                    Conectamos directamente a técnicos y trabajadores con empresarios dispuestos a valorar tu experiencia. Eliminamos intermediarios y resolvemos tu situación legal.
-                </p>
-                <div class="flex flex-wrap justify-center lg:justify-start gap-4">
-                    <a href="#club" class="bg-chamba-dark text-white px-8 py-4 rounded-2xl font-bold uppercase tracking-widest shadow-xl hover:bg-slate-800 transition-soft">Quiero un trabajo</a>
-                    <div class="flex items-center gap-4 px-4">
-                         <a href="https://www.facebook.com/portal.chambamax/" target="_blank" class="text-slate-400 hover:text-blue-600 text-2xl transition"><i class="fa-brands fa-facebook"></i></a>
-                         <a href="https://x.com/chambacoin" target="_blank" class="text-slate-400 hover:text-black text-2xl transition"><i class="fa-brands fa-x-twitter"></i></a>
-                         <a href="https://www.tiktok.com/@chambamax" target="_blank" class="text-slate-400 hover:text-pink-600 text-2xl transition"><i class="fa-brands fa-tiktok"></i></a>
-                    </div>
-                </div>
+    <header class="relative py-20 hero-pattern border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="inline-block bg-chamba-dark text-white text-[10px] font-bold px-4 py-1.5 rounded-full mb-8 tracking-[0.3em] uppercase">
+                Conexión Directa • Sin Títulos • Con Actitud
             </div>
-            <div class="relative hidden lg:block">
-                <div class="absolute -inset-4 bg-chamba-blue/5 rounded-full blur-3xl"></div>
-                <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&q=80&w=800" alt="Profesional técnico trabajando" class="rounded-[3rem] shadow-2xl border-8 border-white relative z-10">
+            <h1 class="text-6xl lg:text-9xl font-title leading-[0.85] mb-8 uppercase italic">
+                El medio entre tu talento <br> <span class="gradient-text">y la oportunidad</span>
+            </h1>
+            <p class="text-xl text-slate-500 max-w-2xl mx-auto mb-10 font-medium">
+                ChambaMax® y CiBERALL® se unen para ofrecerte trabajo digno, ya sea instalando antenas en campo o vendiendo servicios digitales desde tu hogar.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#digital" class="bg-chamba-dark text-white px-8 py-4 rounded-2xl font-bold uppercase tracking-widest hover:bg-slate-800 transition-soft shadow-xl">Chamba desde casa</a>
+                <a href="#oportunidad-tech" class="bg-chamba-blue text-white px-8 py-4 rounded-2xl font-bold uppercase tracking-widest hover:scale-105 transition-soft shadow-xl">Trabajo Técnico</a>
             </div>
         </div>
     </header>
 
-    <!-- Propósito -->
-    <section id="proposito" class="py-24 bg-white">
+    <!-- SECCIÓN 1: Digital / Home Office -->
+    <section id="digital" class="py-24 bg-white">
         <div class="max-w-7xl mx-auto px-4">
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="p-10 rounded-[2.5rem] bg-slate-50 border border-slate-100 hover:shadow-xl transition-soft group">
-                    <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center text-chamba-blue text-2xl mb-8 group-hover:bg-chamba-blue group-hover:text-white transition-soft">
-                        <i class="fa-solid fa-briefcase"></i>
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="order-2 lg:order-1">
+                    <div class="p-2 bg-slate-50 rounded-[3rem] border border-slate-100">
+                        <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&q=80&w=800" alt="Madre trabajando desde casa con laptop" class="rounded-[2.5rem] shadow-inner grayscale hover:grayscale-0 transition-all duration-700">
                     </div>
-                    <h3 class="text-xl font-extrabold mb-4 uppercase tracking-tighter">Vínculo Directo</h3>
-                    <p class="text-slate-500 leading-relaxed">Olvídate de las agencias de colocación tradicionales. Te sentamos frente a dueños de empresas y ONGs que buscan tu perfil técnico.</p>
                 </div>
-
-                <div class="p-10 rounded-[2.5rem] bg-chamba-dark text-white shadow-2xl relative overflow-hidden group">
-                    <div class="w-16 h-16 bg-chamba-blue rounded-2xl flex items-center justify-center text-white text-2xl mb-8">
-                        <i class="fa-solid fa-calculator"></i>
+                <div class="order-1 lg:order-2">
+                    <span class="text-chamba-blue font-black uppercase tracking-[0.4em] text-xs">Home Office & Ventas</span>
+                    <h2 class="text-5xl lg:text-7xl font-title mt-4 mb-6 uppercase leading-none">¿Tienes Smartphone <br> <span class="text-chamba-orange">o Laptop en casa?</span></h2>
+                    <p class="text-lg text-slate-600 mb-8 leading-relaxed">
+                        Vende servicios de internet y plataformas digitales de última generación. La oportunidad perfecta para generar ingresos reales <strong>sin descuidar a tus hijos</strong> y manejando tus propios tiempos.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 mb-10">
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 flex items-center gap-3">
+                            <i class="fa-solid fa-mobile-screen-button text-chamba-blue text-xl"></i>
+                            <span class="font-bold text-xs uppercase tracking-tighter">Smartphone</span>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 flex items-center gap-3">
+                            <i class="fa-solid fa-laptop text-chamba-blue text-xl"></i>
+                            <span class="font-bold text-xs uppercase tracking-tighter">Laptop</span>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 flex items-center gap-3">
+                            <i class="fa-solid fa-house-chimney-heart text-chamba-orange text-xl"></i>
+                            <span class="font-bold text-xs uppercase tracking-tighter">Desde Casa</span>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 flex items-center gap-3">
+                            <i class="fa-solid fa-child-reaching text-chamba-accent text-xl"></i>
+                            <span class="font-bold text-xs uppercase tracking-tighter">Con tus hijos</span>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-extrabold mb-4 uppercase tracking-tighter">Beneficio Mutuo</h3>
-                    <p class="text-slate-300 leading-relaxed">Tú consigues chamba digna y el empresario reduce su carga fiscal. Una solución inteligente donde el trabajador nunca paga nada.</p>
-                </div>
-
-                <div class="p-10 rounded-[2.5rem] bg-slate-50 border border-slate-100 hover:shadow-xl transition-soft group">
-                    <div class="w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center text-chamba-orange text-2xl mb-8 group-hover:bg-chamba-orange group-hover:text-white transition-soft">
-                        <i class="fa-solid fa-wifi"></i>
-                    </div>
-                    <h3 class="text-xl font-extrabold mb-4 uppercase tracking-tighter">Nómadas & Técnicos</h3>
-                    <p class="text-slate-500 leading-relaxed">Especializados en acomodar nómadas digitales y personal técnico de campo. ChambaMax® es el brazo social de CiBERALL®.</p>
+                    <a href="#club" class="inline-block bg-chamba-dark text-white px-10 py-5 rounded-2xl font-black uppercase tracking-widest text-sm hover:bg-chamba-blue transition-soft">Quiero ser Vendedor Digital</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Migración -->
-    <section id="migracion" class="py-24 bg-slate-900 text-white relative overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 relative z-10 grid lg:grid-cols-2 gap-16 items-center">
-            <div>
-                <h2 class="font-title text-6xl mb-8 uppercase tracking-tighter">Tú pones las ganas, <br> <span class="text-chamba-blue">nosotros la legalidad</span></h2>
-                <p class="text-lg text-slate-400 mb-10 leading-relaxed">
-                    Gestionamos tu estatus migratorio, permisos de trabajo y brindamos apoyo integral para solicitudes de refugio. Queremos que trabajes con tranquilidad.
-                </p>
-                <div class="space-y-6">
-                    <div class="flex items-center gap-4 bg-white/5 p-4 rounded-2xl border border-white/10">
-                        <i class="fa-solid fa-passport text-chamba-blue text-2xl"></i>
-                        <span class="font-bold uppercase text-sm tracking-widest">Gestión de Permisos de Trabajo</span>
-                    </div>
-                    <div class="flex items-center gap-4 bg-white/5 p-4 rounded-2xl border border-white/10">
-                        <i class="fa-solid fa-hands-holding-child text-chamba-blue text-2xl"></i>
-                        <span class="font-bold uppercase text-sm tracking-widest">Apoyo en Solicitudes de Refugio</span>
-                    </div>
+    <!-- SECCIÓN 2: Técnico CiBERALL -->
+    <section id="oportunidad-tech" class="py-24 bg-slate-900 text-white relative overflow-hidden bg-dots-dark">
+        <div class="max-w-7xl mx-auto px-4 relative z-10 text-center">
+            <h2 class="text-5xl lg:text-8xl font-title mb-4 uppercase italic">¿Solo quieres <span class="text-chamba-blue">jalar cables</span>?</h2>
+            <p class="text-xl text-slate-400 max-w-2xl mx-auto mb-16">
+                Para los que no le temen al trabajo duro en campo. Instalación de Antenas Satelitales, Redes y Fibra Óptica con CiBERALL®.
+            </p>
+            
+            <div class="grid md:grid-cols-3 gap-8 mb-16">
+                <div class="bg-white/5 border border-white/10 p-8 rounded-[2.5rem] hover:bg-white/10 transition-soft">
+                    <i class="fa-solid fa-tower-cell text-4xl text-chamba-blue mb-6"></i>
+                    <h3 class="text-xl font-bold uppercase mb-2">Antenas Satelitales</h3>
+                    <p class="text-sm text-slate-500 font-medium">Instalación física y alineación en zonas rurales y urbanas.</p>
+                </div>
+                <div class="bg-white/5 border border-white/10 p-8 rounded-[2.5rem] hover:bg-white/10 transition-soft">
+                    <i class="fa-solid fa-route text-4xl text-chamba-orange mb-6"></i>
+                    <h3 class="text-xl font-bold uppercase mb-2">Redes & Fibra</h3>
+                    <p class="text-sm text-slate-500 font-medium">Tendidos de red, configuración de módems y canalizaciones.</p>
+                </div>
+                <div class="bg-white/5 border border-white/10 p-8 rounded-[2.5rem] hover:bg-white/10 transition-soft">
+                    <i class="fa-solid fa-toolbox text-4xl text-chamba-accent mb-6"></i>
+                    <h3 class="text-xl font-bold uppercase mb-2">Mantenimiento</h3>
+                    <p class="text-sm text-slate-500 font-medium">Soporte técnico directo y resolución de conectividad.</p>
                 </div>
             </div>
-            <div class="hidden lg:block">
-                 <img src="https://images.unsplash.com/photo-1589212818751-4ad0d1d49942?auto=format&fit=crop&q=80&w=800" alt="Asesoría legal" class="rounded-[3rem] grayscale opacity-50">
+
+            <a href="https://ciberall.net/contacto.htm" target="_blank" class="inline-flex items-center gap-4 bg-chamba-blue text-white px-12 py-6 rounded-2xl font-black uppercase tracking-widest hover:bg-white hover:text-chamba-dark transition-soft shadow-2xl">
+                POSTULARME EN CiBERALL.NET <i class="fa-solid fa-external-link text-xs"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- SECCIÓN 3: Para Empresarios -->
+    <section id="empresarios" class="py-24 bg-chamba-orange text-white">
+        <div class="max-w-5xl mx-auto px-4 text-center">
+            <div class="mb-10 inline-block bg-white/20 p-4 rounded-full">
+                <i class="fa-solid fa-briefcase text-4xl"></i>
+            </div>
+            <h2 class="text-5xl lg:text-7xl font-title uppercase mb-8 leading-none">¿Eres empresario <br> <span class="text-chamba-dark italic">y buscas talento?</span></h2>
+            <p class="text-2xl font-medium mb-12 opacity-90">
+                Aquí sobra el talento y, sobre todo, sobra <strong>la actitud</strong>. Conectamos tu empresa con personas dispuestas a trabajar y aprender.
+            </p>
+            <div class="bg-chamba-dark p-10 lg:p-16 rounded-[4rem] shadow-2xl relative">
+                <h3 class="text-2xl font-bold mb-6 uppercase tracking-widest">Enlace Directo Empresarial</h3>
+                <p class="text-slate-400 mb-10 text-lg">Manda un mensaje personal a nuestro coordinador y con gusto te enlazamos con los perfiles adecuados para tu negocio.</p>
+                <a href="mailto:fernando@lonso.net" class="inline-block bg-chamba-orange text-white px-12 py-5 rounded-2xl font-black uppercase tracking-widest text-lg hover:scale-105 transition-soft shadow-xl">
+                    fernando@lonso.net <i class="fa-solid fa-envelope ml-2"></i>
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- Formulario -->
+    <!-- Registro Formulario -->
     <section id="club" class="py-24 bg-slate-50">
         <div class="max-w-4xl mx-auto px-4">
             <div class="text-center mb-16">
-                <h2 class="font-title text-5xl mb-4 tracking-tighter uppercase">Únete al <span class="text-chamba-blue italic">Club ChambaMax</span></h2>
-                <p class="text-slate-500 font-medium italic">Completa tus datos y un agente te contactará para valorar tu perfil.</p>
+                <h2 class="font-title text-6xl uppercase italic">Únete al <span class="text-chamba-blue">Club ChambaMax®</span></h2>
+                <p class="text-slate-500 font-bold uppercase text-xs tracking-widest mt-4">Deja tus datos para que un agente te contacte</p>
             </div>
 
-            <form action="https://formspree.io/f/mlgwgywa" method="POST" class="form-glass p-8 md:p-16 rounded-[3rem] shadow-2xl border border-slate-200">
-                <div class="grid md:grid-cols-2 gap-8 mb-8">
+            <form action="https://formspree.io/f/mlgwgywa" method="POST" class="glass-card p-10 md:p-16 rounded-[3rem] shadow-2xl">
+                <div class="grid md:grid-cols-2 gap-8 mb-10">
                     <div class="md:col-span-2">
-                        <label class="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2">Nombre Completo</label>
-                        <input type="text" name="nombre" required class="w-full bg-slate-100 border-none p-4 rounded-2xl focus:ring-2 focus:ring-chamba-blue focus:outline-none font-bold" placeholder="Tu nombre aquí">
+                        <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Nombre Completo</label>
+                        <input type="text" name="nombre" required class="w-full bg-slate-100 border-none p-4 rounded-2xl font-bold focus:ring-2 focus:ring-chamba-blue" placeholder="Ej. Juan Pérez">
                     </div>
-                    
                     <div>
-                        <label class="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2">WhatsApp / Teléfono</label>
-                        <input type="tel" name="whatsapp" required class="w-full bg-slate-100 border-none p-4 rounded-2xl focus:ring-2 focus:ring-chamba-blue focus:outline-none font-bold" placeholder="+52 ...">
+                        <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">WhatsApp</label>
+                        <input type="tel" name="whatsapp" required class="w-full bg-slate-100 border-none p-4 rounded-2xl font-bold focus:ring-2 focus:ring-chamba-blue" placeholder="+52 ...">
                     </div>
-
                     <div>
-                        <label class="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2">Habilidad Técnica u Oficio</label>
-                        <input type="text" name="oficio" required class="w-full bg-slate-100 border-none p-4 rounded-2xl focus:ring-2 focus:ring-chamba-blue focus:outline-none font-bold" placeholder="Ej. Electricista, IT, Redes...">
-                    </div>
-
-                    <div class="md:col-span-2">
-                        <label class="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2">Situación Migratoria (Opcional)</label>
-                        <select name="estatus" class="w-full bg-slate-100 border-none p-4 rounded-2xl focus:ring-2 focus:ring-chamba-blue focus:outline-none font-bold appearance-none">
-                            <option value="legal">Regular / Con Papeles</option>
-                            <option value="necesita_permiso">Necesito Permiso de Trabajo</option>
-                            <option value="refugio">Solicitante de Refugio</option>
-                            <option value="otro">Otro / Prefiero no decir</option>
+                        <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Perfil de Interés</label>
+                        <select name="perfil" class="w-full bg-slate-100 border-none p-4 rounded-2xl font-bold appearance-none focus:ring-2 focus:ring-chamba-blue">
+                            <option value="digital">Vendedor Digital (Home Office)</option>
+                            <option value="tecnico">Técnico Instalador (Campo)</option>
+                            <option value="otros">Otros Oficios</option>
                         </select>
                     </div>
-
                     <div class="md:col-span-2">
-                        <label class="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2">Breve mensaje de contacto</label>
-                        <textarea name="mensaje" rows="4" class="w-full bg-slate-100 border-none p-4 rounded-2xl focus:ring-2 focus:ring-chamba-blue focus:outline-none font-bold" placeholder="Cuéntanos un poco sobre ti..."></textarea>
+                        <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Estatus Migratorio / Apoyo</label>
+                        <select name="estatus" class="w-full bg-slate-100 border-none p-4 rounded-2xl font-bold appearance-none focus:ring-2 focus:ring-chamba-blue">
+                            <option value="regular">Regularizado / Con papeles</option>
+                            <option value="apoyo">Necesito apoyo migratorio / Permiso</option>
+                            <option value="refugio">Solicitante de Refugio</option>
+                        </select>
                     </div>
                 </div>
-
-                <div class="flex flex-col items-center gap-6">
-                    <button type="submit" class="w-full md:w-auto bg-chamba-dark text-white px-16 py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-sm shadow-2xl hover:bg-chamba-blue transition-soft">
-                        ENVIAR MIS DATOS <i class="fa-solid fa-satellite-dish ml-2"></i>
-                    </button>
-                    <p class="text-[9px] text-slate-400 uppercase tracking-widest text-center">
-                        Al enviar, aceptas que un agente de ChambaMax® procese tus datos para vinculación laboral directa.
-                    </p>
-                </div>
+                <button type="submit" class="w-full bg-chamba-dark text-white py-6 rounded-2xl font-black uppercase tracking-[0.2em] hover:bg-chamba-blue transition-soft shadow-xl">
+                    ENVIAR MI PERFIL AHORA
+                </button>
             </form>
         </div>
     </section>
@@ -240,45 +249,36 @@
     <!-- Footer -->
     <footer class="bg-chamba-dark text-white py-20">
         <div class="max-w-7xl mx-auto px-4">
-            <div class="grid md:grid-cols-4 gap-12 mb-16 items-start">
-                <div class="col-span-2">
-                    <img src="https://lonso.net/chambamax/img/logo_chambamax.png" alt="Logo ChambaMax" class="h-12 w-auto mb-6 brightness-0 invert">
-                    <p class="text-slate-500 font-medium max-w-sm mb-6">Herramienta de vinculación directa entre talento humano y empresarios comprometidos con el desarrollo social.</p>
-                    <div class="flex gap-4">
-                        <a href="https://www.facebook.com/portal.chambamax/" target="_blank" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-chamba-blue transition-soft" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
-                        <a href="https://www.tiktok.com/@chambamax" target="_blank" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-chamba-blue transition-soft" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
-                        <a href="https://x.com/chambacoin" target="_blank" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-chamba-blue transition-soft" title="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
+            <div class="grid md:grid-cols-3 gap-16 items-center mb-16">
+                <div class="text-center md:text-left">
+                    <img src="https://lonso.net/chambamax/img/logo_chambamax.png" alt="Logo ChambaMax" class="h-12 w-auto mb-6 brightness-0 invert mx-auto md:mx-0">
+                    <p class="text-slate-500 uppercase text-[10px] font-bold tracking-widest">ChambaMax® & CiBERALL® <br> El medio para el trabajo digno.</p>
+                </div>
+                <div class="flex flex-col items-center gap-4">
+                    <span class="text-[10px] font-black uppercase tracking-[0.3em] text-chamba-blue">Social Hub</span>
+                    <div class="flex gap-6">
+                        <a href="https://www.facebook.com/portal.chambamax/" target="_blank" class="text-2xl hover:text-chamba-blue transition"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="https://www.tiktok.com/@chambamax" target="_blank" class="text-2xl hover:text-chamba-blue transition"><i class="fa-brands fa-tiktok"></i></a>
+                        <a href="https://x.com/chambacoin" target="_blank" class="text-2xl hover:text-chamba-blue transition"><i class="fa-brands fa-x-twitter"></i></a>
                     </div>
                 </div>
-                <div>
-                    <h4 class="text-xs font-black uppercase tracking-widest text-chamba-blue mb-6">Enlaces</h4>
-                    <ul class="text-slate-500 text-sm space-y-3 font-bold uppercase">
-                        <li><a href="#proposito" class="hover:text-white transition">Quiénes Somos</a></li>
-                        <li><a href="#migracion" class="hover:text-white transition">Migración</a></li>
-                        <li><a href="#club" class="hover:text-white transition">Registro</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-xs font-black uppercase tracking-widest text-chamba-blue mb-6">Sponsor Oficial</h4>
-                    <div class="p-4 rounded-2xl bg-white/5 border border-white/10">
-                        <span class="text-[10px] text-slate-500 block mb-1 uppercase tracking-widest">Powered by</span>
-                        <span class="text-xl font-title tracking-widest text-white">CiBERALL<span class="text-chamba-blue">®</span></span>
-                    </div>
+                <div class="text-center md:text-right">
+                    <span class="text-[10px] text-slate-500 uppercase block mb-2 tracking-widest">Contacto Directo Empresarial</span>
+                    <a href="mailto:fernando@lonso.net" class="text-xl font-bold hover:text-chamba-orange transition">fernando@lonso.net</a>
                 </div>
             </div>
             
             <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
-                <p class="text-[9px] text-slate-700 uppercase tracking-[0.5em]">© 2026 CHAMBAMAX® - MARCA REGISTRADA</p>
+                <p class="text-[8px] text-slate-700 uppercase tracking-[0.5em]">© 2026 CHAMBAMAX® • UNA MARCA REGISTRADA DE CIBERALL®</p>
                 <div class="flex gap-4">
-                    <span class="text-[9px] text-slate-700 uppercase tracking-[0.3em]">Misión Social</span>
-                    <span class="text-[9px] text-slate-700 uppercase tracking-[0.3em]">Cero Costo al Trabajador</span>
+                    <span class="text-[8px] text-slate-700 uppercase tracking-[0.2em]">Cero costo para el trabajador</span>
+                    <span class="text-[8px] text-slate-700 uppercase tracking-[0.2em]">Apoyo Migratorio Integral</span>
                 </div>
             </div>
         </div>
     </footer>
 
     <script>
-        // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
