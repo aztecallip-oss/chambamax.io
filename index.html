@@ -35,6 +35,10 @@
         .chamba-yellow { color: #FBBF24; }
         .bg-chamba-yellow { background-color: #FBBF24; }
         .border-chamba-yellow { border-color: #FBBF24; }
+        input:focus, textarea:focus, select:focus {
+            border-color: #FBBF24 !important;
+            box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.2);
+        }
     </style>
 </head>
 <body class="bg-white text-slate-900">
@@ -48,11 +52,11 @@
                 </div>
                 
                 <div class="hidden md:flex items-center gap-8">
-                    <a href="#inicio" class="text-sm font-bold uppercase tracking-wider hover:text-amber-500">Inicio</a>
-                    <a href="#mision" class="text-sm font-bold uppercase tracking-wider hover:text-amber-500">Nuestra Misión</a>
-                    <a href="#formulario" class="text-sm font-bold uppercase tracking-wider hover:text-amber-500">Registrarme</a>
-                    <a href="https://wa.me/525511264765" target="_blank" class="bg-amber-500 text-white px-6 py-2 rounded-full text-sm font-black hover:bg-black transition-all shadow-lg flex items-center gap-2">
-                        <i data-lucide="phone"></i> CONTRATAR TALENTO
+                    <a href="#inicio" class="text-sm font-bold uppercase tracking-wider hover:text-amber-500 transition-colors">Inicio</a>
+                    <a href="#mision" class="text-sm font-bold uppercase tracking-wider hover:text-amber-500 transition-colors">Misión</a>
+                    <a href="#formulario" class="text-sm font-bold uppercase tracking-wider hover:text-amber-500 transition-colors">Buscar Chamba</a>
+                    <a href="https://wa.me/525511264765" target="_blank" class="bg-amber-500 text-black px-6 py-2 rounded-full text-sm font-black hover:bg-black hover:text-white transition-all shadow-lg flex items-center gap-2">
+                        <i data-lucide="phone" class="w-4 h-4"></i> CONTRATAR TALENTO
                     </a>
                 </div>
 
@@ -63,10 +67,10 @@
         </div>
         <!-- Menú Móvil -->
         <div id="mobile-menu" class="hidden bg-white border-t border-slate-100 p-6 flex flex-col gap-4 text-center font-bold uppercase">
-            <a href="#inicio">Inicio</a>
-            <a href="#mision">Misión</a>
-            <a href="#formulario">Registrarme</a>
-            <a href="https://wa.me/525511264765" class="bg-amber-500 text-white p-3 rounded-xl">Contratar</a>
+            <a href="#inicio" class="py-2">Inicio</a>
+            <a href="#mision" class="py-2">Misión</a>
+            <a href="#formulario" class="py-2">Registrarme</a>
+            <a href="https://wa.me/525511264765" class="bg-amber-500 text-white p-4 rounded-xl">Contratar</a>
         </div>
     </nav>
 
@@ -78,7 +82,7 @@
             </h1>
             <p class="text-xl md:text-2xl text-slate-300 font-medium mb-12 leading-relaxed">
                 Sin protocolos, sin burocracia, sin costo. <br>
-                Conectamos gente con ganas de chambear con empresarios reales.
+                Conectamos gente con ganas de trabajar con empresarios reales.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
                 <a href="#formulario" class="bg-amber-500 text-black px-12 py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-white transition-all transform hover:scale-105 shadow-2xl">
@@ -97,29 +101,29 @@
             <div class="grid lg:grid-cols-2 gap-16 items-center">
                 <div class="space-y-8">
                     <h2 class="text-4xl md:text-5xl font-black uppercase italic leading-tight">
-                        PROTEGEMOS TU <br> <span class="text-amber-500">GANAS DE SALIR ADELANTE</span>
+                        PROTEGEMOS TUS <br> <span class="text-amber-500">GANAS DE TRABAJAR</span>
                     </h2>
                     <p class="text-slate-600 text-lg leading-relaxed">
-                        ChambaMax® nace para eliminar a los "coyotes" y la explotación. Si vienes a México con la intención de trabajar, te ayudamos con trámites migratorios, refugio y permisos laborales. 
+                        ChambaMax® nace para eliminar a los "coyotes" y la explotación laboral. Si vienes a México con la intención de trabajar honestamente, te asesoramos en trámites migratorios, refugio y permisos laborales. 
                     </p>
                     <div class="grid sm:grid-cols-2 gap-6">
                         <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
                             <i data-lucide="heart" class="text-red-500 mb-4"></i>
                             <h4 class="font-black uppercase text-sm mb-2">100% Sin Costo</h4>
-                            <p class="text-xs text-slate-500">Buscamos ayudarte, no aprovecharnos de tu necesidad.</p>
+                            <p class="text-xs text-slate-500">Sabemos por qué buscas chamba, por eso nuestro servicio no tiene precio para ti.</p>
                         </div>
                         <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
                             <i data-lucide="shield-check" class="text-amber-500 mb-4"></i>
                             <h4 class="font-black uppercase text-sm mb-2">Trato Directo</h4>
-                            <p class="text-xs text-slate-500">Relación real con contratistas y empresarios honestos.</p>
+                            <p class="text-xs text-slate-500">Sin intermediarios burocráticos. Conexión directa con contratistas con actitud.</p>
                         </div>
                     </div>
                 </div>
                 <div class="relative">
-                    <img src="https://lonso.net/chambamax/img/og-chambamax-nomada-digital.png" alt="ChambaMax Trabajo" class="rounded-[2rem] shadow-2xl">
+                    <img src="https://lonso.net/chambamax/img/og-chambamax-nomada-digital.png" alt="ChambaMax Trabajo" class="rounded-[2rem] shadow-2xl w-full h-auto object-cover">
                     <div class="absolute -bottom-6 -right-6 bg-slate-900 text-white p-8 rounded-3xl hidden md:block border-4 border-white">
-                        <p class="font-black italic text-2xl mb-1 uppercase">Marca Registrada®</p>
-                        <p class="text-[10px] uppercase tracking-widest font-bold text-slate-400">Certidumbre y Confianza</p>
+                        <p class="font-black italic text-2xl mb-1 uppercase tracking-tighter">Marca Registrada®</p>
+                        <p class="text-[10px] uppercase tracking-widest font-bold text-slate-400">Certidumbre Laboral</p>
                     </div>
                 </div>
             </div>
@@ -132,82 +136,87 @@
             <div class="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl -mr-32 -mt-32"></div>
             
             <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-6xl font-black italic uppercase leading-none mb-4">¡REGÍSTRATE <br> PARA CHAMBEAR!</h2>
-                <p class="text-amber-500 font-bold uppercase tracking-widest text-sm">Tu futuro empieza hoy</p>
+                <h2 class="text-4xl md:text-6xl font-black italic uppercase leading-none mb-4">¡SÚBETE A LA <br> CHAMBA!</h2>
+                <p class="text-amber-500 font-bold uppercase tracking-widest text-sm">Tu registro es el primer paso</p>
             </div>
 
             <form action="https://formspree.io/f/mlgwgywa" method="POST" class="space-y-8 relative z-10">
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
-                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-400">Nombre del Chambeador</label>
-                        <input name="nombre" type="text" required placeholder="Tu nombre" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 focus:ring-2 ring-amber-500 outline-none font-bold">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Nombre del Chambeador</label>
+                        <input name="Nombre del Chambeador" type="text" required placeholder="Tu nombre completo" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 focus:ring-2 ring-amber-500 outline-none font-bold transition-all">
                     </div>
                     <div class="space-y-2">
-                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-400">Email</label>
-                        <input name="email" type="email" required placeholder="correo@ejemplo.com" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 focus:ring-2 ring-amber-500 outline-none font-bold">
-                    </div>
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div class="space-y-2">
-                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-400">WhatsApp</label>
-                        <input name="whatsapp" type="tel" required placeholder="Número con clave lada" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 focus:ring-2 ring-amber-500 outline-none font-bold">
-                    </div>
-                    <div class="space-y-2">
-                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-400">Link de Facebook / Nombre de Perfil</label>
-                        <input name="facebook" type="text" placeholder="¿Cómo te buscamos?" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 focus:ring-2 ring-amber-500 outline-none font-bold">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Email</label>
+                        <input name="Email" type="email" required placeholder="correo@ejemplo.com" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 focus:ring-2 ring-amber-500 outline-none font-bold transition-all">
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
-                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-400">Zona de Chamba (Ciudad/Estado)</label>
-                        <input name="zona" type="text" placeholder="¿Dónde quieres trabajar?" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 focus:ring-2 ring-amber-500 outline-none font-bold">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">WhatsApp</label>
+                        <input name="WhatsApp" type="tel" required placeholder="Ej: +52 55..." class="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 focus:ring-2 ring-amber-500 outline-none font-bold transition-all">
                     </div>
                     <div class="space-y-2">
-                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-400">¿Cuál es tu Oficio?</label>
-                        <input name="oficio" type="text" placeholder="Ej. Carpintero, Chofer, Limpieza..." class="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 focus:ring-2 ring-amber-500 outline-none font-bold">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Perfil de Facebook</label>
+                        <input name="Como te encontramos en Face" type="text" placeholder="Link o nombre de perfil" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 focus:ring-2 ring-amber-500 outline-none font-bold transition-all">
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Zona de Chamba</label>
+                        <input name="Zona de Chamba" type="text" placeholder="Ej. Tapachula, CDMX..." class="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 focus:ring-2 ring-amber-500 outline-none font-bold transition-all">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">¿Cuál es tu Oficio?</label>
+                        <input name="Cual es tu Oficio" type="text" placeholder="Ej. Albañil, Repartidor, etc." class="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 focus:ring-2 ring-amber-500 outline-none font-bold transition-all">
                     </div>
                 </div>
 
                 <div class="space-y-2">
-                    <label class="text-[10px] font-black uppercase tracking-widest text-slate-400">¿En qué puedes Chambear? (Habilidades)</label>
-                    <textarea name="habilidades" rows="3" placeholder="Cuéntanos qué sabes hacer..." class="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 focus:ring-2 ring-amber-500 outline-none font-bold"></textarea>
+                    <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">En qué puedes Chambear</label>
+                    <textarea name="En que puedes Chambear" rows="3" placeholder="Describe tus habilidades y experiencia..." class="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 focus:ring-2 ring-amber-500 outline-none font-bold transition-all"></textarea>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
-                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-400">¿Eres Nacional o Internacional?</label>
-                        <select name="origen" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 focus:ring-2 ring-amber-500 outline-none font-bold">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Nacionalidad</label>
+                        <select name="Eres Nacional o Internacional" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 focus:ring-2 ring-amber-500 outline-none font-bold transition-all appearance-none cursor-pointer">
                             <option>Nacional (México)</option>
-                            <option>Internacional / Migrante</option>
+                            <option>Internacional / Extranjero</option>
                         </select>
                     </div>
                     <div class="space-y-2">
-                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-400">Comentarios</label>
-                        <input name="comentarios" type="text" placeholder="Algo más que debamos saber" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 focus:ring-2 ring-amber-500 outline-none font-bold">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Comentarios</label>
+                        <input name="Comentarios" type="text" placeholder="Notas adicionales" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 focus:ring-2 ring-amber-500 outline-none font-bold transition-all">
                     </div>
                 </div>
 
                 <button type="submit" class="w-full bg-amber-500 text-black py-6 rounded-2xl font-black uppercase tracking-[0.3em] hover:bg-white transition-all shadow-xl shadow-amber-500/20 text-lg">
-                    ENVIAR MI SOLICITUD
+                    ENVIAR MI REGISTRO
                 </button>
+                
+                <p class="text-center text-[10px] text-slate-500 font-bold uppercase tracking-widest">
+                    <i data-lucide="shield" class="inline w-3 h-3 mb-1 mr-1"></i> Tus datos están protegidos. Consulta nuestro 
+                    <a href="https://chambamax.com/anuncio-privacidad.html" class="text-amber-500 underline hover:text-white transition-colors">Aviso de Privacidad</a>.
+                </p>
             </form>
         </div>
     </section>
 
-    <!-- Social / Token -->
+    <!-- Social & Token -->
     <section class="py-12 bg-slate-50 px-6 border-y border-slate-100">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10">
             <div class="flex gap-4">
-                <a href="https://www.facebook.com/portal.chambamax/" target="_blank" class="w-12 h-12 bg-white flex items-center justify-center rounded-xl shadow-sm hover:text-amber-500 transition-colors"><i data-lucide="facebook"></i></a>
-                <a href="https://www.instagram.com/chambamax/" target="_blank" class="w-12 h-12 bg-white flex items-center justify-center rounded-xl shadow-sm hover:text-amber-500 transition-colors"><i data-lucide="instagram"></i></a>
-                <a href="https://x.com/chambacoin" target="_blank" class="w-12 h-12 bg-white flex items-center justify-center rounded-xl shadow-sm hover:text-amber-500 transition-colors"><i data-lucide="twitter"></i></a>
-                <a href="https://www.tiktok.com/@chambamax" target="_blank" class="w-12 h-12 bg-white flex items-center justify-center rounded-xl shadow-sm hover:text-amber-500 transition-colors"><i data-lucide="video"></i></a>
+                <a href="https://www.facebook.com/portal.chambamax/" target="_blank" class="w-12 h-12 bg-white flex items-center justify-center rounded-xl shadow-sm hover:text-amber-500 transition-colors border border-slate-100"><i data-lucide="facebook"></i></a>
+                <a href="https://www.instagram.com/chambamax/" target="_blank" class="w-12 h-12 bg-white flex items-center justify-center rounded-xl shadow-sm hover:text-amber-500 transition-colors border border-slate-100"><i data-lucide="instagram"></i></a>
+                <a href="https://x.com/chambacoin" target="_blank" class="w-12 h-12 bg-white flex items-center justify-center rounded-xl shadow-sm hover:text-amber-500 transition-colors border border-slate-100"><i data-lucide="twitter"></i></a>
+                <a href="https://www.tiktok.com/@chambamax" target="_blank" class="w-12 h-12 bg-white flex items-center justify-center rounded-xl shadow-sm hover:text-amber-500 transition-colors border border-slate-100"><i data-lucide="video"></i></a>
             </div>
             <div class="text-center md:text-right">
                 <p class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">ChambaCoin Network Token</p>
-                <code class="bg-slate-200 text-slate-600 p-3 rounded-lg text-xs font-mono font-bold block overflow-x-auto">0x96958299e2E80a33e0eA3D0BaaF90c4995fA5D3b</code>
+                <code class="bg-slate-200 text-slate-600 p-3 rounded-lg text-xs font-mono font-bold block">0x96958299e2E80a33e0eA3D0BaaF90c4995fA5D3b</code>
             </div>
         </div>
     </section>
@@ -215,12 +224,12 @@
     <!-- Footer -->
     <footer class="py-20 px-6 bg-white">
         <div class="max-w-7xl mx-auto">
-            <div class="grid md:grid-cols-3 gap-16 items-center">
+            <div class="grid md:grid-cols-3 gap-16 items-start mb-16">
                 
                 <!-- Sponsor -->
                 <div class="space-y-4">
                     <p class="text-[10px] font-black uppercase tracking-widest text-slate-400 italic">Sitio Patrocinado por</p>
-                    <a href="https://ipviasatelite.com/planes/" target="_blank">
+                    <a href="https://ipviasatelite.com/planes/" target="_blank" class="block">
                         <img src="https://ipviasatelite.com/planes/img/logo%20satelital%20ciberall.png" alt="Ciberall" class="h-12 w-auto grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100">
                     </a>
                     <p class="text-[10px] text-slate-400 font-bold uppercase italic">Ciberall® Internet Satelital</p>
@@ -229,7 +238,7 @@
                 <!-- Logo Central -->
                 <div class="text-center">
                     <img src="https://lonso.net/chambamax/img/logo_chambamax.png" alt="ChambaMax" class="h-16 w-auto mx-auto opacity-40 mb-4">
-                    <p class="text-[10px] font-bold text-slate-300 uppercase tracking-[0.5em]">Marca Registrada®</p>
+                    <p class="text-[10px] font-bold text-slate-300 uppercase tracking-[0.5em]">Portal para conseguir Chamba</p>
                 </div>
 
                 <!-- Dev -->
@@ -237,11 +246,19 @@
                     <p class="text-[10px] font-black uppercase tracking-widest text-slate-400 italic">Desarrollo y Edición</p>
                     <a href="http://www.lonso.net" target="_blank" class="inline-flex items-center gap-3 group">
                         <span class="font-black text-slate-400 group-hover:text-black transition-colors uppercase italic text-xs">Studio Lonso</span>
-                        <img src="https://lonso.net/imagenes/new/logo-lonso-salamandra.png" alt="Studio Lonso" class="h-10 w-auto grayscale hover:grayscale-0 transition-all">
+                        <img src="https://lonso.net/imagenes/new/logo-lonso-salamandra.png" alt="Studio Lonso" class="h-10 w-auto grayscale hover:grayscale-0 transition-all group-hover:opacity-100 opacity-60">
                     </a>
-                    <p class="text-[10px] text-slate-300 font-medium">© 2026 Recruitment Network</p>
+                    <p class="text-[10px] text-slate-300 font-medium tracking-tight">© 2026 Recruitment Network</p>
                 </div>
+            </div>
 
+            <!-- Disclaimer Final -->
+            <div class="pt-8 border-t border-slate-100 text-center">
+                <p class="text-[11px] font-bold text-slate-400 uppercase tracking-widest">
+                    Los datos de los chambeadores están protegidos.
+                    <br class="md:hidden"> 
+                    <a href="https://chambamax.com/anuncio-privacidad.html" class="text-slate-900 underline hover:text-amber-500 transition-colors ml-1">Consulta el Aviso de Privacidad aquí</a>
+                </p>
             </div>
         </div>
     </footer>
@@ -262,14 +279,24 @@
             menu.classList.toggle('hidden');
         });
 
-        // Smooth scroll para links internos
+        // Cerrar menú al hacer clic en un link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => menu.classList.add('hidden'));
+        });
+
+        // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
                 e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-                if(!menu.classList.contains('hidden')) menu.classList.add('hidden');
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
             });
         });
     </script>
