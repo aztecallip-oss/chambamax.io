@@ -55,10 +55,8 @@
         }
         .transition-soft { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
         
-        /* Custom Checkbox Style */
-        .check-container input:checked ~ .checkmark {
-            background-color: #00AEEF;
-            border-color: #00AEEF;
+        .social-btn {
+            @apply w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300;
         }
     </style>
 </head>
@@ -66,9 +64,16 @@
 
     <!-- Top Bar Sponsor -->
     <div class="bg-chamba-dark py-2">
-        <div class="max-w-7xl mx-auto px-4 flex justify-center items-center gap-3">
-            <span class="text-[10px] text-slate-400 uppercase tracking-[0.3em]">Patrocinado por</span>
-            <span class="text-xs font-bold text-white tracking-widest uppercase">CiBERALL<span class="text-chamba-blue">®</span></span>
+        <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <span class="text-[10px] text-slate-400 uppercase tracking-[0.3em]">Patrocinado por</span>
+                <span class="text-xs font-bold text-white tracking-widest uppercase">CiBERALL<span class="text-chamba-blue">®</span></span>
+            </div>
+            <div class="flex gap-4 items-center">
+                <a href="https://www.facebook.com/portal.chambamax/" target="_blank" class="text-slate-400 hover:text-chamba-blue text-xs transition"><i class="fa-brands fa-facebook"></i></a>
+                <a href="https://x.com/chambacoin" target="_blank" class="text-slate-400 hover:text-chamba-blue text-xs transition"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="https://www.tiktok.com/@chambamax" target="_blank" class="text-slate-400 hover:text-chamba-blue text-xs transition"><i class="fa-brands fa-tiktok"></i></a>
+            </div>
         </div>
     </div>
 
@@ -76,14 +81,20 @@
     <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-100">
         <div class="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center">
             <div class="flex items-center gap-2">
-                <img src="https://lonso.net/chambamax/img/logo_chambamax.png" alt="Logo" class="h-10 w-auto">
+                <img src="https://lonso.net/chambamax/img/logo_chambamax.png" alt="Logo ChambaMax" class="h-10 w-auto">
                 <span class="font-title text-2xl tracking-wide hidden sm:block">CHAMBAMAX<span class="text-chamba-blue">®</span></span>
             </div>
             
             <div class="hidden md:flex gap-8 items-center text-sm font-bold uppercase tracking-wider">
-                <a href="#proposito" class="hover:text-chamba-blue transition-soft">Nuestro Propósito</a>
-                <a href="#migracion" class="hover:text-chamba-blue transition-soft">Apoyo Migratorio</a>
+                <a href="#proposito" class="hover:text-chamba-blue transition-soft">Propósito</a>
+                <a href="#migracion" class="hover:text-chamba-blue transition-soft">Migración</a>
                 <a href="#club" class="bg-chamba-blue text-white px-6 py-3 rounded-xl shadow-lg shadow-blue-200 hover:scale-105 transition-soft">Unirse al Club</a>
+            </div>
+
+            <!-- Mobile Social Icons -->
+            <div class="md:hidden flex gap-3">
+                <a href="https://www.facebook.com/portal.chambamax/" target="_blank" class="text-chamba-dark text-xl"><i class="fa-brands fa-facebook"></i></a>
+                <a href="https://www.tiktok.com/@chambamax" target="_blank" class="text-chamba-dark text-xl"><i class="fa-brands fa-tiktok"></i></a>
             </div>
         </div>
     </nav>
@@ -91,114 +102,101 @@
     <!-- Hero Section -->
     <header class="relative py-20 lg:py-32 hero-pattern overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 grid lg:grid-cols-2 gap-12 items-center">
-            <div class="relative z-10">
+            <div class="relative z-10 text-center lg:text-left">
                 <div class="inline-flex items-center gap-2 bg-green-100 text-green-700 px-4 py-1.5 rounded-full text-xs font-bold mb-6">
-                    <i class="fa-solid fa-hand-holding-dollar"></i> 100% GRATIS PARA EL TRABAJADOR
+                    <i class="fa-solid fa-hand-holding-dollar"></i> SIN COSTO PARA EL TRABAJADOR
                 </div>
                 <h1 class="text-6xl lg:text-8xl font-title leading-[0.9] mb-6">
-                    CONSIGUE CHAMBA <br> <span class="gradient-text">SIN TÍTULO UNIVERSITARIO</span>
-                </div>
-                <p class="text-xl text-slate-600 mb-10 leading-relaxed max-w-lg">
-                    No somos una agencia más. Somos tu contacto directo con empresarios y ONGs que valoran tu talento técnico y humano. Olvida los protocolos, nosotros abrimos la puerta.
+                    TU TALENTO VALE <br> <span class="gradient-text">MÁS QUE UN TÍTULO</span>
+                </h1>
+                <p class="text-xl text-slate-600 mb-10 leading-relaxed max-w-lg mx-auto lg:mx-0">
+                    Conectamos directamente a técnicos y trabajadores con empresarios dispuestos a valorar tu experiencia. Eliminamos intermediarios y resolvemos tu situación legal.
                 </p>
-                <div class="flex flex-wrap gap-4">
-                    <a href="#club" class="bg-chamba-dark text-white px-8 py-4 rounded-2xl font-bold uppercase tracking-widest shadow-xl hover:bg-slate-800 transition-soft">Empezar ahora</a>
-                    <a href="#proposito" class="border-2 border-slate-200 px-8 py-4 rounded-2xl font-bold uppercase tracking-widest hover:border-chamba-blue hover:text-chamba-blue transition-soft">Saber más</a>
+                <div class="flex flex-wrap justify-center lg:justify-start gap-4">
+                    <a href="#club" class="bg-chamba-dark text-white px-8 py-4 rounded-2xl font-bold uppercase tracking-widest shadow-xl hover:bg-slate-800 transition-soft">Quiero un trabajo</a>
+                    <div class="flex items-center gap-4 px-4">
+                         <a href="https://www.facebook.com/portal.chambamax/" target="_blank" class="text-slate-400 hover:text-blue-600 text-2xl transition"><i class="fa-brands fa-facebook"></i></a>
+                         <a href="https://x.com/chambacoin" target="_blank" class="text-slate-400 hover:text-black text-2xl transition"><i class="fa-brands fa-x-twitter"></i></a>
+                         <a href="https://www.tiktok.com/@chambamax" target="_blank" class="text-slate-400 hover:text-pink-600 text-2xl transition"><i class="fa-brands fa-tiktok"></i></a>
+                    </div>
                 </div>
             </div>
-            <div class="relative">
+            <div class="relative hidden lg:block">
                 <div class="absolute -inset-4 bg-chamba-blue/5 rounded-full blur-3xl"></div>
-                <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=800" alt="Técnico trabajando" class="rounded-[3rem] shadow-2xl border-8 border-white relative z-10 grayscale hover:grayscale-0 transition-soft">
-                
-                <!-- Floating Info -->
-                <div class="absolute -bottom-6 -left-6 bg-white p-6 rounded-3xl shadow-xl z-20 border border-slate-100 flex items-center gap-4">
-                    <div class="w-12 h-12 bg-chamba-blue rounded-2xl flex items-center justify-center text-white text-xl">
-                        <i class="fa-solid fa-users-gear"></i>
-                    </div>
-                    <div>
-                        <p class="text-xs font-black text-slate-400 uppercase tracking-widest leading-none">Vínculo Directo</p>
-                        <p class="text-lg font-bold text-chamba-dark">Dueños de Empresa</p>
-                    </div>
-                </div>
+                <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&q=80&w=800" alt="Profesional técnico trabajando" class="rounded-[3rem] shadow-2xl border-8 border-white relative z-10">
             </div>
         </div>
     </header>
 
-    <!-- Sección Propósito -->
+    <!-- Propósito -->
     <section id="proposito" class="py-24 bg-white">
         <div class="max-w-7xl mx-auto px-4">
-            <div class="text-center max-w-3xl mx-auto mb-20">
-                <h2 class="font-title text-5xl mb-6 uppercase tracking-tight italic">Más que una Agencia, <span class="text-chamba-blue italic">Tu Aliado</span></h2>
-                <p class="text-slate-500 text-lg">Entendemos que el valor de una persona no se mide en un diploma, sino en su capacidad de solucionar problemas y su ética de trabajo.</p>
-            </div>
-
             <div class="grid md:grid-cols-3 gap-8">
                 <div class="p-10 rounded-[2.5rem] bg-slate-50 border border-slate-100 hover:shadow-xl transition-soft group">
                     <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center text-chamba-blue text-2xl mb-8 group-hover:bg-chamba-blue group-hover:text-white transition-soft">
-                        <i class="fa-solid fa-handshake"></i>
+                        <i class="fa-solid fa-briefcase"></i>
                     </div>
-                    <h3 class="text-xl font-extrabold mb-4 uppercase tracking-tighter">Conexión Directa</h3>
-                    <p class="text-slate-500 leading-relaxed">Saltamos los protocolos de RH. Te vinculamos directamente con empresarios y ONGs que necesitan personal operativo y técnico hoy mismo.</p>
+                    <h3 class="text-xl font-extrabold mb-4 uppercase tracking-tighter">Vínculo Directo</h3>
+                    <p class="text-slate-500 leading-relaxed">Olvídate de las agencias de colocación tradicionales. Te sentamos frente a dueños de empresas y ONGs que buscan tu perfil técnico.</p>
                 </div>
 
                 <div class="p-10 rounded-[2.5rem] bg-chamba-dark text-white shadow-2xl relative overflow-hidden group">
-                    <div class="absolute -right-4 -top-4 text-chamba-blue/10 text-9xl">
-                        <i class="fa-solid fa-percent"></i>
-                    </div>
                     <div class="w-16 h-16 bg-chamba-blue rounded-2xl flex items-center justify-center text-white text-2xl mb-8">
-                        <i class="fa-solid fa-piggy-bank"></i>
+                        <i class="fa-solid fa-calculator"></i>
                     </div>
-                    <h3 class="text-xl font-extrabold mb-4 uppercase tracking-tighter">Costo Cero</h3>
-                    <p class="text-slate-300 leading-relaxed">ChambaMax® es gratuito para ti. El empresario recibe beneficios fiscales al contratarte, permitiéndonos ofrecerte este puente sin cobrarte ni un centavo.</p>
+                    <h3 class="text-xl font-extrabold mb-4 uppercase tracking-tighter">Beneficio Mutuo</h3>
+                    <p class="text-slate-300 leading-relaxed">Tú consigues chamba digna y el empresario reduce su carga fiscal. Una solución inteligente donde el trabajador nunca paga nada.</p>
                 </div>
 
                 <div class="p-10 rounded-[2.5rem] bg-slate-50 border border-slate-100 hover:shadow-xl transition-soft group">
                     <div class="w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center text-chamba-orange text-2xl mb-8 group-hover:bg-chamba-orange group-hover:text-white transition-soft">
-                        <i class="fa-solid fa-laptop-code"></i>
+                        <i class="fa-solid fa-wifi"></i>
                     </div>
                     <h3 class="text-xl font-extrabold mb-4 uppercase tracking-tighter">Nómadas & Técnicos</h3>
-                    <p class="text-slate-500 leading-relaxed">Nacimos para acomodar a los nómadas digitales y técnicos especializados en infraestructura, conectividad y mantenimiento.</p>
+                    <p class="text-slate-500 leading-relaxed">Especializados en acomodar nómadas digitales y personal técnico de campo. ChambaMax® es el brazo social de CiBERALL®.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Sección Migración -->
-    <section id="migracion" class="py-24 bg-chamba-blue text-white overflow-hidden relative">
-        <div class="absolute inset-0 bg-black/10"></div>
-        <div class="max-w-7xl mx-auto px-4 relative z-10">
-            <div class="grid lg:grid-cols-2 gap-16 items-center">
-                <div class="bg-white/10 backdrop-blur-md p-12 rounded-[3rem] border border-white/20">
-                    <h2 class="font-title text-5xl mb-8 uppercase leading-none tracking-tighter">SOPORTE <br> <span class="text-chamba-dark">MIGRATORIO TOTAL</span></h2>
-                    <p class="text-lg text-white/90 mb-10 leading-relaxed">
-                        No solo te buscamos trabajo, te ayudamos a ser legal. Gestionamos permisos de trabajo, apoyamos en solicitudes de refugio y regularizamos tu estatus para que trabajes con paz mental.
-                    </p>
-                    <ul class="space-y-4 mb-10">
-                        <li class="flex items-center gap-3 font-bold"><i class="fa-solid fa-circle-check text-chamba-dark"></i> Permisos de Trabajo Temporales</li>
-                        <li class="flex items-center gap-3 font-bold"><i class="fa-solid fa-circle-check text-chamba-dark"></i> Asesoría en Estatus de Refugio</li>
-                        <li class="flex items-center gap-3 font-bold"><i class="fa-solid fa-circle-check text-chamba-dark"></i> Vinculación con ONGs Protectoras</li>
-                    </ul>
+    <!-- Migración -->
+    <section id="migracion" class="py-24 bg-slate-900 text-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 relative z-10 grid lg:grid-cols-2 gap-16 items-center">
+            <div>
+                <h2 class="font-title text-6xl mb-8 uppercase tracking-tighter">Tú pones las ganas, <br> <span class="text-chamba-blue">nosotros la legalidad</span></h2>
+                <p class="text-lg text-slate-400 mb-10 leading-relaxed">
+                    Gestionamos tu estatus migratorio, permisos de trabajo y brindamos apoyo integral para solicitudes de refugio. Queremos que trabajes con tranquilidad.
+                </p>
+                <div class="space-y-6">
+                    <div class="flex items-center gap-4 bg-white/5 p-4 rounded-2xl border border-white/10">
+                        <i class="fa-solid fa-passport text-chamba-blue text-2xl"></i>
+                        <span class="font-bold uppercase text-sm tracking-widest">Gestión de Permisos de Trabajo</span>
+                    </div>
+                    <div class="flex items-center gap-4 bg-white/5 p-4 rounded-2xl border border-white/10">
+                        <i class="fa-solid fa-hands-holding-child text-chamba-blue text-2xl"></i>
+                        <span class="font-bold uppercase text-sm tracking-widest">Apoyo en Solicitudes de Refugio</span>
+                    </div>
                 </div>
-                <div class="text-center lg:text-left">
-                    <img src="https://images.unsplash.com/photo-1521791136064-7986c2923219?auto=format&fit=crop&q=80&w=800" alt="Apoyo legal" class="rounded-[3rem] shadow-2xl border-4 border-white/30 rotate-2 hover:rotate-0 transition-soft">
-                </div>
+            </div>
+            <div class="hidden lg:block">
+                 <img src="https://images.unsplash.com/photo-1589212818751-4ad0d1d49942?auto=format&fit=crop&q=80&w=800" alt="Asesoría legal" class="rounded-[3rem] grayscale opacity-50">
             </div>
         </div>
     </section>
 
-    <!-- Formulario / Club ChambaMax -->
+    <!-- Formulario -->
     <section id="club" class="py-24 bg-slate-50">
         <div class="max-w-4xl mx-auto px-4">
             <div class="text-center mb-16">
                 <h2 class="font-title text-5xl mb-4 tracking-tighter uppercase">Únete al <span class="text-chamba-blue italic">Club ChambaMax</span></h2>
-                <p class="text-slate-500 font-medium italic">Deja tus datos y un agente valorará tu perfil para conectarte con el mejor trabajo.</p>
+                <p class="text-slate-500 font-medium italic">Completa tus datos y un agente te contactará para valorar tu perfil.</p>
             </div>
 
-            <form action="https://formspree.io/f/mlgwgywa" method="POST" class="form-glass p-8 md:p-16 rounded-[3rem] shadow-2xl">
+            <form action="https://formspree.io/f/mlgwgywa" method="POST" class="form-glass p-8 md:p-16 rounded-[3rem] shadow-2xl border border-slate-200">
                 <div class="grid md:grid-cols-2 gap-8 mb-8">
                     <div class="md:col-span-2">
                         <label class="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2">Nombre Completo</label>
-                        <input type="text" name="nombre" required class="w-full bg-slate-100 border-none p-4 rounded-2xl focus:ring-2 focus:ring-chamba-blue focus:outline-none font-bold" placeholder="Ej. Pedro Picapiedra">
+                        <input type="text" name="nombre" required class="w-full bg-slate-100 border-none p-4 rounded-2xl focus:ring-2 focus:ring-chamba-blue focus:outline-none font-bold" placeholder="Tu nombre aquí">
                     </div>
                     
                     <div>
@@ -207,37 +205,32 @@
                     </div>
 
                     <div>
-                        <label class="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2">Correo Electrónico</label>
-                        <input type="email" name="email" required class="w-full bg-slate-100 border-none p-4 rounded-2xl focus:ring-2 focus:ring-chamba-blue focus:outline-none font-bold" placeholder="tu@correo.com">
+                        <label class="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2">Habilidad Técnica u Oficio</label>
+                        <input type="text" name="oficio" required class="w-full bg-slate-100 border-none p-4 rounded-2xl focus:ring-2 focus:ring-chamba-blue focus:outline-none font-bold" placeholder="Ej. Electricista, IT, Redes...">
                     </div>
 
                     <div class="md:col-span-2">
-                        <label class="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2">¿Cuál es tu habilidad técnica o oficio?</label>
-                        <input type="text" name="habilidad" required class="w-full bg-slate-100 border-none p-4 rounded-2xl focus:ring-2 focus:ring-chamba-blue focus:outline-none font-bold" placeholder="Ej. Electricista, Plomero, Soporte IT, Conductor...">
-                    </div>
-
-                    <div class="md:col-span-2">
-                        <label class="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2">¿Necesitas apoyo migratorio?</label>
-                        <select name="apoyo_migratorio" class="w-full bg-slate-100 border-none p-4 rounded-2xl focus:ring-2 focus:ring-chamba-blue focus:outline-none font-bold appearance-none">
-                            <option value="no">No, tengo mis papeles en orden</option>
-                            <option value="si_permiso">Sí, necesito permiso de trabajo</option>
-                            <option value="si_refugio">Sí, soy solicitante de refugio</option>
-                            <option value="info">Solo quiero información</option>
+                        <label class="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2">Situación Migratoria (Opcional)</label>
+                        <select name="estatus" class="w-full bg-slate-100 border-none p-4 rounded-2xl focus:ring-2 focus:ring-chamba-blue focus:outline-none font-bold appearance-none">
+                            <option value="legal">Regular / Con Papeles</option>
+                            <option value="necesita_permiso">Necesito Permiso de Trabajo</option>
+                            <option value="refugio">Solicitante de Refugio</option>
+                            <option value="otro">Otro / Prefiero no decir</option>
                         </select>
                     </div>
 
                     <div class="md:col-span-2">
-                        <label class="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2">Mensaje / Breve resumen de experiencia</label>
-                        <textarea name="resumen" rows="4" class="w-full bg-slate-100 border-none p-4 rounded-2xl focus:ring-2 focus:ring-chamba-blue focus:outline-none font-bold" placeholder="Cuéntanos qué sabes hacer..."></textarea>
+                        <label class="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2">Breve mensaje de contacto</label>
+                        <textarea name="mensaje" rows="4" class="w-full bg-slate-100 border-none p-4 rounded-2xl focus:ring-2 focus:ring-chamba-blue focus:outline-none font-bold" placeholder="Cuéntanos un poco sobre ti..."></textarea>
                     </div>
                 </div>
 
                 <div class="flex flex-col items-center gap-6">
                     <button type="submit" class="w-full md:w-auto bg-chamba-dark text-white px-16 py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-sm shadow-2xl hover:bg-chamba-blue transition-soft">
-                        ENVIAR MI PERFIL <i class="fa-solid fa-paper-plane ml-2"></i>
+                        ENVIAR MIS DATOS <i class="fa-solid fa-satellite-dish ml-2"></i>
                     </button>
                     <p class="text-[9px] text-slate-400 uppercase tracking-widest text-center">
-                        Al enviar, aceptas que un agente de ChambaMax® procese tus datos para vinculación laboral.
+                        Al enviar, aceptas que un agente de ChambaMax® procese tus datos para vinculación laboral directa.
                     </p>
                 </div>
             </form>
@@ -247,44 +240,45 @@
     <!-- Footer -->
     <footer class="bg-chamba-dark text-white py-20">
         <div class="max-w-7xl mx-auto px-4">
-            <div class="grid md:grid-cols-4 gap-12 mb-16">
+            <div class="grid md:grid-cols-4 gap-12 mb-16 items-start">
                 <div class="col-span-2">
-                    <img src="https://lonso.net/chambamax/img/logo_chambamax.png" alt="Logo" class="h-12 w-auto mb-6 brightness-0 invert">
-                    <p class="text-slate-500 font-medium max-w-sm mb-6">Uniendo el talento técnico con las mejores oportunidades del mercado. Sin títulos, con dignidad.</p>
+                    <img src="https://lonso.net/chambamax/img/logo_chambamax.png" alt="Logo ChambaMax" class="h-12 w-auto mb-6 brightness-0 invert">
+                    <p class="text-slate-500 font-medium max-w-sm mb-6">Herramienta de vinculación directa entre talento humano y empresarios comprometidos con el desarrollo social.</p>
                     <div class="flex gap-4">
-                        <a href="https://www.tiktok.com/@chambamax" target="_blank" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-chamba-blue transition-soft"><i class="fa-brands fa-tiktok"></i></a>
-                        <a href="https://x.com/chambacoin" target="_blank" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-chamba-blue transition-soft"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="https://www.facebook.com/portal.chambamax/" target="_blank" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-chamba-blue transition-soft" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="https://www.tiktok.com/@chambamax" target="_blank" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-chamba-blue transition-soft" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                        <a href="https://x.com/chambacoin" target="_blank" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-chamba-blue transition-soft" title="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
                     </div>
                 </div>
                 <div>
-                    <h4 class="text-xs font-black uppercase tracking-widest text-chamba-blue mb-6">Legal</h4>
+                    <h4 class="text-xs font-black uppercase tracking-widest text-chamba-blue mb-6">Enlaces</h4>
                     <ul class="text-slate-500 text-sm space-y-3 font-bold uppercase">
-                        <li><a href="#" class="hover:text-white transition-soft">Aviso de Privacidad</a></li>
-                        <li><a href="#" class="hover:text-white transition-soft">Términos del Club</a></li>
-                        <li><a href="#" class="hover:text-white transition-soft">Marca Registrada</a></li>
+                        <li><a href="#proposito" class="hover:text-white transition">Quiénes Somos</a></li>
+                        <li><a href="#migracion" class="hover:text-white transition">Migración</a></li>
+                        <li><a href="#club" class="hover:text-white transition">Registro</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="text-xs font-black uppercase tracking-widest text-chamba-blue mb-6">Patrocinio</h4>
-                    <div class="flex flex-col gap-2">
-                        <span class="text-[10px] text-slate-600 uppercase tracking-widest">Agradecemos a:</span>
-                        <span class="text-2xl font-title tracking-widest text-white">CiBERALL<span class="text-chamba-blue">®</span></span>
+                    <h4 class="text-xs font-black uppercase tracking-widest text-chamba-blue mb-6">Sponsor Oficial</h4>
+                    <div class="p-4 rounded-2xl bg-white/5 border border-white/10">
+                        <span class="text-[10px] text-slate-500 block mb-1 uppercase tracking-widest">Powered by</span>
+                        <span class="text-xl font-title tracking-widest text-white">CiBERALL<span class="text-chamba-blue">®</span></span>
                     </div>
                 </div>
             </div>
             
             <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
-                <p class="text-[9px] text-slate-700 uppercase tracking-[0.5em]">© 2026 CHAMBAMAX® - TODOS LOS DERECHOS RESERVADOS</p>
-                <div class="flex gap-2 items-center">
-                    <span class="w-2 h-2 bg-chamba-accent rounded-full animate-pulse"></span>
-                    <p class="text-[9px] text-slate-700 uppercase tracking-[0.3em]">Operando en vivo para Latinoamérica</p>
+                <p class="text-[9px] text-slate-700 uppercase tracking-[0.5em]">© 2026 CHAMBAMAX® - MARCA REGISTRADA</p>
+                <div class="flex gap-4">
+                    <span class="text-[9px] text-slate-700 uppercase tracking-[0.3em]">Misión Social</span>
+                    <span class="text-[9px] text-slate-700 uppercase tracking-[0.3em]">Cero Costo al Trabajador</span>
                 </div>
             </div>
         </div>
     </footer>
 
     <script>
-        // Smooth scroll for anchors
+        // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -294,6 +288,5 @@
             });
         });
     </script>
-
 </body>
 </html>
