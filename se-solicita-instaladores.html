@@ -1,1 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO y Open Graph -->
+    <title>Se Solicita Técnicos Instaladores | ChambaMax & Ciberall</title>
+    <meta name="description" content="¿Eres técnico instalador o quieres aprender? Únete al equipo de ChambaMax y Ciberall para proyectos de internet y TV en tu zona. Registrate aquí.">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://chambamax.com/se-solicita-instaladores.html">
+    <meta property="og:title" content="¡Únete como Técnico Instalador! | ChambaMax & Ciberall">
+    <meta property="og:description" content="Buscamos técnicos en antenas, redes e internet. Regístrate para abarcar proyectos en tu zona de despliegue.">
+    <meta property="og:image" content="https://lonso.net/chambamax/img/logo_chambamax.png">
 
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://chambamax.com/se-solicita-instaladores.html">
+    <meta property="twitter:title" content="Se Solicita Técnicos Instaladores | ChambaMax">
+    <meta property="twitter:description" content="Únete a nuestro equipo y regístrate como técnico instalador para proyectos de telecomunicaciones.">
+    <meta property="twitter:image" content="https://lonso.net/chambamax/img/logo_chambamax.png">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Outfit', sans-serif; }
+        .bg-amber-custom { background-color: #FBBF24; }
+        .text-amber-custom { color: #FBBF24; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 flex flex-col min-h-screen">
+
+    <!-- Header con Logotipos -->
+    <nav class="bg-white shadow-sm border-b border-slate-100 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 h-20 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <img src="https://lonso.net/chambamax/img/logo_chambamax.png" alt="ChambaMax" class="h-10 w-auto">
+                <div class="h-8 w-[2px] bg-slate-200 hidden sm:block"></div>
+                <img src="https://ciberall.net/img/LOGOTIPO%20CIBERALL%20MARCA%20REGISTRADA.png" alt="Ciberall" class="h-8 w-auto hidden sm:block">
+            </div>
+            <a href="https://chambamax.com/" class="text-xs font-bold uppercase tracking-tighter hover:text-amber-600 transition-colors">Volver al portal</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="bg-slate-900 text-white py-16 px-4 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-amber-500 rounded-full blur-[120px] opacity-20 -mr-32 -mt-32"></div>
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <span class="bg-amber-500 text-black px-4 py-1 rounded-full text-xs font-black uppercase italic mb-6 inline-block">Convocatoria Abierta</span>
+            <h1 class="text-4xl md:text-6xl font-black uppercase italic leading-tight mb-6">
+                SE SOLICITAN <span class="text-amber-500 underline decoration-amber-500/30">TÉCNICOS INSTALADORES</span>
+            </h1>
+            <p class="text-lg md:text-xl text-slate-300 font-light max-w-2xl mx-auto leading-relaxed">
+                ¿Eres técnico? ¿Sabes instalar antenas de TV o Internet? ¿Sabes de redes o quieres aprender? 
+                <span class="block mt-4 text-white font-semibold">Únete a nuestro equipo y regístrate como técnico instalador para abarcar proyectos en tu zona.</span>
+            </p>
+        </div>
+    </section>
+
+    <!-- Formulario de Registro -->
+    <main class="flex-grow max-w-3xl mx-auto w-full px-4 -mt-12 mb-20 relative z-20">
+        <div class="glass-card rounded-[2rem] p-8 md:p-12 shadow-2xl">
+            <div class="mb-8 border-b border-slate-100 pb-6 flex items-center gap-4">
+                <div class="bg-amber-100 p-3 rounded-2xl">
+                    <i data-lucide="user-plus" class="text-amber-600 w-6 h-6"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-black uppercase italic">Registro de Técnico</h2>
+                    <p class="text-slate-400 text-sm">Completa tus datos para contactarte</p>
+                </div>
+            </div>
+
+            <form action="https://formspree.io/f/mlgwgywa" method="POST" class="space-y-6">
+                <!-- Nombre -->
+                <div>
+                    <label class="block text-xs font-black uppercase tracking-widest text-slate-500 mb-2 px-1">Nombre Completo</label>
+                    <div class="relative">
+                        <i data-lucide="user" class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400"></i>
+                        <input type="text" name="Nombre" required placeholder="Ej. Juan Pérez"
+                            class="w-full bg-slate-50 border border-slate-200 rounded-xl py-4 pl-12 pr-4 outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all">
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Celular -->
+                    <div>
+                        <label class="block text-xs font-black uppercase tracking-widest text-slate-500 mb-2 px-1">Celular / WhatsApp</label>
+                        <div class="relative">
+                            <i data-lucide="phone" class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400"></i>
+                            <input type="tel" name="Celular" required placeholder="10 dígitos"
+                                class="w-full bg-slate-50 border border-slate-200 rounded-xl py-4 pl-12 pr-4 outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all">
+                        </div>
+                    </div>
+                    <!-- Telegram -->
+                    <div>
+                        <label class="block text-xs font-black uppercase tracking-widest text-slate-500 mb-2 px-1">Telegram</label>
+                        <div class="relative">
+                            <i data-lucide="send" class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400"></i>
+                            <input type="text" name="Telegram" placeholder="@usuario"
+                                class="w-full bg-slate-50 border border-slate-200 rounded-xl py-4 pl-12 pr-4 outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Correo -->
+                <div>
+                    <label class="block text-xs font-black uppercase tracking-widest text-slate-500 mb-2 px-1">Correo Electrónico</label>
+                    <div class="relative">
+                        <i data-lucide="mail" class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400"></i>
+                        <input type="email" name="Correo" required placeholder="tu@correo.com"
+                            class="w-full bg-slate-50 border border-slate-200 rounded-xl py-4 pl-12 pr-4 outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all">
+                    </div>
+                </div>
+
+                <!-- Habilidades -->
+                <div>
+                    <label class="block text-xs font-black uppercase tracking-widest text-slate-500 mb-2 px-1">Habilidades Técnicas</label>
+                    <div class="relative">
+                        <i data-lucide="wrench" class="absolute left-4 top-4 w-5 h-5 text-slate-400"></i>
+                        <textarea name="Habilidades Tecnicas" required rows="3" placeholder="Ej: Instalación de antenas, redes, configuración de equipos..."
+                            class="w-full bg-slate-50 border border-slate-200 rounded-xl py-4 pl-12 pr-4 outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all"></textarea>
+                    </div>
+                </div>
+
+                <!-- Zona -->
+                <div>
+                    <label class="block text-xs font-black uppercase tracking-widest text-slate-500 mb-2 px-1">Zona de Despliegue</label>
+                    <div class="relative">
+                        <i data-lucide="map-pin" class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400"></i>
+                        <input type="text" name="Zona de Despliegue" required placeholder="Ciudad o Municipio donde laboras"
+                            class="w-full bg-slate-50 border border-slate-200 rounded-xl py-4 pl-12 pr-4 outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all">
+                    </div>
+                </div>
+
+                <!-- Botón Enviar -->
+                <button type="submit" 
+                    class="w-full bg-amber-500 hover:bg-amber-600 text-black font-black uppercase italic py-5 rounded-2xl shadow-xl shadow-amber-500/20 transform active:scale-[0.98] transition-all flex justify-center items-center gap-3">
+                    Enviar Registro <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <!-- Enlaces de Interés -->
+    <footer class="bg-white border-t border-slate-100 py-12 px-4 mt-auto">
+        <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-5 gap-6 text-center">
+            <a href="https://www.ipviasatelite.com/" target="_blank" class="flex flex-col items-center group">
+                <span class="text-xs font-bold text-slate-400 group-hover:text-amber-600 transition-colors uppercase italic">IP Vía Satélite</span>
+            </a>
+            <a href="https://chambamax.com/" target="_blank" class="flex flex-col items-center group">
+                <img src="https://lonso.net/chambamax/img/logo_chambamax.png" alt="ChambaMax" class="h-6 opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all">
+            </a>
+            <a href="https://aztecall.com/" target="_blank" class="flex flex-col items-center group">
+                <span class="text-xs font-bold text-slate-400 group-hover:text-amber-600 transition-colors uppercase italic">Aztecall</span>
+            </a>
+            <a href="https://lonso.net/" target="_blank" class="flex flex-col items-center group">
+                <img src="https://lonso.net/chambamax/img/logo_chambamax.png" alt="Lonso" class="h-6 opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all invisible">
+                <span class="text-xs font-bold text-slate-400 group-hover:text-amber-600 transition-colors uppercase italic -mt-6">Lonso.net</span>
+            </a>
+            <a href="https://ciberall.net/" target="_blank" class="flex flex-col items-center group">
+                <img src="https://ciberall.net/img/LOGOTIPO%20CIBERALL%20MARCA%20REGISTRADA.png" alt="Ciberall" class="h-6 opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all">
+            </a>
+        </div>
+        <div class="text-center mt-12">
+            <p class="text-[10px] text-slate-400 font-bold uppercase tracking-[0.3em]">© 2026 ChambaMax & Ciberall S.A. de C.V.</p>
+        </div>
+    </footer>
+
+    <!-- Botón Flotante WhatsApp -->
+    <a href="https://wa.me/525539648280?text=Hola,%20me%20interesa%20registrarme%20como%20técnico%20instalador" 
+       target="_blank"
+       class="fixed bottom-6 right-6 bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 active:scale-95 transition-all z-[100] group flex items-center">
+       <svg class="w-8 h-8 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.588-5.946 0-6.556 5.332-11.891 11.891-11.891 3.181 0 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.481 8.403 0 6.556-5.332 11.891-11.891 11.891-2.011 0-3.986-.51-5.741-1.474l-6.143 1.692zm6.18-3.411c1.554.922 3.19 1.409 4.871 1.409 5.217 0 9.464-4.248 9.464-9.465 0-2.527-.985-4.903-2.775-6.693s-4.166-2.776-6.69-2.776c-5.217 0-9.464 4.248-9.464 9.465 0 1.761.488 3.483 1.413 5.013l-1.036 3.782 3.882-1.071zm11.45-6.075c-.301-.15-1.778-.877-2.053-.976-.275-.1-.475-.15-.675.15s-.776.976-.951 1.176-.35.225-.65.075-1.266-.467-2.411-1.487c-.892-.795-1.493-1.778-1.668-2.078s-.019-.462.13-.611c.134-.133.301-.351.451-.526.15-.175.2-.3.3-.5s.05-.375-.025-.525-.675-1.625-.925-2.225c-.244-.589-.491-.51-.675-.519-.174-.009-.374-.01-.574-.01s-.525.075-.8.375c-.275.3-1.05 1.026-1.05 2.5s1.075 2.901 1.225 3.101c.15.2 2.115 3.227 5.125 4.527.716.31 1.274.496 1.709.634.72.228 1.375.196 1.892.118.575-.087 1.778-.726 2.028-1.426.25-.7.25-1.301.175-1.426-.075-.125-.275-.201-.575-.351z"/></svg>
+    </a>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
