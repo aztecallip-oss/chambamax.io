@@ -1,292 +1,369 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChambaMax® | Conexión Directa de Talento y Oportunidades</title>
-    <meta name="description" content="Venta de servicios digitales, instalaciones técnicas y conexión directa con empresarios. El medio entre el talento y la oportunidad.">
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet">
+import React, { useState, useEffect } from 'react';
+import { initializeApp } from 'firebase/app';
+import { 
+  getAuth, 
+  signInWithPopup, 
+  FacebookAuthProvider, 
+  onAuthStateChanged, 
+  signInAnonymously,
+  signInWithCustomToken,
+  signOut
+} from 'firebase/auth';
+import { 
+  getFirestore, 
+  collection, 
+  doc, 
+  setDoc, 
+  onSnapshot 
+} from 'firebase/firestore';
 
-    <!-- Tailwind & Icons -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+// Configuración de Firebase (proporcionada por el entorno)
+const firebaseConfig = JSON.parse(__firebase_config);
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        chamba: {
-                            blue: '#00AEEF',
-                            dark: '#0F172A',
-                            orange: '#FF6F00',
-                            accent: '#22C55E'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Plus Jakarta Sans', 'sans-serif'],
-                        title: ['Bebas Neue', 'cursive']
-                    }
-                }
-            }
-        }
-    </script>
+// Componente Principal
+export default function App() {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [formData, setFormData] = useState({
+    nombre: '',
+    whatsapp: '',
+    perfil: 'digital',
+    estatus: 'regular',
+    experiencia: ''
+  });
+  const [submitted, setSubmitted] = useState(false);
 
-    <style>
-        .gradient-text {
-            background: linear-gradient(90deg, #00AEEF, #22C55E);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+  // Regla 3: Autenticación inicial
+  useEffect(() => {
+    const initAuth = async () => {
+      try {
+        if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+          await signInWithCustomToken(auth, __initial_auth_token);
+        } else {
+          // Si no hay token, esperamos a que el usuario decida si usa FB o entra anónimo
+          // Por defecto para esta app, dejamos que el usuario elija
         }
-        .hero-pattern {
-            background-color: #ffffff;
-            background-image: radial-gradient(#00aeef15 0.5px, transparent 0.5px), radial-gradient(#00aeef15 0.5px, #ffffff 0.5px);
-            background-size: 20px 20px;
-            background-position: 0 0, 10px 10px;
-        }
-        .transition-soft { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-        .bg-dots-dark {
-            background-image: radial-gradient(#ffffff20 1px, transparent 1px);
-            background-size: 15px 15px;
-        }
-    </style>
-</head>
-<body class="bg-slate-50 text-slate-900 font-sans antialiased">
+      } catch (error) {
+        console.error("Error en auth inicial:", error);
+      }
+    };
+    initAuth();
 
-    <!-- Top Bar -->
-    <div class="bg-chamba-dark py-2">
-        <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <span class="text-[10px] text-slate-400 uppercase tracking-[0.3em]">Sponsor Oficial</span>
-                <span class="text-xs font-bold text-white tracking-widest uppercase">CiBERALL<span class="text-chamba-blue">®</span></span>
-            </div>
-            <div class="flex gap-4 items-center">
-                <a href="https://www.facebook.com/portal.chambamax/" target="_blank" class="text-slate-400 hover:text-chamba-blue text-xs transition"><i class="fa-brands fa-facebook"></i></a>
-                <a href="https://x.com/chambacoin" target="_blank" class="text-slate-400 hover:text-chamba-blue text-xs transition"><i class="fa-brands fa-x-twitter"></i></a>
-                <a href="https://www.tiktok.com/@chambamax" target="_blank" class="text-slate-400 hover:text-chamba-blue text-xs transition"><i class="fa-brands fa-tiktok"></i></a>
-            </div>
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      if (currentUser) {
+        // Si el usuario viene de Facebook, precargamos su nombre
+        setFormData(prev => ({
+          ...prev,
+          nombre: currentUser.displayName || prev.nombre
+        }));
+      }
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  // Función para Login con Facebook
+  const handleFacebookLogin = async () => {
+    const provider = new FacebookAuthProvider();
+    try {
+      const result = await signInWithPopup(auth, provider);
+      // El login fue exitoso, el observer de onAuthStateChanged se encargará del resto
+    } catch (error) {
+      console.error("Error en Facebook Login:", error);
+    }
+  };
+
+  // Guardar datos en Firestore (Regla 1 y 2)
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // Regla 3: Asegurar auth antes de operar
+    let currentUser = auth.currentUser;
+    if (!currentUser) {
+      currentUser = (await signInAnonymously(auth)).user;
+    }
+
+    try {
+      // Ruta estricta (Regla 1) para datos privados del usuario
+      const userDocRef = doc(db, 'artifacts', appId, 'users', currentUser.uid, 'perfil_trabajo', 'data');
+      await setDoc(userDocRef, {
+        ...formData,
+        email: currentUser.email || 'N/A',
+        photoURL: currentUser.photoURL || '',
+        facebookLinked: !currentUser.isAnonymous,
+        timestamp: new Date().toISOString()
+      });
+      
+      setSubmitted(true);
+      setTimeout(() => setSubmitted(false), 5000);
+    } catch (error) {
+      console.error("Error guardando datos:", error);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-slate-50 font-sans text-slate-900">
+      {/* Top Bar */}
+      <div className="bg-[#0F172A] py-2">
+        <div className="max-w-7xl mx-auto px-4 flex justify-between items-center">
+          <div className="flex items-center gap-3">
+            <span className="text-[10px] text-slate-400 uppercase tracking-[0.3em]">Sponsor Oficial</span>
+            <span className="text-xs font-bold text-white tracking-widest uppercase">CiBERALL<span className="text-[#00AEEF]">®</span></span>
+          </div>
+          <div className="flex gap-4 items-center">
+            <a href="https://www.facebook.com/portal.chambamax/" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-[#00AEEF] text-xs transition"><i className="fa-brands fa-facebook"></i></a>
+            <a href="https://x.com/chambacoin" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-[#00AEEF] text-xs transition"><i className="fa-brands fa-x-twitter"></i></a>
+            <a href="https://www.tiktok.com/@chambamax" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-[#00AEEF] text-xs transition"><i className="fa-brands fa-tiktok"></i></a>
+          </div>
         </div>
-    </div>
+      </div>
 
-    <!-- Navigation -->
-    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100">
-        <div class="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center">
-            <div class="flex items-center gap-2">
-                <img src="https://lonso.net/chambamax/img/logo_chambamax.png" alt="Logo ChambaMax" class="h-10 w-auto">
-                <span class="font-title text-2xl tracking-wide">CHAMBAMAX<span class="text-chamba-blue">®</span></span>
-            </div>
-            
-            <div class="hidden md:flex gap-6 items-center text-[11px] font-black uppercase tracking-widest">
-                <a href="#digital" class="hover:text-chamba-blue transition-soft">Ventas Digitales</a>
-                <a href="#oportunidad-tech" class="hover:text-chamba-blue transition-soft">Técnicos</a>
-                <a href="#empresarios" class="text-chamba-orange hover:scale-105 transition-soft">Para Empresarios</a>
-                <a href="#club" class="bg-chamba-blue text-white px-5 py-2.5 rounded-xl shadow-lg shadow-blue-200 hover:bg-chamba-dark transition-soft">Unirse</a>
-            </div>
+      {/* Navigation */}
+      <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 h-20 flex items-center">
+        <div className="max-w-7xl mx-auto px-4 w-full flex justify-between items-center">
+          <div className="flex items-center gap-2">
+            <img src="https://lonso.net/chambamax/img/logo_chambamax.png" alt="Logo" className="h-10 w-auto" />
+            <span className="font-['Bebas_Neue'] text-2xl tracking-wide hidden sm:block uppercase italic">CHAMBAMAX<span className="text-[#00AEEF]">®</span></span>
+          </div>
+          
+          <div className="flex gap-6 items-center text-[10px] font-black uppercase tracking-widest">
+            <a href="#digital" className="hover:text-[#00AEEF] transition">Digital</a>
+            <a href="#tech" className="hover:text-[#00AEEF] transition">Técnicos</a>
+            <a href="#empresas" className="text-[#FF6F00] hover:scale-105 transition">Empresarios</a>
+            {user && !user.isAnonymous ? (
+              <button onClick={() => signOut(auth)} className="text-slate-400 border border-slate-200 px-3 py-1 rounded-lg">Salir</button>
+            ) : (
+              <button onClick={handleFacebookLogin} className="bg-[#1877F2] text-white px-4 py-2 rounded-xl flex items-center gap-2 shadow-lg hover:bg-[#145dbf] transition">
+                <i className="fa-brands fa-facebook-f"></i> <span className="hidden md:inline italic">Vincular</span>
+              </button>
+            )}
+          </div>
         </div>
-    </nav>
+      </nav>
 
-    <!-- Hero Section -->
-    <header class="relative py-20 hero-pattern border-b border-slate-100">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="inline-block bg-chamba-dark text-white text-[10px] font-bold px-4 py-1.5 rounded-full mb-8 tracking-[0.3em] uppercase">
-                Conexión Directa • Sin Títulos • Con Actitud
+      {/* Hero Section */}
+      <header className="relative py-20 text-center bg-white border-b border-slate-100 overflow-hidden">
+        <div className="max-w-5xl mx-auto px-4 relative z-10">
+          <h1 className="text-6xl md:text-8xl font-['Bebas_Neue'] leading-[0.85] mb-6 uppercase italic">
+            EL MEDIO ENTRE TU TALENTO <br /> <span className="text-[#00AEEF]">Y LA OPORTUNIDAD</span>
+          </h1>
+          <p className="text-lg text-slate-500 max-w-2xl mx-auto mb-10 font-medium leading-relaxed italic">
+            Vende servicios digitales desde casa o instala tecnología en campo con CiBERALL®. No pedimos títulos, pedimos actitud.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
+            <a href="#club" className="bg-[#0F172A] text-white px-8 py-4 rounded-2xl font-bold uppercase tracking-widest text-xs hover:bg-slate-800 transition shadow-xl">Postularme ahora</a>
+            <a href="#empresas" className="bg-[#FF6F00] text-white px-8 py-4 rounded-2xl font-bold uppercase tracking-widest text-xs hover:scale-105 transition shadow-xl italic">Soy Empresario</a>
+          </div>
+        </div>
+        {/* Decorative dots */}
+        <div className="absolute top-0 left-0 w-full h-full opacity-[0.03] pointer-events-none" style={{backgroundImage: 'radial-gradient(#00AEEF 1px, transparent 1px)', backgroundSize: '20px 20px'}}></div>
+      </header>
+
+      {/* Digital Section */}
+      <section id="digital" className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 grid lg:grid-cols-2 gap-16 items-center">
+          <div className="order-2 lg:order-1">
+            <div className="relative">
+              <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&q=80&w=800" alt="Home Office" className="rounded-[3rem] shadow-2xl grayscale" />
+              <div className="absolute -bottom-6 -right-6 bg-[#FF6F00] text-white p-8 rounded-3xl shadow-2xl hidden md:block">
+                <p className="font-['Bebas_Neue'] text-3xl italic uppercase leading-none">Genera ingresos <br /> desde casa</p>
+              </div>
             </div>
-            <h1 class="text-6xl lg:text-9xl font-title leading-[0.85] mb-8 uppercase italic">
-                El medio entre tu talento <br> <span class="gradient-text">y la oportunidad</span>
-            </h1>
-            <p class="text-xl text-slate-500 max-w-2xl mx-auto mb-10 font-medium">
-                ChambaMax® y CiBERALL® se unen para ofrecerte trabajo digno, ya sea instalando antenas en campo o vendiendo servicios digitales desde tu hogar.
+          </div>
+          <div className="order-1 lg:order-2">
+            <span className="text-[#00AEEF] font-black uppercase tracking-[0.4em] text-xs">Ventas Digitales</span>
+            <h2 className="text-5xl md:text-7xl font-['Bebas_Neue'] mt-4 mb-6 uppercase italic leading-none">
+              USA TU SMARTPHONE <br /> <span className="text-[#FF6F00]">Y NO DESCUIDES A TUS HIJOS</span>
+            </h2>
+            <p className="text-slate-600 mb-8 text-lg leading-relaxed">
+              CHAMBAMAX y CiBERALL son el medio para que vendas servicios de internet y plataformas digitales. Solo necesitas una laptop o celular y muchas ganas de crecer.
             </p>
-            <div class="flex flex-wrap justify-center gap-4">
-                <a href="#digital" class="bg-chamba-dark text-white px-8 py-4 rounded-2xl font-bold uppercase tracking-widest hover:bg-slate-800 transition-soft shadow-xl">Chamba desde casa</a>
-                <a href="#oportunidad-tech" class="bg-chamba-blue text-white px-8 py-4 rounded-2xl font-bold uppercase tracking-widest hover:scale-105 transition-soft shadow-xl">Trabajo Técnico</a>
+            <div className="space-y-4">
+              <div className="flex items-center gap-4 bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                <i className="fa-solid fa-check-circle text-[#22C55E]"></i>
+                <span className="font-bold uppercase tracking-tighter text-sm italic">Horarios Flexibles</span>
+              </div>
+              <div className="flex items-center gap-4 bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                <i className="fa-solid fa-check-circle text-[#22C55E]"></i>
+                <span className="font-bold uppercase tracking-tighter text-sm italic">Pagos por Comisión y Logros</span>
+              </div>
             </div>
+          </div>
         </div>
-    </header>
+      </section>
 
-    <!-- SECCIÓN 1: Digital / Home Office -->
-    <section id="digital" class="py-24 bg-white">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="grid lg:grid-cols-2 gap-16 items-center">
-                <div class="order-2 lg:order-1">
-                    <div class="p-2 bg-slate-50 rounded-[3rem] border border-slate-100">
-                        <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&q=80&w=800" alt="Madre trabajando desde casa con laptop" class="rounded-[2.5rem] shadow-inner grayscale hover:grayscale-0 transition-all duration-700">
-                    </div>
-                </div>
-                <div class="order-1 lg:order-2">
-                    <span class="text-chamba-blue font-black uppercase tracking-[0.4em] text-xs">Home Office & Ventas</span>
-                    <h2 class="text-5xl lg:text-7xl font-title mt-4 mb-6 uppercase leading-none">¿Tienes Smartphone <br> <span class="text-chamba-orange">o Laptop en casa?</span></h2>
-                    <p class="text-lg text-slate-600 mb-8 leading-relaxed">
-                        Vende servicios de internet y plataformas digitales de última generación. La oportunidad perfecta para generar ingresos reales <strong>sin descuidar a tus hijos</strong> y manejando tus propios tiempos.
-                    </p>
-                    <div class="grid grid-cols-2 gap-4 mb-10">
-                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 flex items-center gap-3">
-                            <i class="fa-solid fa-mobile-screen-button text-chamba-blue text-xl"></i>
-                            <span class="font-bold text-xs uppercase tracking-tighter">Smartphone</span>
-                        </div>
-                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 flex items-center gap-3">
-                            <i class="fa-solid fa-laptop text-chamba-blue text-xl"></i>
-                            <span class="font-bold text-xs uppercase tracking-tighter">Laptop</span>
-                        </div>
-                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 flex items-center gap-3">
-                            <i class="fa-solid fa-house-chimney-heart text-chamba-orange text-xl"></i>
-                            <span class="font-bold text-xs uppercase tracking-tighter">Desde Casa</span>
-                        </div>
-                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 flex items-center gap-3">
-                            <i class="fa-solid fa-child-reaching text-chamba-accent text-xl"></i>
-                            <span class="font-bold text-xs uppercase tracking-tighter">Con tus hijos</span>
-                        </div>
-                    </div>
-                    <a href="#club" class="inline-block bg-chamba-dark text-white px-10 py-5 rounded-2xl font-black uppercase tracking-widest text-sm hover:bg-chamba-blue transition-soft">Quiero ser Vendedor Digital</a>
-                </div>
+      {/* Technical Section */}
+      <section id="tech" className="py-24 bg-[#0F172A] text-white relative">
+        <div className="max-w-7xl mx-auto px-4 text-center">
+          <h2 className="text-5xl md:text-8xl font-['Bebas_Neue'] mb-4 uppercase italic">¿SABES <span className="text-[#00AEEF]">JALAR CABLES</span>?</h2>
+          <p className="text-slate-400 max-w-2xl mx-auto mb-16 text-lg">
+            Buscamos técnicos e instaladores de Antenas Satelitales, Redes y Fibra Óptica para proyectos activos con CiBERALL®.
+          </p>
+          <div className="grid md:grid-cols-3 gap-8 mb-16">
+            <div className="bg-white/5 border border-white/10 p-10 rounded-[3rem] hover:bg-white/10 transition">
+              <i className="fa-solid fa-satellite-dish text-5xl text-[#00AEEF] mb-6"></i>
+              <h3 className="text-xl font-bold uppercase mb-2">Antenas</h3>
+              <p className="text-slate-500 text-sm">Instalación y alineación satelital en campo.</p>
             </div>
+            <div className="bg-white/5 border border-white/10 p-10 rounded-[3rem] hover:bg-white/10 transition">
+              <i className="fa-solid fa-network-wired text-5xl text-[#FF6F00] mb-6"></i>
+              <h3 className="text-xl font-bold uppercase mb-2">Fibra & Redes</h3>
+              <p className="text-slate-500 text-sm">Cableado estructurado y fusión de fibra.</p>
+            </div>
+            <div className="bg-white/5 border border-white/10 p-10 rounded-[3rem] hover:bg-white/10 transition">
+              <i className="fa-solid fa-screwdriver-wrench text-5xl text-[#22C55E] mb-6"></i>
+              <h3 className="text-xl font-bold uppercase mb-2">Soporte</h3>
+              <p className="text-slate-500 text-sm">Mantenimiento preventivo y correctivo.</p>
+            </div>
+          </div>
+          <a href="https://ciberall.net/contacto.htm" target="_blank" rel="noreferrer" className="inline-block bg-[#00AEEF] text-white px-12 py-6 rounded-2xl font-black uppercase tracking-widest italic hover:bg-white hover:text-slate-900 transition shadow-2xl">
+            MÁS INFO EN CIBERALL.NET
+          </a>
         </div>
-    </section>
+      </section>
 
-    <!-- SECCIÓN 2: Técnico CiBERALL -->
-    <section id="oportunidad-tech" class="py-24 bg-slate-900 text-white relative overflow-hidden bg-dots-dark">
-        <div class="max-w-7xl mx-auto px-4 relative z-10 text-center">
-            <h2 class="text-5xl lg:text-8xl font-title mb-4 uppercase italic">¿Solo quieres <span class="text-chamba-blue">jalar cables</span>?</h2>
-            <p class="text-xl text-slate-400 max-w-2xl mx-auto mb-16">
-                Para los que no le temen al trabajo duro en campo. Instalación de Antenas Satelitales, Redes y Fibra Óptica con CiBERALL®.
+      {/* Entrepreneur Section */}
+      <section id="empresas" className="py-24 bg-[#FF6F00] text-white overflow-hidden relative">
+        <div className="max-w-7xl mx-auto px-4 flex flex-col items-center text-center">
+          <h2 className="text-5xl md:text-8xl font-['Bebas_Neue'] uppercase leading-none mb-8 italic">¿ERES EMPRESARIO <br /> <span className="text-[#0F172A]">Y BUSCAS TALENTO?</span></h2>
+          <div className="max-w-3xl bg-[#0F172A] p-10 md:p-16 rounded-[4rem] shadow-2xl relative">
+            <p className="text-xl font-medium mb-10 opacity-90 leading-relaxed italic">
+              En ChambaMax sobra el talento y, sobre todo, sobra la actitud. Si necesitas personas comprometidas para tu negocio, escríbenos directamente.
             </p>
-            
-            <div class="grid md:grid-cols-3 gap-8 mb-16">
-                <div class="bg-white/5 border border-white/10 p-8 rounded-[2.5rem] hover:bg-white/10 transition-soft">
-                    <i class="fa-solid fa-tower-cell text-4xl text-chamba-blue mb-6"></i>
-                    <h3 class="text-xl font-bold uppercase mb-2">Antenas Satelitales</h3>
-                    <p class="text-sm text-slate-500 font-medium">Instalación física y alineación en zonas rurales y urbanas.</p>
-                </div>
-                <div class="bg-white/5 border border-white/10 p-8 rounded-[2.5rem] hover:bg-white/10 transition-soft">
-                    <i class="fa-solid fa-route text-4xl text-chamba-orange mb-6"></i>
-                    <h3 class="text-xl font-bold uppercase mb-2">Redes & Fibra</h3>
-                    <p class="text-sm text-slate-500 font-medium">Tendidos de red, configuración de módems y canalizaciones.</p>
-                </div>
-                <div class="bg-white/5 border border-white/10 p-8 rounded-[2.5rem] hover:bg-white/10 transition-soft">
-                    <i class="fa-solid fa-toolbox text-4xl text-chamba-accent mb-6"></i>
-                    <h3 class="text-xl font-bold uppercase mb-2">Mantenimiento</h3>
-                    <p class="text-sm text-slate-500 font-medium">Soporte técnico directo y resolución de conectividad.</p>
-                </div>
-            </div>
-
-            <a href="https://ciberall.net/contacto.htm" target="_blank" class="inline-flex items-center gap-4 bg-chamba-blue text-white px-12 py-6 rounded-2xl font-black uppercase tracking-widest hover:bg-white hover:text-chamba-dark transition-soft shadow-2xl">
-                POSTULARME EN CiBERALL.NET <i class="fa-solid fa-external-link text-xs"></i>
+            <a href="mailto:fernando@lonso.net" className="inline-flex items-center gap-4 bg-[#FF6F00] text-white px-10 py-5 rounded-2xl font-black uppercase tracking-widest text-sm hover:scale-105 transition shadow-xl">
+              fernando@lonso.net <i className="fa-solid fa-envelope"></i>
             </a>
+          </div>
         </div>
-    </section>
+      </section>
 
-    <!-- SECCIÓN 3: Para Empresarios -->
-    <section id="empresarios" class="py-24 bg-chamba-orange text-white">
-        <div class="max-w-5xl mx-auto px-4 text-center">
-            <div class="mb-10 inline-block bg-white/20 p-4 rounded-full">
-                <i class="fa-solid fa-briefcase text-4xl"></i>
-            </div>
-            <h2 class="text-5xl lg:text-7xl font-title uppercase mb-8 leading-none">¿Eres empresario <br> <span class="text-chamba-dark italic">y buscas talento?</span></h2>
-            <p class="text-2xl font-medium mb-12 opacity-90">
-                Aquí sobra el talento y, sobre todo, sobra <strong>la actitud</strong>. Conectamos tu empresa con personas dispuestas a trabajar y aprender.
-            </p>
-            <div class="bg-chamba-dark p-10 lg:p-16 rounded-[4rem] shadow-2xl relative">
-                <h3 class="text-2xl font-bold mb-6 uppercase tracking-widest">Enlace Directo Empresarial</h3>
-                <p class="text-slate-400 mb-10 text-lg">Manda un mensaje personal a nuestro coordinador y con gusto te enlazamos con los perfiles adecuados para tu negocio.</p>
-                <a href="mailto:fernando@lonso.net" class="inline-block bg-chamba-orange text-white px-12 py-5 rounded-2xl font-black uppercase tracking-widest text-lg hover:scale-105 transition-soft shadow-xl">
-                    fernando@lonso.net <i class="fa-solid fa-envelope ml-2"></i>
-                </a>
-            </div>
-        </div>
-    </section>
+      {/* Form / Club Section */}
+      <section id="club" className="py-24 bg-slate-50">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-5xl md:text-7xl font-['Bebas_Neue'] uppercase italic">ÚNETE AL CLUB <span className="text-[#00AEEF]">CHAMBAMAX</span></h2>
+            <p className="text-slate-400 font-bold uppercase text-[10px] tracking-[0.3em] mt-2 italic">Vincula tu cuenta para un registro más rápido</p>
+          </div>
 
-    <!-- Registro Formulario -->
-    <section id="club" class="py-24 bg-slate-50">
-        <div class="max-w-4xl mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="font-title text-6xl uppercase italic">Únete al <span class="text-chamba-blue">Club ChambaMax®</span></h2>
-                <p class="text-slate-500 font-bold uppercase text-xs tracking-widest mt-4">Deja tus datos para que un agente te contacte</p>
-            </div>
-
-            <form action="https://formspree.io/f/mlgwgywa" method="POST" class="glass-card p-10 md:p-16 rounded-[3rem] shadow-2xl">
-                <div class="grid md:grid-cols-2 gap-8 mb-10">
-                    <div class="md:col-span-2">
-                        <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Nombre Completo</label>
-                        <input type="text" name="nombre" required class="w-full bg-slate-100 border-none p-4 rounded-2xl font-bold focus:ring-2 focus:ring-chamba-blue" placeholder="Ej. Juan Pérez">
-                    </div>
-                    <div>
-                        <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">WhatsApp</label>
-                        <input type="tel" name="whatsapp" required class="w-full bg-slate-100 border-none p-4 rounded-2xl font-bold focus:ring-2 focus:ring-chamba-blue" placeholder="+52 ...">
-                    </div>
-                    <div>
-                        <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Perfil de Interés</label>
-                        <select name="perfil" class="w-full bg-slate-100 border-none p-4 rounded-2xl font-bold appearance-none focus:ring-2 focus:ring-chamba-blue">
-                            <option value="digital">Vendedor Digital (Home Office)</option>
-                            <option value="tecnico">Técnico Instalador (Campo)</option>
-                            <option value="otros">Otros Oficios</option>
-                        </select>
-                    </div>
-                    <div class="md:col-span-2">
-                        <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Estatus Migratorio / Apoyo</label>
-                        <select name="estatus" class="w-full bg-slate-100 border-none p-4 rounded-2xl font-bold appearance-none focus:ring-2 focus:ring-chamba-blue">
-                            <option value="regular">Regularizado / Con papeles</option>
-                            <option value="apoyo">Necesito apoyo migratorio / Permiso</option>
-                            <option value="refugio">Solicitante de Refugio</option>
-                        </select>
-                    </div>
-                </div>
-                <button type="submit" class="w-full bg-chamba-dark text-white py-6 rounded-2xl font-black uppercase tracking-[0.2em] hover:bg-chamba-blue transition-soft shadow-xl">
-                    ENVIAR MI PERFIL AHORA
-                </button>
-            </form>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-chamba-dark text-white py-20">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="grid md:grid-cols-3 gap-16 items-center mb-16">
-                <div class="text-center md:text-left">
-                    <img src="https://lonso.net/chambamax/img/logo_chambamax.png" alt="Logo ChambaMax" class="h-12 w-auto mb-6 brightness-0 invert mx-auto md:mx-0">
-                    <p class="text-slate-500 uppercase text-[10px] font-bold tracking-widest">ChambaMax® & CiBERALL® <br> El medio para el trabajo digno.</p>
-                </div>
-                <div class="flex flex-col items-center gap-4">
-                    <span class="text-[10px] font-black uppercase tracking-[0.3em] text-chamba-blue">Social Hub</span>
-                    <div class="flex gap-6">
-                        <a href="https://www.facebook.com/portal.chambamax/" target="_blank" class="text-2xl hover:text-chamba-blue transition"><i class="fa-brands fa-facebook"></i></a>
-                        <a href="https://www.tiktok.com/@chambamax" target="_blank" class="text-2xl hover:text-chamba-blue transition"><i class="fa-brands fa-tiktok"></i></a>
-                        <a href="https://x.com/chambacoin" target="_blank" class="text-2xl hover:text-chamba-blue transition"><i class="fa-brands fa-x-twitter"></i></a>
-                    </div>
-                </div>
-                <div class="text-center md:text-right">
-                    <span class="text-[10px] text-slate-500 uppercase block mb-2 tracking-widest">Contacto Directo Empresarial</span>
-                    <a href="mailto:fernando@lonso.net" class="text-xl font-bold hover:text-chamba-orange transition">fernando@lonso.net</a>
-                </div>
-            </div>
+          <div className="bg-white p-10 md:p-16 rounded-[3.5rem] shadow-2xl border border-slate-100 relative">
             
-            <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
-                <p class="text-[8px] text-slate-700 uppercase tracking-[0.5em]">© 2026 CHAMBAMAX® • UNA MARCA REGISTRADA DE CIBERALL®</p>
-                <div class="flex gap-4">
-                    <span class="text-[8px] text-slate-700 uppercase tracking-[0.2em]">Cero costo para el trabajador</span>
-                    <span class="text-[8px] text-slate-700 uppercase tracking-[0.2em]">Apoyo Migratorio Integral</span>
+            {/* Facebook Login Option */}
+            <div className="flex flex-col items-center mb-12 pb-12 border-b border-slate-100">
+              {user && !user.isAnonymous ? (
+                <div className="flex items-center gap-4 bg-slate-50 p-4 rounded-3xl w-full justify-center">
+                  <img src={user.photoURL} alt="FB Profile" className="w-12 h-12 rounded-full border-2 border-[#1877F2]" />
+                  <div className="text-left">
+                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Vinculado como</p>
+                    <p className="font-bold text-slate-800 italic">{user.displayName}</p>
+                  </div>
                 </div>
+              ) : (
+                <button 
+                  onClick={handleFacebookLogin}
+                  className="w-full max-w-sm bg-[#1877F2] text-white py-5 rounded-2xl flex items-center justify-center gap-4 font-black uppercase tracking-widest text-xs hover:bg-[#145dbf] transition shadow-xl shadow-blue-100 italic"
+                >
+                  <i className="fa-brands fa-facebook text-xl"></i> Vincular con mi Facebook
+                </button>
+              )}
             </div>
-        </div>
-    </footer>
 
-    <script>
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-    </script>
-</body>
-</html>
+            {submitted ? (
+              <div className="text-center py-10 animate-pulse">
+                <i className="fa-solid fa-circle-check text-6xl text-[#22C55E] mb-6"></i>
+                <h3 className="text-3xl font-['Bebas_Neue'] uppercase">¡Perfil Recibido!</h3>
+                <p className="text-slate-500 italic">Un agente de ChambaMax te contactará por WhatsApp pronto.</p>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-8">
+                <div className="grid md:grid-cols-2 gap-8">
+                  <div className="md:col-span-2">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Nombre Completo</label>
+                    <input 
+                      type="text" 
+                      value={formData.nombre}
+                      onChange={(e) => setFormData({...formData, nombre: e.target.value})}
+                      required 
+                      className="w-full bg-slate-50 border-none p-5 rounded-2xl font-bold focus:ring-2 focus:ring-[#00AEEF] transition italic" 
+                      placeholder="Juan Pérez"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">WhatsApp</label>
+                    <input 
+                      type="tel" 
+                      value={formData.whatsapp}
+                      onChange={(e) => setFormData({...formData, whatsapp: e.target.value})}
+                      required 
+                      className="w-full bg-slate-50 border-none p-5 rounded-2xl font-bold focus:ring-2 focus:ring-[#00AEEF] transition italic" 
+                      placeholder="+52 ..."
+                    />
+                  </div>
+                  <div>
+                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">¿Qué buscas?</label>
+                    <select 
+                      value={formData.perfil}
+                      onChange={(e) => setFormData({...formData, perfil: e.target.value})}
+                      className="w-full bg-slate-50 border-none p-5 rounded-2xl font-bold focus:ring-2 focus:ring-[#00AEEF] transition italic appearance-none"
+                    >
+                      <option value="digital">Vendedor Digital (Desde Casa)</option>
+                      <option value="tecnico">Técnico Instalador (Campo)</option>
+                      <option value="otros">Otros Oficios</option>
+                    </select>
+                  </div>
+                  <div className="md:col-span-2">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Estatus Migratorio</label>
+                    <select 
+                      value={formData.estatus}
+                      onChange={(e) => setFormData({...formData, estatus: e.target.value})}
+                      className="w-full bg-slate-50 border-none p-5 rounded-2xl font-bold focus:ring-2 focus:ring-[#00AEEF] transition italic appearance-none"
+                    >
+                      <option value="regular">Tengo mis papeles en regla</option>
+                      <option value="apoyo">Necesito apoyo con permiso de trabajo</option>
+                      <option value="refugio">Soy solicitante de refugio</option>
+                    </select>
+                  </div>
+                </div>
+                <button 
+                  type="submit" 
+                  className="w-full bg-[#0F172A] text-white py-6 rounded-3xl font-black uppercase tracking-[0.2em] text-sm hover:bg-[#00AEEF] transition shadow-2xl italic"
+                >
+                  Postular mi Actitud Ahora
+                </button>
+              </form>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-[#0F172A] text-white py-20 border-t border-white/5">
+        <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-3 gap-16 items-center">
+          <div className="text-center md:text-left">
+            <img src="https://lonso.net/chambamax/img/logo_chambamax.png" alt="Footer Logo" className="h-10 w-auto mb-6 brightness-0 invert mx-auto md:mx-0" />
+            <p className="text-[10px] text-slate-500 font-bold uppercase tracking-[0.3em]">Trabajo digno • Sin intermediarios <br /> Una iniciativa de CiBERALL®</p>
+          </div>
+          <div className="flex flex-col items-center gap-6">
+            <span className="text-[10px] font-black uppercase tracking-widest text-[#00AEEF]">Síguenos en nuestra comunidad</span>
+            <div className="flex gap-8">
+              <a href="https://www.facebook.com/portal.chambamax/" target="_blank" rel="noreferrer" className="text-3xl hover:text-[#00AEEF] transition"><i className="fa-brands fa-facebook"></i></a>
+              <a href="https://www.tiktok.com/@chambamax" target="_blank" rel="noreferrer" className="text-3xl hover:text-[#00AEEF] transition"><i className="fa-brands fa-tiktok"></i></a>
+              <a href="https://x.com/chambacoin" target="_blank" rel="noreferrer" className="text-3xl hover:text-[#00AEEF] transition"><i className="fa-brands fa-x-twitter"></i></a>
+            </div>
+          </div>
+          <div className="text-center md:text-right">
+            <p className="text-[10px] text-slate-500 uppercase tracking-widest mb-2">Contacto Empresarial</p>
+            <a href="mailto:fernando@lonso.net" className="text-lg font-bold hover:text-[#FF6F00] transition italic">fernando@lonso.net</a>
+          </div>
+        </div>
+        <div className="max-w-7xl mx-auto px-4 mt-16 pt-8 border-t border-white/5 text-center">
+          <p className="text-[8px] text-slate-700 uppercase tracking-[0.5em]">© 2026 CHAMBAMAX® • TODOS LOS DERECHOS RESERVADOS • CIBERALL® GLOBAL</p>
+        </div>
+      </footer>
+    </div>
+  );
+}
