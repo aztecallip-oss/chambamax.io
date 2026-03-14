@@ -42,6 +42,13 @@
             transform: translateY(-5px) scale(1.02);
             box-shadow: 0 20px 25px -5px rgba(251, 191, 36, 0.1), 0 10px 10px -5px rgba(251, 191, 36, 0.04);
         }
+        .banner-link {
+            transition: all 0.4s ease;
+        }
+        .banner-link:hover {
+            filter: brightness(1.1);
+            transform: scale(1.01);
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900 flex flex-col min-h-screen">
@@ -73,7 +80,7 @@
 
             <!-- Botón Cursos ViaSat -->
             <div class="mt-10 flex justify-center">
-                <a href="https://ciberall.net/viasat-training/" target="_blank" class="btn-training inline-flex items-center gap-6 bg-white border border-slate-100 p-4 md:p-6 rounded-[2rem] text-slate-900 group">
+                <a href="https://bbs.viasatdiscover.com/learn" target="_blank" class="btn-training inline-flex items-center gap-6 bg-white border border-slate-100 p-4 md:p-6 rounded-[2rem] text-slate-900 group">
                     <img src="https://ipviasatelite.com/imagenes/logos/longo%20ip%20via%20satelite.png" alt="ViaSat" class="h-12 md:h-14 w-auto">
                     <div class="text-left">
                         <span class="block text-[10px] font-black uppercase tracking-[0.2em] text-amber-500">Capacitación Técnica</span>
@@ -87,8 +94,15 @@
         </div>
     </section>
 
+    <!-- Banner Imagen Clicable (Tamaño Reducido) -->
+    <div class="max-w-2xl mx-auto w-full px-4 mt-8 flex justify-center">
+        <a href="https://ipviasatelite.com/" target="_blank" class="banner-link block rounded-2xl overflow-hidden shadow-md border border-slate-200">
+            <img src="https://ciberall.net/index_htm_files/576545@2x.png" alt="IP Vía Satélite Infraestructura" class="w-full h-auto object-cover max-h-[120px]">
+        </a>
+    </div>
+
     <!-- Formulario de Registro -->
-    <main class="flex-grow max-w-3xl mx-auto w-full px-4 -mt-12 mb-20 relative z-20">
+    <main class="flex-grow max-w-3xl mx-auto w-full px-4 mt-8 mb-20 relative z-20">
         <div class="glass-card rounded-[2rem] p-8 md:p-12 shadow-2xl">
             <div class="mb-8 border-b border-slate-100 pb-6 flex items-center gap-4">
                 <div class="bg-amber-100 p-3 rounded-2xl">
@@ -209,7 +223,7 @@
     <a href="https://wa.me/525539648280?text=Hola,%20me%20interesa%20registrarme%20como%20técnico%20instalador" 
        target="_blank"
        class="fixed bottom-6 right-6 bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 active:scale-95 transition-all z-[100] group flex items-center">
-       <svg class="w-8 h-8 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.588-5.946 0-6.556 5.332-11.891 11.891-11.891 3.181 0 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.481 8.403 0 6.556-5.332 11.891-11.891 11.891-2.011 0-3.986-.51-5.741-1.474l-6.143 1.692zm6.18-3.411c1.554.922 3.19 1.409 4.871 1.409 5.217 0 9.464-4.248 9.464-9.465 0-2.527-.985-4.903-2.775-6.693s-4.166-2.776-6.69-2.776c-5.217 0-9.464 4.248-9.464 9.465 0 1.761.488 3.483 1.413 5.013l-1.036 3.782 3.882-1.071zm11.45-6.075c-.301-.15-1.778-.877-2.053-.976-.275-.1-.475-.15-.675.15s-.776.976-.951 1.176-.35.225-.65.075-1.266-.467-2.411-1.487c-.892-.795-1.493-1.778-1.668-2.078s-.019-.462.13-.611c.134-.133.301-.351.451-.526.15-.175.2-.3.3-.5s.05-.375-.025-.525-.675-1.625-.925-2.225c-.244-.589-.491-.51-.675-.519-.174-.009-.374-.01-.574-.01s-.525.075-.8.375c-.275.3-1.05 1.026-1.05 2.5s1.075 2.901 1.225 3.101c.15.2 2.115 3.227 5.125 4.527.716.31 1.274.496 1.709.634.72.228 1.375.196 1.892.118.575-.087 1.778-.726 2.028-1.426.25-.7.25-1.301.175-1.426-.075-.125-.275-.201-.575-.351z"/></svg>
+       <svg class="w-8 h-8 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.588-5.946 0-6.556 5.332-11.891 11.891-11.891 3.181 0 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.481 8.403 0 6.556-5.332-11.891-11.891 11.891-2.011 0-3.986-.51-5.741-1.474l-6.143 1.692zm6.18-3.411c1.554.922 3.19 1.409 4.871 1.409 5.217 0 9.464-4.248 9.464-9.465 0-2.527-.985-4.903-2.775-6.693s-4.166-2.776-6.69-2.776c-5.217 0-9.464 4.248-9.464 9.465 0 1.761.488 3.483 1.413 5.013l-1.036 3.782 3.882-1.071zm11.45-6.075c-.301-.15-1.778-.877-2.053-.976-.275-.1-.475-.15-.675.15s-.776.976-.951 1.176-.35.225-.65.075-1.266-.467-2.411-1.487c-.892-.795-1.493-1.778-1.668-2.078s-.019-.462.13-.611c.134-.133.301-.351.451-.526.15-.175.2-.3.3-.5s.05-.375-.025-.525-.675-1.625-.925-2.225c-.244-.589-.491-.51-.675-.519-.174-.009-.374-.01-.574-.01s-.525.075-.8.375c-.275.3-1.05 1.026-1.05 2.5s1.075 2.901 1.225 3.101c.15.2 2.115 3.227 5.125 4.527.716.31 1.274.496 1.709.634.72.228 1.375.196 1.892.118.575-.087 1.778-.726 2.028-1.426.25-.7.25-1.301.175-1.426-.075-.125-.275-.201-.575-.351z"/></svg>
     </a>
 
     <script>
