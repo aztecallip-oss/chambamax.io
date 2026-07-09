@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar un Trabajador Cerca de Ti | ChambaMax®</title>
+    <meta name="description" content="Encuentra plomeros, jardineros, cuidadores de mascotas y más trabajadores cerca de ti. Contáctalos directo por WhatsApp y califícalos en ChambaMax.">
+
+    <link rel="icon" href="https://lonso.net/chambamax/img/favicon.ico" type="image/x-icon">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Leaflet (mapa, sin API key / sin costo) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Outfit', sans-serif; }
+        .chamba-yellow { color: #FBBF24; }
+        .bg-chamba-yellow { background-color: #FBBF24; }
+        #map { height: 320px; border-radius: 1.5rem; }
+        .star-btn.active { color: #FBBF24; }
+        select:focus { border-color: #FBBF24 !important; box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.2); }
+    </style>
+</head>
+<body class="bg-white text-slate-900">
+
+    <!-- Navegación -->
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <a href="/" class="flex items-center gap-2">
+                    <img src="https://lonso.net/chambamax/img/logo_chambamax.png" alt="ChambaMax Logo" class="h-10 w-auto">
+                </a>
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="/#inicio" class="text-sm font-bold uppercase tracking-wider hover:text-amber-500 transition-colors">Inicio</a>
+                    <a href="/#formulario" class="text-sm font-bold uppercase tracking-wider hover:text-amber-500 transition-colors">Registrarme</a>
+                    <a href="https://t.me/chambamax_bot" target="_blank" class="bg-amber-500 text-black px-6 py-2 rounded-full text-sm font-black hover:bg-black hover:text-white transition-all shadow-lg flex items-center gap-2">
+                        <i data-lucide="send" class="w-4 h-4"></i> SOY TRABAJADOR
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="pt-40 pb-16 px-6 bg-slate-900 text-white text-center">
+        <h1 class="text-4xl md:text-6xl font-black italic uppercase leading-none mb-4">
+            ENCUENTRA TU <span class="chamba-yellow">CHAMBEADOR</span>
+        </h1>
+        <p class="text-slate-300 font-bold max-w-xl mx-auto">Plomeros, jardineros, cuidadores de mascotas y más — cerca de ti, calificados por la comunidad.</p>
+    </header>
+
+    <!-- Buscador -->
+    <section class="py-16 px-6 bg-slate-50">
+        <div class="max-w-3xl mx-auto bg-white rounded-[2rem] shadow-xl p-8 md:p-12 -mt-24 relative z-10">
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div class="space-y-2">
+                    <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">¿Qué necesitas?</label>
+                    <select id="oficio-select" class="w-full bg-slate-100 border border-slate-200 rounded-xl p-4 font-bold outline-none">
+                        <option value="">Cargando oficios...</option>
+                    </select>
+                </div>
+                <div class="space-y-2">
+                    <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Tu ubicación</label>
+                    <button id="locate-btn" class="w-full bg-slate-900 text-white rounded-xl p-4 font-black uppercase tracking-wide flex items-center justify-center gap-2 hover:bg-amber-500 hover:text-black transition-all">
+                        <i data-lucide="map-pin" class="w-4 h-4"></i> Usar mi ubicación
+                    </button>
+                </div>
+            </div>
+            <p id="status-msg" class="text-center text-sm font-bold text-slate-400"></p>
+        </div>
+    </section>
+
+    <!-- Resultados -->
+    <section class="px-6 pb-24">
+        <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-10">
+            <div id="map" class="w-full border border-slate-100"></div>
+            <div id="results" class="space-y-4"></div>
+        </div>
+    </section>
+
+    <!-- Modal de calificación -->
+    <div id="rating-modal" class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-6">
+        <div class="bg-white rounded-3xl p-8 max-w-sm w-full">
+            <h3 class="font-black uppercase text-xl mb-4" id="rating-worker-name">Calificar</h3>
+            <div class="flex gap-2 mb-4 text-3xl" id="star-picker">
+                <button class="star-btn" data-star="1">★</button>
+                <button class="star-btn" data-star="2">★</button>
+                <button class="star-btn" data-star="3">★</button>
+                <button class="star-btn" data-star="4">★</button>
+                <button class="star-btn" data-star="5">★</button>
+            </div>
+            <textarea id="rating-comment" rows="3" placeholder="Comentario (opcional)" class="w-full bg-slate-100 border border-slate-200 rounded-xl p-3 mb-4 outline-none"></textarea>
+            <div class="flex gap-3">
+                <button id="rating-cancel" class="flex-1 py-3 rounded-xl font-bold uppercase text-slate-500 bg-slate-100">Cancelar</button>
+                <button id="rating-submit" class="flex-1 py-3 rounded-xl font-black uppercase bg-amber-500 hover:bg-black hover:text-white transition-all">Enviar</button>
+            </div>
+        </div>
+    </div>
+
+<script>
+(function () {
+  const API_URL = "https://api.chambamax.com";
+  const oficioSelect = document.getElementById("oficio-select");
+  const locateBtn = document.getElementById("locate-btn");
+  const statusMsg = document.getElementById("status-msg");
+  const resultsEl = document.getElementById("results");
+  const ratingModal = document.getElementById("rating-modal");
+  const ratingWorkerName = document.getElementById("rating-worker-name");
+  const ratingComment = document.getElementById("rating-comment");
+  const starPicker = document.getElementById("star-picker");
+
+  let map, markersLayer;
+  let userLat = null, userLon = null;
+  let selectedStars = 0;
+  let ratingWorkerId = null;
+
+  function initMap() {
+    map = L.map("map").setView([19.4326, -99.1332], 11); // CDMX por defecto
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: "&copy; OpenStreetMap contributors",
+    }).addTo(map);
+    markersLayer = L.layerGroup().addTo(map);
+  }
+
+  async function loadOficios() {
+    try {
+      const res = await fetch(`${API_URL}/api/oficios`);
+      const oficios = await res.json();
+      oficioSelect.innerHTML = '<option value="">Elige un oficio</option>' +
+        oficios.map((o) => `<option value="${o.slug}">${o.emoji || ""} ${o.name}</option>`).join("");
+    } catch (err) {
+      oficioSelect.innerHTML = '<option value="">No se pudo cargar</option>';
+    }
+  }
+
+  function starHtml(avg, count) {
+    if (!count) return '<span class="text-slate-400 text-xs font-bold">Sin reseñas todavía</span>';
+    return `<span class="text-amber-500 font-black">★ ${avg}</span> <span class="text-slate-400 text-xs font-bold">(${count})</span>`;
+  }
+
+  function renderResults(workers) {
+    markersLayer.clearLayers();
+    if (workers.length === 0) {
+      resultsEl.innerHTML = '<p class="text-center text-slate-400 font-bold py-10">Todavía no hay nadie registrado para ese oficio cerca de ti. 😕</p>';
+      return;
+    }
+
+    const bounds = [];
+    resultsEl.innerHTML = workers.map((w) => {
+      const waText = encodeURIComponent(`Hola ${w.full_name}, te contacto desde ChambaMax por lo de ${w.oficio.name}.`);
+      const distanceText = w.approx ? `~${w.distance_km} km (aprox.)` : `${w.distance_km} km`;
+      return `
+        <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm">
+          <div class="flex justify-between items-start mb-2">
+            <div>
+              <h3 class="font-black text-lg">${w.oficio.emoji || ""} ${escapeHtml(w.full_name)}</h3>
+              <p class="text-xs font-bold uppercase tracking-wide text-slate-400">${escapeHtml(w.oficio.name)} · ${distanceText}</p>
+            </div>
+          </div>
+          <div class="mb-4">${starHtml(w.rating_avg, w.rating_count)}</div>
+          <div class="flex gap-2">
+            <a href="https://wa.me/52${w.phone}?text=${waText}" target="_blank" rel="noopener"
+               class="flex-1 text-center bg-green-500 text-white font-black uppercase text-xs py-3 rounded-xl hover:bg-green-600 transition-all">
+              💬 Contactar
+            </a>
+            <button data-worker-id="${w.id}" data-worker-name="${escapeHtml(w.full_name)}"
+               class="rate-btn flex-1 text-center bg-slate-100 font-black uppercase text-xs py-3 rounded-xl hover:bg-amber-500 transition-all">
+              ★ Calificar
+            </button>
+          </div>
+        </div>`;
+    }).join("");
+
+    workers.forEach((w) => {
+      if (w.lat && w.lon) {
+        const marker = L.marker([w.lat, w.lon]).bindPopup(`<b>${escapeHtml(w.full_name)}</b><br>${escapeHtml(w.oficio.name)}`);
+        markersLayer.addLayer(marker);
+        bounds.push([w.lat, w.lon]);
+      }
+    });
+    if (userLat && userLon) bounds.push([userLat, userLon]);
+    if (bounds.length) map.fitBounds(bounds, { padding: [30, 30] });
+
+    document.querySelectorAll(".rate-btn").forEach((btn) => {
+      btn.addEventListener("click", () => openRatingModal(btn.dataset.workerId, btn.dataset.workerName));
+    });
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement("div");
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  async function search() {
+    const oficio = oficioSelect.value;
+    if (!oficio) {
+      statusMsg.textContent = "Elige un oficio primero.";
+      return;
+    }
+    if (userLat === null) {
+      statusMsg.textContent = "Comparte tu ubicación primero.";
+      return;
+    }
+    statusMsg.textContent = "Buscando...";
+    try {
+      const res = await fetch(`${API_URL}/api/workers/near?lat=${userLat}&lon=${userLon}&oficio=${oficio}&limit=10`);
+      const workers = await res.json();
+      statusMsg.textContent = "";
+      renderResults(workers);
+    } catch (err) {
+      statusMsg.textContent = "No se pudo conectar con el servidor. Intenta de nuevo.";
+    }
+  }
+
+  locateBtn.addEventListener("click", () => {
+    if (!navigator.geolocation) {
+      statusMsg.textContent = "Tu navegador no soporta geolocalización.";
+      return;
+    }
+    statusMsg.textContent = "Obteniendo tu ubicación...";
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        userLat = pos.coords.latitude;
+        userLon = pos.coords.longitude;
+        map.setView([userLat, userLon], 13);
+        L.marker([userLat, userLon], { title: "Tú" }).addTo(map).bindPopup("Estás aquí").openPopup();
+        statusMsg.textContent = "Ubicación lista ✅";
+        search();
+      },
+      () => {
+        statusMsg.textContent = "No pudimos obtener tu ubicación. Revisa los permisos del navegador.";
+      },
+    );
+  });
+
+  oficioSelect.addEventListener("change", () => {
+    if (userLat !== null) search();
+  });
+
+  function openRatingModal(workerId, workerName) {
+    ratingWorkerId = workerId;
+    ratingWorkerName.textContent = `Calificar a ${workerName}`;
+    ratingComment.value = "";
+    selectedStars = 0;
+    updateStarPicker();
+    ratingModal.classList.remove("hidden");
+  }
+
+  function updateStarPicker() {
+    starPicker.querySelectorAll(".star-btn").forEach((btn) => {
+      btn.classList.toggle("active", Number(btn.dataset.star) <= selectedStars);
+    });
+  }
+
+  starPicker.querySelectorAll(".star-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      selectedStars = Number(btn.dataset.star);
+      updateStarPicker();
+    });
+  });
+
+  document.getElementById("rating-cancel").addEventListener("click", () => {
+    ratingModal.classList.add("hidden");
+  });
+
+  document.getElementById("rating-submit").addEventListener("click", async () => {
+    if (!selectedStars) {
+      alert("Elige de 1 a 5 estrellas.");
+      return;
+    }
+    try {
+      await fetch(`${API_URL}/api/ratings`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ worker_id: Number(ratingWorkerId), stars: selectedStars, comment: ratingComment.value }),
+      });
+      ratingModal.classList.add("hidden");
+      search();
+    } catch (err) {
+      alert("No se pudo enviar tu calificación. Intenta de nuevo.");
+    }
+  });
+
+  initMap();
+  loadOficios();
+  if (window.lucide) lucide.createIcons();
+})();
+</script>
+<script>window.CHATBOT_API_URL="https://64-177-86-97.sslip.io/api/chat";</script><script src="https://64-177-86-97.sslip.io/widget.js"></script>
+</body>
+</html>
