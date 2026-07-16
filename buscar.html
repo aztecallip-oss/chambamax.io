@@ -136,6 +136,10 @@
       const oficios = await res.json();
       oficioSelect.innerHTML = '<option value="">Elige un oficio</option>' +
         oficios.map((o) => `<option value="${o.slug}">${o.emoji || ""} ${o.name}</option>`).join("");
+      const preselect = new URLSearchParams(window.location.search).get("oficio");
+      if (preselect && oficios.some((o) => o.slug === preselect)) {
+        oficioSelect.value = preselect;
+      }
     } catch (err) {
       oficioSelect.innerHTML = '<option value="">No se pudo cargar</option>';
     }

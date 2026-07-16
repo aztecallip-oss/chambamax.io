@@ -106,6 +106,23 @@
         </div>
     </header>
 
+    <!-- Marquesina de registros recientes -->
+    <section id="recent-ticker" class="hidden bg-slate-900 py-4 overflow-hidden border-b border-slate-800" aria-label="Registros recientes">
+        <div id="recent-ticker-track" class="flex items-center gap-4 whitespace-nowrap"></div>
+    </section>
+    <style>
+        @keyframes chambamax-ticker-scroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+        #recent-ticker-track {
+            animation: chambamax-ticker-scroll 30s linear infinite;
+        }
+        #recent-ticker-track:hover {
+            animation-play-state: paused;
+        }
+    </style>
+
     <!-- Misión / Propuesta de Valor -->
     <section id="mision" class="py-24 bg-slate-50">
         <div class="max-w-7xl mx-auto px-6">
@@ -349,6 +366,42 @@
                 }
             });
         });
+    </script>
+
+    <script>
+    (function () {
+        function escapeHtml(str) {
+            const div = document.createElement('div');
+            div.textContent = str == null ? '' : String(str);
+            return div.innerHTML;
+        }
+
+        fetch('https://api.chambamax.com/api/workers/recent')
+            .then(function (res) { return res.json(); })
+            .then(function (items) {
+                if (!Array.isArray(items) || items.length === 0) return;
+
+                const track = document.getElementById('recent-ticker-track');
+                const section = document.getElementById('recent-ticker');
+                if (!track || !section) return;
+
+                const pills = items.map(function (item) {
+                    const oficioName = escapeHtml(item.oficio.name);
+                    const place = item.city ? ' en ' + escapeHtml(item.city) : '';
+                    const href = 'buscar.html?oficio=' + encodeURIComponent(item.oficio.slug);
+                    return (
+                        '<a href="' + href + '" class="inline-flex items-center gap-2 bg-slate-800 text-white px-5 py-2 rounded-full text-sm font-bold hover:bg-amber-500 hover:text-black transition-colors">' +
+                        '<span>' + escapeHtml(item.oficio.emoji || '') + '</span>' +
+                        '<span>Nuevo ' + oficioName + place + ' — ¡Contrátalo!</span>' +
+                        '</a>'
+                    );
+                }).join('');
+
+                track.innerHTML = pills + pills;
+                section.classList.remove('hidden');
+            })
+            .catch(function () {});
+    })();
     </script>
 
     <script>
