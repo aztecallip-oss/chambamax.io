@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transportadores ChambaMax® | Sin comisiones, no como Uber o DiDi</title>
+    <meta name="description" content="Regístrate como transportador en ChambaMax y ofrece viajes de pasajeros o paquetería sin que te quiten comisión. Gratis por ahora.">
+
+    <link rel="icon" href="https://lonso.net/chambamax/img/favicon.ico" type="image/x-icon">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Leaflet (mapa, sin API key / sin costo) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Outfit', sans-serif; }
+        .chamba-yellow { color: #FBBF24; }
+        .bg-chamba-yellow { background-color: #FBBF24; }
+        #map { height: 320px; border-radius: 1.5rem; }
+        .star-btn.active { color: #FBBF24; }
+        input:focus, textarea:focus, select:focus { border-color: #FBBF24 !important; box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.2); }
+        .service-check:checked + span { background-color: #FBBF24; color: #000; border-color: #FBBF24; }
+    </style>
+</head>
+<body class="bg-white text-slate-900">
+
+    <!-- Navegación -->
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <a href="/" class="flex items-center gap-2">
+                    <img src="https://lonso.net/chambamax/img/logo_chambamax.png" alt="ChambaMax Logo" class="h-10 w-auto">
+                </a>
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="/#inicio" class="text-sm font-bold uppercase tracking-wider hover:text-amber-500 transition-colors">Inicio</a>
+                    <a href="/buscar.html" class="text-sm font-bold uppercase tracking-wider hover:text-amber-500 transition-colors">Buscar Trabajador</a>
+                    <a href="#buscar" class="text-sm font-bold uppercase tracking-wider hover:text-amber-500 transition-colors">Buscar Transportador</a>
+                    <a href="#registro" class="bg-amber-500 text-black px-6 py-2 rounded-full text-sm font-black hover:bg-black hover:text-white transition-all shadow-lg flex items-center gap-2">
+                        <i data-lucide="car" class="w-4 h-4"></i> SOY TRANSPORTADOR
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="pt-40 pb-20 px-6 bg-slate-900 text-white text-center relative overflow-hidden">
+        <div class="max-w-3xl mx-auto relative z-10">
+            <p class="text-amber-500 font-black uppercase tracking-widest text-sm mb-4">🚗 Nuevo en ChambaMax</p>
+            <h1 class="text-4xl md:text-6xl font-black italic uppercase leading-none mb-6">
+                SÉ <span class="chamba-yellow">TRANSPORTADOR</span><br>NO EMPLEADO DE UBER
+            </h1>
+            <p class="text-slate-300 font-bold max-w-xl mx-auto mb-8">
+                Lleva pasajeros o paquetería con tu propio vehículo. Trato directo con quien te contrata —
+                sin que nadie se quede con un porcentaje de lo que ganas.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#registro" class="bg-amber-500 text-black px-10 py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-white transition-all transform hover:scale-105 shadow-2xl">
+                    Regístrate Gratis
+                </a>
+                <a href="#buscar" class="bg-white/10 backdrop-blur-md border border-white/20 text-white px-10 py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-white/20 transition-all">
+                    Buscar un Transportador
+                </a>
+            </div>
+            <p class="text-slate-400 text-xs font-bold mt-6 uppercase tracking-wide">
+                🎁 Gratis por tiempo limitado — a futuro, perfiles verificados desde $100/mes. Sin comisión por viaje, nunca.
+            </p>
+        </div>
+    </header>
+
+    <!-- Registro -->
+    <section id="registro" class="py-24 px-6 bg-white">
+        <div class="max-w-4xl mx-auto bg-slate-900 text-white rounded-[3rem] p-8 md:p-16 shadow-2xl relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl -mr-32 -mt-32"></div>
+
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-6xl font-black italic uppercase leading-none mb-4">SÚBETE A LA<br>ONDA</h2>
+                <p class="text-amber-500 font-bold uppercase tracking-widest text-sm">Regístrate en 2 minutos, sin costo</p>
+            </div>
+
+            <form id="transportForm" class="space-y-8 relative z-10">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Nombre completo</label>
+                        <input data-field="full_name" type="text" required placeholder="Tu nombre completo" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 focus:ring-2 ring-amber-500 outline-none font-bold transition-all">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Email</label>
+                        <input data-field="email" type="email" required placeholder="correo@ejemplo.com" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 focus:ring-2 ring-amber-500 outline-none font-bold transition-all">
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">WhatsApp</label>
+                        <input data-field="phone" type="tel" required placeholder="Ej: 5511264765" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 focus:ring-2 ring-amber-500 outline-none font-bold transition-all">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Zona donde trabajas</label>
+                        <input data-field="city" type="text" placeholder="Ej. Texcoco, Edo. Méx..." class="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 focus:ring-2 ring-amber-500 outline-none font-bold transition-all">
+                        <p class="text-[10px] text-slate-500 font-bold ml-2">Te vamos a pedir tu ubicación al enviar para que te encuentren cerca; esto es un respaldo si no la compartes.</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Tipo de vehículo</label>
+                        <select data-field="vehicle_type" required class="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 focus:ring-2 ring-amber-500 outline-none font-bold transition-all appearance-none cursor-pointer">
+                            <option value="" disabled selected>Elige tu vehículo...</option>
+                            <option value="sedan">🚗 Sedán</option>
+                            <option value="suv">🚙 SUV</option>
+                            <option value="pickup">🛻 Pickup</option>
+                            <option value="van">🚐 Van / Camioneta</option>
+                            <option value="motocicleta">🏍️ Motocicleta</option>
+                        </select>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">¿Qué puedes transportar?</label>
+                        <div class="flex gap-3">
+                            <label class="flex-1 cursor-pointer">
+                                <input type="checkbox" data-service="pasajeros" class="service-check hidden">
+                                <span class="block text-center border border-slate-700 rounded-xl p-4 font-bold transition-all">🧍 Pasajeros</span>
+                            </label>
+                            <label class="flex-1 cursor-pointer">
+                                <input type="checkbox" data-service="paqueteria" class="service-check hidden">
+                                <span class="block text-center border border-slate-700 rounded-xl p-4 font-bold transition-all">📦 Paquetería</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Notas (opcional)</label>
+                    <textarea data-field="bio" rows="3" placeholder="Horarios, zonas que cubres, capacidad de carga..." class="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 focus:ring-2 ring-amber-500 outline-none font-bold transition-all"></textarea>
+                </div>
+
+                <p id="formStatus" class="hidden text-center font-bold rounded-xl p-4"></p>
+
+                <button id="formSubmitBtn" type="submit" class="w-full bg-amber-500 text-black py-6 rounded-2xl font-black uppercase tracking-[0.3em] hover:bg-white transition-all shadow-xl shadow-amber-500/20 text-lg disabled:opacity-50">
+                    REGISTRARME COMO TRANSPORTADOR
+                </button>
+
+                <p class="text-center text-[10px] text-slate-500 font-bold uppercase tracking-widest">
+                    <i data-lucide="shield" class="inline w-3 h-3 mb-1 mr-1"></i> Tus datos están protegidos. Consulta nuestro
+                    <a href="https://chambamax.com/anuncio-privacidad.html" class="text-amber-500 underline hover:text-white transition-colors">Aviso de Privacidad</a>.
+                </p>
+            </form>
+        </div>
+    </section>
+
+    <!-- Buscador -->
+    <section id="buscar" class="py-16 px-6 bg-slate-50 scroll-mt-20">
+        <div class="max-w-3xl mx-auto text-center mb-10">
+            <h2 class="text-3xl md:text-5xl font-black italic uppercase leading-none mb-4">ENCUENTRA TU <span class="chamba-yellow">TRANSPORTE</span></h2>
+            <p class="text-slate-500 font-bold">Contacto directo por WhatsApp, sin intermediarios.</p>
+        </div>
+        <div class="max-w-3xl mx-auto bg-white rounded-[2rem] shadow-xl p-8 md:p-12 relative z-10">
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div class="space-y-2">
+                    <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">¿Qué necesitas?</label>
+                    <select id="service-select" class="w-full bg-slate-100 border border-slate-200 rounded-xl p-4 font-bold outline-none">
+                        <option value="">Cualquiera</option>
+                        <option value="pasajeros">🧍 Pasajeros</option>
+                        <option value="paqueteria">📦 Paquetería</option>
+                    </select>
+                </div>
+                <div class="space-y-2">
+                    <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Tu ubicación</label>
+                    <button id="locate-btn" class="w-full bg-slate-900 text-white rounded-xl p-4 font-black uppercase tracking-wide flex items-center justify-center gap-2 hover:bg-amber-500 hover:text-black transition-all">
+                        <i data-lucide="map-pin" class="w-4 h-4"></i> Usar mi ubicación
+                    </button>
+                </div>
+            </div>
+            <p id="status-msg" class="text-center text-sm font-bold text-slate-400"></p>
+        </div>
+    </section>
+
+    <!-- Resultados -->
+    <section class="px-6 pb-24 bg-slate-50">
+        <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-10">
+            <div id="map" class="w-full border border-slate-100"></div>
+            <div id="results" class="space-y-4"></div>
+        </div>
+    </section>
+
+    <!-- Modal de calificación -->
+    <div id="rating-modal" class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-6">
+        <div class="bg-white rounded-3xl p-8 max-w-sm w-full">
+            <h3 class="font-black uppercase text-xl mb-4" id="rating-worker-name">Calificar</h3>
+            <div class="flex gap-2 mb-4 text-3xl" id="star-picker">
+                <button class="star-btn" data-star="1">★</button>
+                <button class="star-btn" data-star="2">★</button>
+                <button class="star-btn" data-star="3">★</button>
+                <button class="star-btn" data-star="4">★</button>
+                <button class="star-btn" data-star="5">★</button>
+            </div>
+            <textarea id="rating-comment" rows="3" placeholder="Comentario (opcional)" class="w-full bg-slate-100 border border-slate-200 rounded-xl p-3 mb-4 outline-none"></textarea>
+            <div class="flex gap-3">
+                <button id="rating-cancel" class="flex-1 py-3 rounded-xl font-bold uppercase text-slate-500 bg-slate-100">Cancelar</button>
+                <button id="rating-submit" class="flex-1 py-3 rounded-xl font-black uppercase bg-amber-500 hover:bg-black hover:text-white transition-all">Enviar</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="py-10 px-6 bg-slate-900 text-center">
+        <img src="https://lonso.net/chambamax/img/logo_chambamax.png" alt="ChambaMax" class="h-8 mx-auto mb-4 opacity-80">
+        <p class="text-slate-500 text-xs font-bold uppercase tracking-widest">© 2026 ChambaMax® — Portal para conseguir Chamba</p>
+    </footer>
+
+<script>
+(function () {
+    const VEHICLE_LABELS = {
+        sedan: "🚗 Sedán",
+        suv: "🚙 SUV",
+        pickup: "🛻 Pickup",
+        van: "🚐 Van / Camioneta",
+        motocicleta: "🏍️ Motocicleta",
+    };
+    const SERVICE_LABELS = { pasajeros: "🧍 Pasajeros", paqueteria: "📦 Paquetería" };
+
+    function escapeHtml(str) {
+        const div = document.createElement("div");
+        div.textContent = str == null ? "" : String(str);
+        return div.innerHTML;
+    }
+
+    // ---- Registro ----
+    const form = document.getElementById("transportForm");
+    const statusEl = document.getElementById("formStatus");
+    const submitBtn = document.getElementById("formSubmitBtn");
+
+    document.querySelectorAll(".service-check").forEach((cb) => {
+        cb.addEventListener("change", () => {
+            cb.nextElementSibling.classList.toggle("bg-amber-500", cb.checked);
+            cb.nextElementSibling.classList.toggle("text-black", cb.checked);
+        });
+    });
+
+    function getLocation(timeoutMs) {
+        return new Promise((resolve) => {
+            if (!navigator.geolocation) return resolve(null);
+            const timer = setTimeout(() => resolve(null), timeoutMs);
+            navigator.geolocation.getCurrentPosition(
+                (pos) => { clearTimeout(timer); resolve({ lat: pos.coords.latitude, lon: pos.coords.longitude }); },
+                () => { clearTimeout(timer); resolve(null); },
+                { enableHighAccuracy: true, timeout: timeoutMs, maximumAge: 300000 }
+            );
+        });
+    }
+
+    function showStatus(message, ok) {
+        statusEl.textContent = message;
+        statusEl.classList.remove("hidden", "bg-green-500/20", "text-green-400", "bg-red-500/20", "text-red-400");
+        statusEl.classList.add(ok ? "bg-green-500/20" : "bg-red-500/20", ok ? "text-green-400" : "text-red-400");
+    }
+
+    form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const services = Array.from(document.querySelectorAll(".service-check:checked")).map((cb) => cb.dataset.service);
+        if (services.length === 0) {
+            showStatus("⚠️ Elige al menos un tipo de transporte (pasajeros o paquetería).", false);
+            return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = "ENVIANDO...";
+
+        function get(field) {
+            const el = form.querySelector('[data-field="' + field + '"]');
+            return el ? el.value : "";
+        }
+
+        const payload = {
+            full_name: get("full_name"),
+            email: get("email"),
+            phone: get("phone"),
+            city: get("city"),
+            oficio: "transportador",
+            vehicle_type: get("vehicle_type"),
+            transport_services: services,
+            bio: get("bio"),
+        };
+
+        const loc = await getLocation(8000);
+        if (loc) {
+            payload.lat = loc.lat;
+            payload.lon = loc.lon;
+        }
+
+        const formspreeData = new FormData();
+        formspreeData.append("Nombre del Chambeador", payload.full_name);
+        formspreeData.append("Email", payload.email);
+        formspreeData.append("WhatsApp", payload.phone);
+        formspreeData.append("Zona de Chamba", payload.city);
+        formspreeData.append("Cual es tu Oficio", "Transportador");
+        formspreeData.append("Tipo de vehiculo", VEHICLE_LABELS[payload.vehicle_type] || payload.vehicle_type);
+        formspreeData.append("Tipo de servicio", services.map((s) => SERVICE_LABELS[s] || s).join(", "));
+        formspreeData.append("En que puedes Chambear", payload.bio);
+
+        const results = await Promise.allSettled([
+            fetch("https://api.chambamax.com/api/workers", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload),
+            }),
+            fetch("https://formspree.io/f/mlgwgywa", {
+                method: "POST",
+                headers: { Accept: "application/json" },
+                body: formspreeData,
+            }),
+        ]);
+        const dbResult = results[0];
+
+        submitBtn.disabled = false;
+        submitBtn.textContent = "REGISTRARME COMO TRANSPORTADOR";
+
+        const dbOk = dbResult.status === "fulfilled" && dbResult.value.ok;
+
+        if (dbOk) {
+            showStatus("✅ ¡Listo! Ya quedas registrado como transportador y te van a poder encontrar cerca de ti.", true);
+            form.reset();
+            document.querySelectorAll(".service-check").forEach((cb) => {
+                cb.checked = false;
+                cb.nextElementSibling.classList.remove("bg-amber-500", "text-black");
+            });
+        } else {
+            let errMsg = "No pudimos guardar tu registro, intenta de nuevo o escríbenos por WhatsApp.";
+            if (dbResult.status === "fulfilled") {
+                try {
+                    const body = await dbResult.value.json();
+                    if (body && body.error) errMsg = body.error;
+                } catch (_) {}
+            }
+            showStatus("⚠️ " + errMsg, false);
+        }
+    });
+
+    // ---- Búsqueda ----
+    const API_URL = "https://api.chambamax.com";
+    const serviceSelect = document.getElementById("service-select");
+    const locateBtn = document.getElementById("locate-btn");
+    const statusMsg = document.getElementById("status-msg");
+    const resultsEl = document.getElementById("results");
+    const ratingModal = document.getElementById("rating-modal");
+    const ratingWorkerName = document.getElementById("rating-worker-name");
+    const ratingComment = document.getElementById("rating-comment");
+    const starPicker = document.getElementById("star-picker");
+
+    let map, markersLayer;
+    let userLat = null, userLon = null;
+    let selectedStars = 0;
+    let ratingWorkerId = null;
+    let lastResults = [];
+
+    function initMap() {
+        map = L.map("map").setView([19.4326, -99.1332], 11);
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            attribution: "&copy; OpenStreetMap contributors",
+        }).addTo(map);
+        markersLayer = L.layerGroup().addTo(map);
+    }
+
+    function starHtml(avg, count) {
+        if (!count) return '<span class="text-slate-400 text-xs font-bold">Sin reseñas todavía</span>';
+        return `<span class="text-amber-500 font-black">★ ${avg}</span> <span class="text-slate-400 text-xs font-bold">(${count})</span>`;
+    }
+
+    function renderResults(workers) {
+        markersLayer.clearLayers();
+        if (workers.length === 0) {
+            resultsEl.innerHTML = '<p class="text-center text-slate-400 font-bold py-10">Todavía no hay transportadores registrados cerca de ti. 😕</p>';
+            return;
+        }
+
+        const bounds = [];
+        resultsEl.innerHTML = workers.map((w) => {
+            const waText = encodeURIComponent(`Hola ${w.full_name}, te contacto desde ChambaMax por un viaje/transporte.`);
+            const distanceText = w.approx ? `~${w.distance_km} km (aprox.)` : `${w.distance_km} km`;
+            const vehicleLabel = VEHICLE_LABELS[w.vehicle_type] || "🚗 Vehículo";
+            const serviceBadges = (w.transport_services || []).map((s) => SERVICE_LABELS[s] || s).join(" · ");
+            return `
+                <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm">
+                    <div class="flex justify-between items-start mb-2">
+                        <div>
+                            <h3 class="font-black text-lg">${escapeHtml(w.full_name)}</h3>
+                            <p class="text-xs font-bold uppercase tracking-wide text-slate-400">${vehicleLabel} · ${distanceText}</p>
+                            <p class="text-xs font-bold uppercase tracking-wide text-amber-600 mt-1">${serviceBadges}</p>
+                        </div>
+                    </div>
+                    <div class="mb-4">${starHtml(w.rating_avg, w.rating_count)}</div>
+                    <div class="flex gap-2">
+                        <a href="https://wa.me/52${w.phone}?text=${waText}" target="_blank" rel="noopener"
+                           class="flex-1 text-center bg-green-500 text-white font-black uppercase text-xs py-3 rounded-xl hover:bg-green-600 transition-all">
+                            💬 Contactar
+                        </a>
+                        <button data-worker-id="${w.id}" data-worker-name="${escapeHtml(w.full_name)}"
+                           class="rate-btn flex-1 text-center bg-slate-100 font-black uppercase text-xs py-3 rounded-xl hover:bg-amber-500 transition-all">
+                            ★ Calificar
+                        </button>
+                    </div>
+                </div>`;
+        }).join("");
+
+        workers.forEach((w) => {
+            if (w.lat && w.lon) {
+                const marker = L.marker([w.lat, w.lon]).bindPopup(`<b>${escapeHtml(w.full_name)}</b><br>${VEHICLE_LABELS[w.vehicle_type] || ""}`);
+                markersLayer.addLayer(marker);
+                bounds.push([w.lat, w.lon]);
+            }
+        });
+        if (userLat && userLon) bounds.push([userLat, userLon]);
+        if (bounds.length) map.fitBounds(bounds, { padding: [30, 30] });
+
+        document.querySelectorAll(".rate-btn").forEach((btn) => {
+            btn.addEventListener("click", () => openRatingModal(btn.dataset.workerId, btn.dataset.workerName));
+        });
+    }
+
+    function applyServiceFilter() {
+        const wanted = serviceSelect.value;
+        if (!wanted) return renderResults(lastResults);
+        renderResults(lastResults.filter((w) => (w.transport_services || []).includes(wanted)));
+    }
+
+    async function search() {
+        if (userLat === null) {
+            statusMsg.textContent = "Comparte tu ubicación primero.";
+            return;
+        }
+        statusMsg.textContent = "Buscando...";
+        try {
+            const res = await fetch(`${API_URL}/api/workers/near?lat=${userLat}&lon=${userLon}&oficio=transportador&limit=15`);
+            lastResults = await res.json();
+            statusMsg.textContent = "";
+            applyServiceFilter();
+        } catch (err) {
+            statusMsg.textContent = "No se pudo conectar con el servidor. Intenta de nuevo.";
+        }
+    }
+
+    locateBtn.addEventListener("click", () => {
+        if (!navigator.geolocation) {
+            statusMsg.textContent = "Tu navegador no soporta geolocalización.";
+            return;
+        }
+        statusMsg.textContent = "Obteniendo tu ubicación...";
+        navigator.geolocation.getCurrentPosition(
+            (pos) => {
+                userLat = pos.coords.latitude;
+                userLon = pos.coords.longitude;
+                map.setView([userLat, userLon], 13);
+                L.marker([userLat, userLon], { title: "Tú" }).addTo(map).bindPopup("Estás aquí").openPopup();
+                statusMsg.textContent = "Ubicación lista ✅";
+                search();
+            },
+            () => {
+                statusMsg.textContent = "No pudimos obtener tu ubicación. Revisa los permisos del navegador.";
+            },
+        );
+    });
+
+    serviceSelect.addEventListener("change", () => {
+        if (userLat !== null) applyServiceFilter();
+    });
+
+    function openRatingModal(workerId, workerName) {
+        ratingWorkerId = workerId;
+        ratingWorkerName.textContent = `Calificar a ${workerName}`;
+        ratingComment.value = "";
+        selectedStars = 0;
+        updateStarPicker();
+        ratingModal.classList.remove("hidden");
+    }
+
+    function updateStarPicker() {
+        starPicker.querySelectorAll(".star-btn").forEach((btn) => {
+            btn.classList.toggle("active", Number(btn.dataset.star) <= selectedStars);
+        });
+    }
+
+    starPicker.querySelectorAll(".star-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+            selectedStars = Number(btn.dataset.star);
+            updateStarPicker();
+        });
+    });
+
+    document.getElementById("rating-cancel").addEventListener("click", () => {
+        ratingModal.classList.add("hidden");
+    });
+
+    document.getElementById("rating-submit").addEventListener("click", async () => {
+        if (!selectedStars) {
+            alert("Elige de 1 a 5 estrellas.");
+            return;
+        }
+        try {
+            await fetch(`${API_URL}/api/ratings`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ worker_id: Number(ratingWorkerId), stars: selectedStars, comment: ratingComment.value }),
+            });
+            ratingModal.classList.add("hidden");
+            search();
+        } catch (err) {
+            alert("No se pudo enviar tu calificación. Intenta de nuevo.");
+        }
+    });
+
+    initMap();
+    if (window.lucide) lucide.createIcons();
+})();
+</script>
+</body>
+</html>

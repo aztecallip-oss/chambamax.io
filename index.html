@@ -65,6 +65,7 @@
                     <a href="#mision" class="text-sm font-bold uppercase tracking-wider hover:text-amber-500 transition-colors">Misión</a>
                     <a href="#formulario" class="text-sm font-bold uppercase tracking-wider hover:text-amber-500 transition-colors">Buscar Chamba</a>
                     <a href="/buscar.html" class="text-sm font-bold uppercase tracking-wider hover:text-amber-500 transition-colors">Buscar Trabajador</a>
+                    <a href="/transportadores.html" class="text-sm font-bold uppercase tracking-wider hover:text-amber-500 transition-colors">🚗 Transportadores</a>
                     <a href="https://wa.me/525511264765" target="_blank" class="bg-amber-500 text-black px-6 py-2 rounded-full text-sm font-black hover:bg-black hover:text-white transition-all shadow-lg flex items-center gap-2">
                         <i data-lucide="phone" class="w-4 h-4"></i> CONTRATAR TALENTO
                     </a>
@@ -81,6 +82,7 @@
             <a href="#mision" class="py-2">Misión</a>
             <a href="#formulario" class="py-2">Registrarme</a>
             <a href="/buscar.html" class="py-2">Buscar Trabajador</a>
+            <a href="/transportadores.html" class="py-2">🚗 Transportadores</a>
             <a href="https://wa.me/525511264765" class="bg-amber-500 text-white p-4 rounded-xl">Contratar</a>
         </div>
     </nav>
@@ -388,7 +390,9 @@
                 const pills = items.map(function (item) {
                     const oficioName = escapeHtml(item.oficio.name);
                     const place = item.city ? ' en ' + escapeHtml(item.city) : '';
-                    const href = 'buscar.html?oficio=' + encodeURIComponent(item.oficio.slug);
+                    const href = item.oficio.slug === 'transportador'
+                        ? 'transportadores.html'
+                        : 'buscar.html?oficio=' + encodeURIComponent(item.oficio.slug);
                     return (
                         '<a href="' + href + '" class="inline-flex items-center gap-2 bg-slate-800 text-white px-5 py-2 rounded-full text-sm font-bold hover:bg-amber-500 hover:text-black transition-colors">' +
                         '<span>' + escapeHtml(item.oficio.emoji || '') + '</span>' +

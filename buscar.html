@@ -41,6 +41,7 @@
                 <div class="hidden md:flex items-center gap-8">
                     <a href="/#inicio" class="text-sm font-bold uppercase tracking-wider hover:text-amber-500 transition-colors">Inicio</a>
                     <a href="/#formulario" class="text-sm font-bold uppercase tracking-wider hover:text-amber-500 transition-colors">Registrarme</a>
+                    <a href="/transportadores.html" class="text-sm font-bold uppercase tracking-wider hover:text-amber-500 transition-colors">🚗 Transportadores</a>
                     <a href="https://t.me/chambamax_bot" target="_blank" class="bg-amber-500 text-black px-6 py-2 rounded-full text-sm font-black hover:bg-black hover:text-white transition-all shadow-lg flex items-center gap-2">
                         <i data-lucide="send" class="w-4 h-4"></i> SOY TRABAJADOR
                     </a>
@@ -133,7 +134,7 @@
   async function loadOficios() {
     try {
       const res = await fetch(`${API_URL}/api/oficios`);
-      const oficios = await res.json();
+      const oficios = (await res.json()).filter((o) => o.slug !== "transportador");
       oficioSelect.innerHTML = '<option value="">Elige un oficio</option>' +
         oficios.map((o) => `<option value="${o.slug}">${o.emoji || ""} ${o.name}</option>`).join("");
       const preselect = new URLSearchParams(window.location.search).get("oficio");
