@@ -173,22 +173,22 @@
                 <p class="text-amber-500 font-bold uppercase tracking-widest text-sm">Tu registro es el primer paso</p>
             </div>
 
-            <form action="https://formspree.io/f/mlgwgywa" method="POST" class="space-y-8 relative z-10">
+            <form id="chambaForm" action="https://formspree.io/f/mlgwgywa" method="POST" class="space-y-8 relative z-10">
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Nombre del Chambeador</label>
-                        <input name="Nombre del Chambeador" type="text" required placeholder="Tu nombre completo" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 focus:ring-2 ring-amber-500 outline-none font-bold transition-all">
+                        <input name="Nombre del Chambeador" data-field="full_name" type="text" required placeholder="Tu nombre completo" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 focus:ring-2 ring-amber-500 outline-none font-bold transition-all">
                     </div>
                     <div class="space-y-2">
                         <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Email</label>
-                        <input name="Email" type="email" required placeholder="correo@ejemplo.com" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 focus:ring-2 ring-amber-500 outline-none font-bold transition-all">
+                        <input name="Email" data-field="email" type="email" required placeholder="correo@ejemplo.com" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 focus:ring-2 ring-amber-500 outline-none font-bold transition-all">
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">WhatsApp</label>
-                        <input name="WhatsApp" type="tel" required placeholder="Ej: +52 55..." class="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 focus:ring-2 ring-amber-500 outline-none font-bold transition-all">
+                        <input name="WhatsApp" data-field="phone" type="tel" required placeholder="Ej: 5511264765" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 focus:ring-2 ring-amber-500 outline-none font-bold transition-all">
                     </div>
                     <div class="space-y-2">
                         <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Perfil de Facebook</label>
@@ -199,17 +199,32 @@
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Zona de Chamba</label>
-                        <input name="Zona de Chamba" type="text" placeholder="Ej. Tapachula, CDMX..." class="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 focus:ring-2 ring-amber-500 outline-none font-bold transition-all">
+                        <input name="Zona de Chamba" data-field="city" type="text" placeholder="Ej. Tapachula, CDMX..." class="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 focus:ring-2 ring-amber-500 outline-none font-bold transition-all">
+                        <p class="text-[10px] text-slate-500 font-bold ml-2">Te vamos a pedir tu ubicación al enviar para que te encuentren cerca; esto es un respaldo si no la compartes.</p>
                     </div>
                     <div class="space-y-2">
                         <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">¿Cuál es tu Oficio?</label>
-                        <input name="Cual es tu Oficio" type="text" placeholder="Ej. Albañil, Repartidor, etc." class="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 focus:ring-2 ring-amber-500 outline-none font-bold transition-all">
+                        <select name="Cual es tu Oficio" data-field="oficio" required class="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 focus:ring-2 ring-amber-500 outline-none font-bold transition-all appearance-none cursor-pointer">
+                            <option value="" disabled selected>Elige tu oficio...</option>
+                            <option value="plomero">🔧 Plomero</option>
+                            <option value="electricista">💡 Electricista</option>
+                            <option value="jardinero">🌳 Jardinero</option>
+                            <option value="cuidador_mascotas">🐕 Cuidador de mascotas</option>
+                            <option value="pintor">🎨 Pintor</option>
+                            <option value="albanil">🧱 Albañil</option>
+                            <option value="ninera">🧸 Niñera / Cuidado de niños</option>
+                            <option value="limpieza">🧹 Limpieza</option>
+                            <option value="cerrajero">🔑 Cerrajero</option>
+                            <option value="mudanzas">📦 Mudanzas</option>
+                            <option value="otro">🛠️ Otro</option>
+                        </select>
+                        <input name="Oficio (otro)" data-field="oficio_other_text" type="text" placeholder="¿Cuál es tu oficio?" class="hidden w-full bg-slate-800 border border-slate-700 rounded-xl p-4 focus:ring-2 ring-amber-500 outline-none font-bold transition-all mt-2">
                     </div>
                 </div>
 
                 <div class="space-y-2">
                     <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">En qué puedes Chambear</label>
-                    <textarea name="En que puedes Chambear" rows="3" placeholder="Describe tus habilidades y experiencia..." class="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 focus:ring-2 ring-amber-500 outline-none font-bold transition-all"></textarea>
+                    <textarea name="En que puedes Chambear" data-field="bio" rows="3" placeholder="Describe tus habilidades y experiencia..." class="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 focus:ring-2 ring-amber-500 outline-none font-bold transition-all"></textarea>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
@@ -226,10 +241,12 @@
                     </div>
                 </div>
 
-                <button type="submit" class="w-full bg-amber-500 text-black py-6 rounded-2xl font-black uppercase tracking-[0.3em] hover:bg-white transition-all shadow-xl shadow-amber-500/20 text-lg">
+                <p id="formStatus" class="hidden text-center font-bold rounded-xl p-4"></p>
+
+                <button id="formSubmitBtn" type="submit" class="w-full bg-amber-500 text-black py-6 rounded-2xl font-black uppercase tracking-[0.3em] hover:bg-white transition-all shadow-xl shadow-amber-500/20 text-lg disabled:opacity-50">
                     ENVIAR MI REGISTRO
                 </button>
-                
+
                 <p class="text-center text-[10px] text-slate-500 font-bold uppercase tracking-widest">
                     <i data-lucide="shield" class="inline w-3 h-3 mb-1 mr-1"></i> Tus datos están protegidos. Consulta nuestro 
                     <a href="https://chambamax.com/anuncio-privacidad.html" class="text-amber-500 underline hover:text-white transition-colors">Aviso de Privacidad</a>.
@@ -332,6 +349,105 @@
                 }
             });
         });
+    </script>
+
+    <script>
+    (function () {
+        const form = document.getElementById('chambaForm');
+        if (!form) return;
+        const statusEl = document.getElementById('formStatus');
+        const submitBtn = document.getElementById('formSubmitBtn');
+        const oficioSelect = form.querySelector('[data-field="oficio"]');
+        const oficioOtherInput = form.querySelector('[data-field="oficio_other_text"]');
+
+        oficioSelect.addEventListener('change', function () {
+            oficioOtherInput.classList.toggle('hidden', oficioSelect.value !== 'otro');
+        });
+
+        function getLocation(timeoutMs) {
+            return new Promise(function (resolve) {
+                if (!navigator.geolocation) return resolve(null);
+                const timer = setTimeout(function () { resolve(null); }, timeoutMs);
+                navigator.geolocation.getCurrentPosition(
+                    function (pos) {
+                        clearTimeout(timer);
+                        resolve({ lat: pos.coords.latitude, lon: pos.coords.longitude });
+                    },
+                    function () { clearTimeout(timer); resolve(null); },
+                    { enableHighAccuracy: true, timeout: timeoutMs, maximumAge: 300000 }
+                );
+            });
+        }
+
+        function showStatus(message, ok) {
+            statusEl.textContent = message;
+            statusEl.classList.remove('hidden', 'bg-green-500/20', 'text-green-400', 'bg-red-500/20', 'text-red-400');
+            statusEl.classList.add(ok ? 'bg-green-500/20' : 'bg-red-500/20', ok ? 'text-green-400' : 'text-red-400');
+        }
+
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'ENVIANDO...';
+
+            function get(field) {
+                const el = form.querySelector('[data-field="' + field + '"]');
+                return el ? el.value : '';
+            }
+
+            const payload = {
+                full_name: get('full_name'),
+                email: get('email'),
+                phone: get('phone'),
+                city: get('city'),
+                oficio: get('oficio'),
+                oficio_other_text: get('oficio_other_text'),
+                bio: get('bio'),
+            };
+
+            const loc = await getLocation(8000);
+            if (loc) {
+                payload.lat = loc.lat;
+                payload.lon = loc.lon;
+            }
+
+            const formspreeData = new FormData(form);
+
+            const results = await Promise.allSettled([
+                fetch('https://api.chambamax.com/api/workers', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload),
+                }),
+                fetch(form.action, {
+                    method: 'POST',
+                    headers: { Accept: 'application/json' },
+                    body: formspreeData,
+                }),
+            ]);
+            const dbResult = results[0];
+
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'ENVIAR MI REGISTRO';
+
+            const dbOk = dbResult.status === 'fulfilled' && dbResult.value.ok;
+
+            if (dbOk) {
+                showStatus('✅ ¡Listo! Ya quedas registrado y te van a poder encontrar cerca de ti.', true);
+                form.reset();
+                oficioOtherInput.classList.add('hidden');
+            } else {
+                let errMsg = 'No pudimos guardar tu registro, intenta de nuevo o escríbenos por WhatsApp.';
+                if (dbResult.status === 'fulfilled') {
+                    try {
+                        const body = await dbResult.value.json();
+                        if (body && body.error) errMsg = body.error;
+                    } catch (_) {}
+                }
+                showStatus('⚠️ ' + errMsg, false);
+            }
+        });
+    })();
     </script>
 <script>window.CHATBOT_API_URL="https://64-177-86-97.sslip.io/api/chat";</script><script src="https://64-177-86-97.sslip.io/widget.js"></script></body>
 </html>
