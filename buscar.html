@@ -134,7 +134,7 @@
   async function loadOficios() {
     try {
       const res = await fetch(`${API_URL}/api/oficios`);
-      const oficios = (await res.json()).filter((o) => o.slug !== "transportador");
+      const oficios = (await res.json()).filter((o) => o.slug !== "transportador" && o.slug !== "instalador");
       oficioSelect.innerHTML = '<option value="">Elige un oficio</option>' +
         oficios.map((o) => `<option value="${o.slug}">${o.emoji || ""} ${o.name}</option>`).join("");
       const preselect = new URLSearchParams(window.location.search).get("oficio");
