@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChambaMax POS® | Punto de Venta en la nube para tu changarro</title>
+    <meta name="description" content="ChambaMax POS es el sistema de punto de venta e inventario en la nube para changarros, abarrotes, ropa, lavanderías y negocios de comida. Planes desde $250/mes.">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="ChambaMax POS® | Punto de Venta para tu changarro">
+    <meta property="og:description" content="Controla ventas, inventario y caja desde tu celular o computadora. Planes desde $250 hasta $750/mes según tu negocio.">
+    <meta property="og:image" content="https://lonso.net/chambamax/img/og-chambamax-nomada-digital.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ChambaMax POS® | Punto de Venta para tu changarro">
+    <meta name="twitter:description" content="Controla ventas, inventario y caja desde tu celular o computadora. Planes desde $250 hasta $750/mes según tu negocio.">
+
+    <link rel="icon" href="https://lonso.net/chambamax/img/favicon.ico" type="image/x-icon">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Outfit', sans-serif; }
+        .chamba-yellow { color: #FBBF24; }
+        .bg-chamba-yellow { background-color: #FBBF24; }
+        input:focus, textarea:focus, select:focus { border-color: #FBBF24 !important; box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.2); }
+        .plan-card { transition: transform .2s ease, box-shadow .2s ease; }
+        .plan-card:hover { transform: translateY(-6px); }
+        .plan-featured { border: 2px solid #FBBF24; }
+    </style>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EKZW6NRNXQ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-EKZW6NRNXQ');
+    </script>
+</head>
+<body class="bg-white text-slate-900">
+
+    <!-- Navegación -->
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <a href="/" class="flex items-center gap-2">
+                    <img src="https://lonso.net/chambamax/img/logo_chambamax.png" alt="ChambaMax Logo" class="h-10 w-auto">
+                </a>
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="/#inicio" class="text-sm font-bold uppercase tracking-wider hover:text-amber-500 transition-colors">Inicio</a>
+                    <a href="/transportadores.html" class="text-sm font-bold uppercase tracking-wider hover:text-amber-500 transition-colors">🚗 Transportadores</a>
+                    <a href="/instaladores.html" class="text-sm font-bold uppercase tracking-wider hover:text-amber-500 transition-colors">🛠️ Instaladores</a>
+                    <a href="#planes" class="text-sm font-bold uppercase tracking-wider hover:text-amber-500 transition-colors">🧾 Planes POS</a>
+                    <a href="https://wa.me/525511264765?text=Hola%2C%20quiero%20info%20de%20ChambaMax%20POS%20para%20mi%20negocio" target="_blank" class="bg-amber-500 text-black px-6 py-2 rounded-full text-sm font-black hover:bg-black hover:text-white transition-all shadow-lg flex items-center gap-2">
+                        <i data-lucide="receipt" class="w-4 h-4"></i> QUIERO UNA DEMO
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="pt-40 pb-20 px-6 bg-slate-900 text-white text-center relative overflow-hidden">
+        <div class="max-w-3xl mx-auto relative z-10">
+            <p class="text-amber-500 font-black uppercase tracking-widest text-sm mb-4">🧾 Nuevo en ChambaMax</p>
+            <h1 class="text-4xl md:text-6xl font-black italic uppercase leading-none mb-6">
+                EL <span class="chamba-yellow">PUNTO DE VENTA</span><br>DE TU CHANGARRO
+            </h1>
+            <p class="text-slate-300 font-bold max-w-xl mx-auto mb-8">
+                Controla ventas, inventario y caja desde tu celular o computadora. Para abarrotes, ropa, lavanderías
+                y negocios de comida — sin instalar nada complicado, con soporte real.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#planes" class="bg-amber-500 text-black px-10 py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-white transition-all transform hover:scale-105 shadow-2xl">
+                    Ver Planes
+                </a>
+                <a href="https://wa.me/525511264765?text=Hola%2C%20quiero%20una%20demo%20de%20ChambaMax%20POS" target="_blank" class="bg-white/10 backdrop-blur-md border border-white/20 text-white px-10 py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-white/20 transition-all">
+                    Solicitar Demo
+                </a>
+            </div>
+            <p class="text-slate-400 text-xs font-bold mt-8 uppercase tracking-wide flex items-center justify-center gap-2">
+                <i data-lucide="cloud" class="w-4 h-4 text-amber-500"></i> 100% SaaS en la nube — solo necesitas internet
+            </p>
+        </div>
+    </header>
+
+    <!-- Ejemplo: tienda de ropa -->
+    <section class="py-20 px-6 bg-white">
+        <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+            <div class="relative order-2 lg:order-1">
+                <img src="tienda-ropa.jpg" alt="Localito de ropa usando ChambaMax POS" class="rounded-[2rem] shadow-2xl w-full h-auto object-cover">
+                <div class="absolute -bottom-6 -right-6 bg-amber-500 text-black p-6 rounded-2xl hidden md:block shadow-xl">
+                    <p class="font-black italic text-xl uppercase tracking-tighter">Tu changarro</p>
+                    <p class="text-[10px] uppercase tracking-widest font-bold">de ropa, en la nube</p>
+                </div>
+            </div>
+            <div class="space-y-6 order-1 lg:order-2">
+                <h2 class="text-3xl md:text-5xl font-black uppercase italic leading-tight">
+                    IDEAL TAMBIÉN <br><span class="text-amber-500">PARA TIENDAS DE ROPA</span>
+                </h2>
+                <p class="text-slate-600 text-lg leading-relaxed">
+                    Maneja tallas, colores y variantes de cada prenda, controla qué modelos se venden más y evita quedarte
+                    sin stock en temporada alta — todo desde la misma pantalla donde cobras.
+                </p>
+                <a href="#planes" class="inline-flex items-center gap-2 bg-slate-900 text-white px-8 py-4 rounded-full text-sm font-black uppercase hover:bg-black transition-all">
+                    <i data-lucide="shirt" class="w-4 h-4"></i> Ver planes para mi tienda
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Qué incluye -->
+    <section class="py-20 px-6 bg-slate-50">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl md:text-5xl font-black uppercase italic text-center mb-16">
+                TODO LO QUE NECESITA <span class="text-amber-500">TU NEGOCIO</span>
+            </h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+                    <i data-lucide="shopping-cart" class="text-amber-500 mb-4 w-8 h-8"></i>
+                    <h4 class="font-black uppercase text-sm mb-2">Venta rápida en mostrador</h4>
+                    <p class="text-sm text-slate-500">Cobra en segundos, con catálogo visual y control de caja (apertura y cierre).</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+                    <i data-lucide="package" class="text-amber-500 mb-4 w-8 h-8"></i>
+                    <h4 class="font-black uppercase text-sm mb-2">Inventario en tiempo real</h4>
+                    <p class="text-sm text-slate-500">Sabes exactamente qué tienes en stock y evitas vender lo que ya no hay.</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+                    <i data-lucide="chef-hat" class="text-amber-500 mb-4 w-8 h-8"></i>
+                    <h4 class="font-black uppercase text-sm mb-2">Comanda de cocina (KOT)</h4>
+                    <p class="text-sm text-slate-500">Para changarros de comida: la orden llega directo a cocina, sin gritos ni papelitos.</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+                    <i data-lucide="bar-chart-3" class="text-amber-500 mb-4 w-8 h-8"></i>
+                    <h4 class="font-black uppercase text-sm mb-2">Reportes de venta</h4>
+                    <p class="text-sm text-slate-500">Ve qué se vende más, a qué hora y cuánto dejó la caja del día.</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+                    <i data-lucide="cloud" class="text-amber-500 mb-4 w-8 h-8"></i>
+                    <h4 class="font-black uppercase text-sm mb-2">100% SaaS en la nube</h4>
+                    <p class="text-sm text-slate-500">No instalas nada en tu compu ni compras servidor: solo necesitas internet. Con <a href="https://ciberall.net" target="_blank" rel="noopener" class="text-amber-600 underline hover:text-amber-500">Internet Satelital Ciberall®</a> tu changarro está en línea aunque no llegue cableado a tu zona.</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-sm border-2 border-dashed border-amber-300 relative">
+                    <span class="absolute -top-3 right-4 bg-amber-500 text-black text-[10px] font-black uppercase px-3 py-1 rounded-full">Próximamente</span>
+                    <i data-lucide="camera" class="text-amber-500 mb-4 w-8 h-8"></i>
+                    <h4 class="font-black uppercase text-sm mb-2">Cámara inteligente + Telegram</h4>
+                    <p class="text-sm text-slate-500">Conteo automático de clientes que entran a tu negocio, con reporte directo a tu Telegram.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Planes -->
+    <section id="planes" class="py-24 px-6 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-black uppercase italic mb-4">PLANES PARA <span class="text-amber-500">CADA NEGOCIO</span></h2>
+                <p class="text-slate-500 font-bold max-w-xl mx-auto">Desde el changarro que apenas empieza hasta el negocio con varias sucursales. Precios en pesos mexicanos, mensuales.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8 items-stretch">
+
+                <!-- Plan Starter -->
+                <div class="plan-card bg-slate-50 rounded-3xl p-8 border border-slate-100 flex flex-col">
+                    <p class="text-xs font-black uppercase tracking-widest text-slate-400 mb-2">Changarro Starter</p>
+                    <p class="text-5xl font-black mb-1">$250<span class="text-base font-bold text-slate-400">/mes</span></p>
+                    <p class="text-sm text-slate-500 font-bold mb-8">Ideal para abarrotes, ropa o negocios de un solo mostrador.</p>
+                    <ul class="space-y-3 text-sm font-bold text-slate-600 mb-10 flex-1">
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-amber-500"></i> 1 punto de venta / 1 caja</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-amber-500"></i> Inventario y catálogo básico</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-amber-500"></i> Reportes de venta diarios</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-amber-500"></i> Soporte por WhatsApp</li>
+                    </ul>
+                    <a href="https://wa.me/525511264765?text=Hola%2C%20me%20interesa%20el%20Plan%20Starter%20de%20ChambaMax%20POS%20(%24250%2Fmes)" target="_blank" class="text-center bg-slate-900 text-white py-4 rounded-xl font-black uppercase text-sm hover:bg-black transition-all">Elegir Starter</a>
+                </div>
+
+                <!-- Plan Pro (destacado) -->
+                <div class="plan-card plan-featured bg-slate-900 text-white rounded-3xl p-8 flex flex-col relative shadow-2xl">
+                    <span class="absolute -top-4 left-1/2 -translate-x-1/2 bg-amber-500 text-black text-[10px] font-black uppercase px-4 py-1.5 rounded-full">Más elegido</span>
+                    <p class="text-xs font-black uppercase tracking-widest text-amber-500 mb-2">Changarro Pro</p>
+                    <p class="text-5xl font-black mb-1">$450<span class="text-base font-bold text-slate-400">/mes</span></p>
+                    <p class="text-sm text-slate-300 font-bold mb-8">Para negocios con más movimiento, incluyendo comida.</p>
+                    <ul class="space-y-3 text-sm font-bold text-slate-200 mb-10 flex-1">
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-amber-500"></i> Todo lo del plan Starter</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-amber-500"></i> Multi-usuario (varios cajeros)</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-amber-500"></i> Comanda de cocina (KOT)</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-amber-500"></i> Reportes avanzados</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-amber-500"></i> Soporte prioritario</li>
+                    </ul>
+                    <a href="https://wa.me/525511264765?text=Hola%2C%20me%20interesa%20el%20Plan%20Pro%20de%20ChambaMax%20POS%20(%24450%2Fmes)" target="_blank" class="text-center bg-amber-500 text-black py-4 rounded-xl font-black uppercase text-sm hover:bg-white transition-all">Elegir Pro</a>
+                </div>
+
+                <!-- Plan Plus -->
+                <div class="plan-card bg-slate-50 rounded-3xl p-8 border border-slate-100 flex flex-col">
+                    <p class="text-xs font-black uppercase tracking-widest text-slate-400 mb-2">Negocio Plus</p>
+                    <p class="text-5xl font-black mb-1">$750<span class="text-base font-bold text-slate-400">/mes</span></p>
+                    <p class="text-sm text-slate-500 font-bold mb-8">Varias sucursales o necesidades a la medida de tu negocio.</p>
+                    <ul class="space-y-3 text-sm font-bold text-slate-600 mb-10 flex-1">
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-amber-500"></i> Todo lo del plan Pro</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-amber-500"></i> Multi-sucursal</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-amber-500"></i> Alertas por WhatsApp / Telegram</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-amber-500"></i> Onboarding y capacitación incluida</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-amber-500"></i> Soporte dedicado</li>
+                    </ul>
+                    <a href="https://wa.me/525511264765?text=Hola%2C%20me%20interesa%20el%20Plan%20Plus%20de%20ChambaMax%20POS%20(%24750%2Fmes)" target="_blank" class="text-center bg-slate-900 text-white py-4 rounded-xl font-black uppercase text-sm hover:bg-black transition-all">Elegir Plus</a>
+                </div>
+
+            </div>
+            <p class="text-center text-xs text-slate-400 font-bold uppercase tracking-widest mt-10">Precios en MXN. El plan exacto depende del giro y tamaño de tu negocio — escríbenos y te asesoramos sin compromiso.</p>
+        </div>
+    </section>
+
+    <!-- Footer con marcas -->
+    <footer class="py-20 px-6 bg-white border-t border-slate-100">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-3 gap-16 items-start mb-16">
+
+                <!-- Sponsor -->
+                <div class="space-y-4">
+                    <p class="text-[10px] font-black uppercase tracking-widest text-slate-400 italic">Potenciado por</p>
+                    <a href="https://ciberall.net" target="_blank" rel="noopener" class="block">
+                        <img src="https://ipviasatelite.com/planes/img/logo%20satelital%20ciberall.png" alt="Ciberall" class="h-12 w-auto grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100">
+                    </a>
+                    <p class="text-[10px] text-slate-400 font-bold uppercase italic">ciberall.net</p>
+                </div>
+
+                <!-- Logo Central -->
+                <div class="text-center">
+                    <img src="https://lonso.net/chambamax/img/logo_chambamax.png" alt="ChambaMax" class="h-16 w-auto mx-auto opacity-40 mb-4">
+                    <p class="text-[10px] font-bold text-slate-300 uppercase tracking-[0.5em]">Punto de Venta ChambaMax</p>
+                </div>
+
+                <!-- Dev -->
+                <div class="md:text-right space-y-4">
+                    <p class="text-[10px] font-black uppercase tracking-widest text-slate-400 italic">Desarrollo y Edición</p>
+                    <a href="http://www.lonso.net" target="_blank" rel="noopener" class="inline-flex items-center gap-3 group">
+                        <span class="font-black text-slate-400 group-hover:text-black transition-colors uppercase italic text-xs">Studio Lonso</span>
+                        <img src="https://lonso.net/imagenes/new/logo-lonso-salamandra.png" alt="Studio Lonso" class="h-10 w-auto grayscale hover:grayscale-0 transition-all group-hover:opacity-100 opacity-60">
+                    </a>
+                    <p class="text-[10px] text-slate-300 font-medium tracking-tight">lonso.net</p>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-slate-100 text-center">
+                <p class="text-[11px] font-bold text-slate-400 uppercase tracking-widest">
+                    © 2026 ChambaMax® POS — Potenciado por Ciberall.net y Lonso.net
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Botón Flotante WhatsApp -->
+    <a href="https://wa.me/525511264765?text=Hola%2C%20quiero%20info%20de%20ChambaMax%20POS" target="_blank" class="fixed bottom-8 right-8 bg-green-500 text-white w-16 h-16 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform z-50">
+        <i data-lucide="message-circle" class="w-8 h-8"></i>
+    </a>
+
+    <script>
+        lucide.createIcons();
+        document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+            anchor.addEventListener('click', function (e) {
+                var targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                var targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    e.preventDefault();
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
