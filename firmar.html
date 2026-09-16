@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firmar Contrato | ChambaMax®</title>
+    <meta name="description" content="Revisa y firma tu contrato de servicio en ChambaMax, con cláusula de confidencialidad incluida.">
+    <meta name="robots" content="noindex">
+
+    <link rel="icon" href="https://lonso.net/chambamax/img/favicon.ico" type="image/x-icon">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Outfit', sans-serif; }
+        .chamba-yellow { color: #FBBF24; }
+        input:focus { border-color: #FBBF24 !important; box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.2); }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-900 min-h-screen">
+
+    <nav class="w-full bg-slate-900">
+        <div class="max-w-3xl mx-auto px-6 h-20 flex items-center">
+            <a href="/" class="flex items-center gap-2">
+                <img src="https://lonso.net/chambamax/img/logo_chambamax.png" alt="ChambaMax Logo" class="h-9 w-auto">
+            </a>
+        </div>
+    </nav>
+
+    <div class="max-w-3xl mx-auto px-6 py-12">
+
+        <div id="loadingBox" class="text-center py-24">
+            <p class="font-black uppercase text-slate-400">Cargando contrato...</p>
+        </div>
+
+        <div id="errorBox" class="hidden bg-red-50 border border-red-200 text-red-700 rounded-2xl p-8 text-center font-bold"></div>
+
+        <div id="contractBox" class="hidden space-y-8">
+            <div class="text-center">
+                <p class="text-amber-500 font-black uppercase tracking-widest text-sm mb-2">📄 Contrato para firmar</p>
+                <h1 class="text-3xl md:text-4xl font-black italic uppercase leading-none">Revisa y firma</h1>
+            </div>
+
+            <div class="bg-white rounded-[2rem] shadow-xl p-8 space-y-6">
+                <div>
+                    <h2 class="font-black uppercase text-sm text-slate-400 mb-2">Partes</h2>
+                    <p class="font-bold" id="partiesText"></p>
+                </div>
+                <div>
+                    <h2 class="font-black uppercase text-sm text-slate-400 mb-2">Objeto del contrato</h2>
+                    <p id="descText" class="font-medium"></p>
+                </div>
+                <div id="conditionsWrap" class="grid sm:grid-cols-2 gap-4"></div>
+                <div class="bg-amber-50 border border-amber-200 rounded-2xl p-6">
+                    <h2 class="font-black uppercase text-sm text-amber-700 mb-2 flex items-center gap-2"><i data-lucide="shield-check" class="w-4 h-4"></i> Cláusula de confidencialidad</h2>
+                    <p id="confidentialityText" class="text-sm text-slate-700"></p>
+                </div>
+            </div>
+
+            <form id="signForm" class="bg-slate-900 text-white rounded-[2rem] p-8 space-y-6">
+                <h2 class="text-xl font-black uppercase italic">Tu firma</h2>
+                <div class="space-y-2">
+                    <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Escribe tu nombre completo</label>
+                    <input name="worker_signature_name" type="text" required placeholder="Tu nombre completo" class="w-full bg-slate-800 border border-amber-500/50 rounded-xl p-4 outline-none font-bold transition-all">
+                </div>
+                <label class="flex items-start gap-3 text-sm text-slate-300 font-bold">
+                    <input type="checkbox" name="accept_worker" required class="mt-1 w-5 h-5 accent-amber-500">
+                    Acepto los términos de este contrato y la cláusula de confidencialidad. Entiendo que esto equivale a mi firma.
+                </label>
+                <p id="formStatus" class="hidden text-center font-bold rounded-xl p-4"></p>
+                <button id="signBtn" type="submit" class="w-full bg-amber-500 text-black py-6 rounded-2xl font-black uppercase tracking-[0.3em] hover:bg-white transition-all shadow-xl text-lg disabled:opacity-50">
+                    FIRMAR CONTRATO
+                </button>
+            </form>
+        </div>
+
+        <div id="successBox" class="hidden text-center space-y-6 bg-white rounded-[2rem] shadow-xl p-10">
+            <i data-lucide="check-circle-2" class="w-16 h-16 text-green-500 mx-auto"></i>
+            <h2 class="text-3xl font-black uppercase italic">¡Contrato firmado!</h2>
+            <p class="text-slate-500 font-bold">Ambas partes ya quedaron de acuerdo. Descarga tu copia en PDF:</p>
+            <a id="downloadBtn" class="inline-block bg-amber-500 text-black px-10 py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-black hover:text-white transition-all">
+                Descargar PDF
+            </a>
+        </div>
+
+        <div id="signedAlready" class="hidden text-center space-y-6 bg-white rounded-[2rem] shadow-xl p-10">
+            <i data-lucide="check-circle-2" class="w-16 h-16 text-green-500 mx-auto"></i>
+            <h2 class="text-2xl font-black uppercase italic">Este contrato ya fue firmado</h2>
+            <a id="downloadBtnAlready" class="inline-block bg-amber-500 text-black px-10 py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-black hover:text-white transition-all">
+                Descargar PDF
+            </a>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+        const API_URL = "https://api.chambamax.com";
+        const token = new URLSearchParams(window.location.search).get("token");
+
+        const loadingBox = document.getElementById("loadingBox");
+        const errorBox = document.getElementById("errorBox");
+        const contractBox = document.getElementById("contractBox");
+        const successBox = document.getElementById("successBox");
+        const signedAlready = document.getElementById("signedAlready");
+
+        function showError(msg) {
+            loadingBox.classList.add("hidden");
+            errorBox.classList.remove("hidden");
+            errorBox.textContent = msg;
+        }
+
+        async function loadContract() {
+            if (!token) return showError("Falta el enlace del contrato.");
+            try {
+                const res = await fetch(`${API_URL}/api/contracts/${token}`);
+                const c = await res.json();
+                if (!res.ok) throw new Error(c.error || "No se pudo cargar el contrato.");
+
+                loadingBox.classList.add("hidden");
+
+                if (c.status === "signed") {
+                    signedAlready.classList.remove("hidden");
+                    document.getElementById("downloadBtnAlready").href = `${API_URL}/api/contracts/${token}/pdf`;
+                    return;
+                }
+
+                contractBox.classList.remove("hidden");
+                document.getElementById("partiesText").textContent =
+                    `${c.contratista_name} (contratista) y ${c.worker_name} (chambeador)`;
+                document.getElementById("descText").textContent = c.service_description;
+                document.getElementById("confidentialityText").textContent = c.confidentiality_clause;
+
+                const conditions = [];
+                if (c.service_location) conditions.push(["Lugar", c.service_location]);
+                if (c.start_date) conditions.push(["Fecha de inicio", c.start_date]);
+                if (c.amount) conditions.push(["Monto acordado", c.amount]);
+                if (c.payment_terms) conditions.push(["Forma de pago", c.payment_terms]);
+                document.getElementById("conditionsWrap").innerHTML = conditions
+                    .map(([label, value]) => `
+                        <div>
+                            <h3 class="font-black uppercase text-xs text-slate-400 mb-1">${label}</h3>
+                            <p class="font-bold">${value}</p>
+                        </div>
+                    `).join("");
+
+                document.getElementById("signForm").addEventListener("submit", onSign);
+            } catch (err) {
+                showError(err.message);
+            }
+        }
+
+        async function onSign(e) {
+            e.preventDefault();
+            const form = e.target;
+            const signBtn = document.getElementById("signBtn");
+            const statusEl = document.getElementById("formStatus");
+            signBtn.disabled = true;
+            signBtn.textContent = "FIRMANDO...";
+
+            const payload = {
+                worker_signature_name: form.worker_signature_name.value,
+                accept_worker: form.accept_worker.checked,
+            };
+
+            try {
+                const res = await fetch(`${API_URL}/api/contracts/${token}/sign`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload),
+                });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error || "No se pudo firmar el contrato.");
+
+                contractBox.classList.add("hidden");
+                successBox.classList.remove("hidden");
+                document.getElementById("downloadBtn").href = data.pdf_url;
+            } catch (err) {
+                statusEl.textContent = err.message;
+                statusEl.classList.remove("hidden");
+                statusEl.classList.add("bg-red-100", "text-red-600");
+                signBtn.disabled = false;
+                signBtn.textContent = "FIRMAR CONTRATO";
+            }
+        }
+
+        loadContract();
+    </script>
+</body>
+</html>
